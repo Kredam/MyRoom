@@ -82,4 +82,5 @@ run these commands(***Global installs***), recommend venv
     python manage.py migrate 
     python manage.py runserver
 ```
-- then run angular with ```ng serve```
+- open new terminal window
+- then cd into ***client*** dir, and run angular with ```ng serve```
