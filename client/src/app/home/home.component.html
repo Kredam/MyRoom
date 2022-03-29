@@ -1,0 +1,15 @@
+<ul *ngIf="rooms != []">
+  <li *ngFor="let room of rooms">
+      {{room.name}} ||
+      {{room.description}} ||
+      {{room.picture}} ||
+  </li>
+</ul>
+<div *ngIf="followed_rooms != []">
+  <ul *ngFor="let room of followed_rooms">
+      {{room.isAdmin}} ||
+      {{room.details.name}} ||
+      {{room.details.description}} ||
+      <img src={{room.details.picture}} width="35px" height="25px"/>
+  </ul>
+</div>
