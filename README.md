@@ -70,13 +70,16 @@ with Figma
 
 ---
 ***Currently writing json to pre-populate db***
-- create a db.sqlite3 file inside ***back-end/server*** folder   
-run these commands(***Global installs***), recommend venv
+
+run these commands
 ```
     pip install Django==4.0.3
     pip install djangorestframework
     pip install django-filter 
 ```
+- create .env file inside ***back-end/*** and paste it inside   
+- create a db.sqlite3 file inside ***back-end/server*** folder
+```SECRET_KEY = "django-insecure"```
 - cd into the ***back-end/server*** folder
 ```
     python manage.py migrate 
