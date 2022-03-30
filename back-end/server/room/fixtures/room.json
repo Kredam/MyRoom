@@ -1,0 +1,84 @@
+[
+  {
+    "model":"room.Room",
+    "pk": 1,
+    "fields":{
+      "name":"Stone Ocean",
+      "description":"Stone Ocean JoJo",
+      "picture": "https://upload.wikimedia.org/wikipedia/commons/6/6e/JoJo%27s_Bizarre_Adventure_logo.png?20141130224707"
+    }
+  },{
+    "model":"room.Room",
+    "pk": 2,
+    "fields":{
+      "name":"Stardust Crusaders",
+      "description":"Stardast Crusaders JoJo",
+      "picture": "https://upload.wikimedia.org/wikipedia/commons/6/6e/JoJo%27s_Bizarre_Adventure_logo.png?20141130224707"
+    }
+  },{
+    "model":"room.Room",
+    "pk": 3,
+    "fields":{
+      "name":"Battle Tendecy",
+      "description":"Battle Tendecy JoJo",
+      "picture": "https://upload.wikimedia.org/wikipedia/commons/6/6e/JoJo%27s_Bizarre_Adventure_logo.png?20141130224707"
+    }
+  },{
+    "model":"room.Room",
+    "pk": 4,
+    "fields":{
+      "name":"Venturo Auro",
+      "description":"Venturo Auro JoJo",
+      "picture": "https://upload.wikimedia.org/wikipedia/commons/6/6e/JoJo%27s_Bizarre_Adventure_logo.png?20141130224707"
+    }
+  },{
+    "model":"room.Room",
+    "pk": 5,
+    "fields":{
+      "name":"Boku no hero academia",
+      "description":"Boku no hero academia part",
+      "picture": "https://upload.wikimedia.org/wikipedia/commons/1/18/My_Hero_Academia_logo_in_Japan_20150106.png"
+    }
+  },{
+    "model":"room.Room",
+    "pk": 6,
+    "fields":{
+      "name":"Formula 1 22 season",
+      "description":"Formula 1 22 season",
+      "picture": "https://cdn-1.motorsport.com/images/amp/68ey3q40/s1000/f1-abu-dhabi-gp-2017-f1-logo.jpg"
+    }
+  },{
+    "model":"room.Room",
+    "pk": 7,
+    "fields":{
+      "name":"Formula 2 22 season",
+      "description":"Formula 2 22 season",
+      "picture": "https://upload.wikimedia.org/wikipedia/commons/8/87/FIA_Formula_2_Championship_logo.jpg"
+    }
+  },{
+    "model":"room.Room",
+    "pk": 8,
+    "fields":{
+      "name":"Formula 3 22 season",
+      "description":"Formula 3 22 season",
+      "picture": "https://upload.wikimedia.org/wikipedia/commons/5/5b/FIA_F3_Championship_logo.png"
+    }
+  },{
+    "model":"room.Room",
+    "pk": 9,
+    "fields":{
+      "name":"Gokart 22 season",
+      "description":"Formula 3 22 season",
+      "picture": "https://cdn.dribbble.com/users/190664/screenshots/15825222/media/cb4f2bd70a00532870367e75023a92f6.png?compress=1&resize=400x300"
+    }
+  },{
+    "model":"room.Room",
+    "pk": 10,
+    "fields":{
+      "name":"Phantom Blood",
+      "description":"Phantom Blood JoJo",
+      "picture": "https://upload.wikimedia.org/wikipedia/commons/6/6e/JoJo%27s_Bizarre_Adventure_logo.png?20141130224707"
+    }
+  }
+]
+
