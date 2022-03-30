@@ -78,8 +78,8 @@ run these commands
     pip install django-filter 
 ```
 - create .env file inside ***back-end/*** and paste it inside   
+  ```SECRET_KEY = "django-insecure"```
 - create a db.sqlite3 file inside ***back-end/server*** folder
-```SECRET_KEY = "django-insecure"```
 - cd into the ***back-end/server*** folder
 ```
     python manage.py migrate 
