@@ -69,7 +69,7 @@ with Figma
 # Run
 
 ---
-***Currently writing placeholder data to fill up database upon migration***
+***Currently writing json to pre-populate db***
 - create a db.sqlite3 file inside ***back-end/server*** folder   
 run these commands(***Global installs***), recommend venv
 ```
@@ -80,6 +80,7 @@ run these commands(***Global installs***), recommend venv
 - cd into the ***back-end/server*** folder
 ```
     python manage.py migrate 
+    python manage.py loaddata room.json
     python manage.py runserver
 ```
 - open new terminal window
