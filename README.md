@@ -76,6 +76,9 @@ run these commands
     pip install Django==4.0.3
     pip install djangorestframework
     pip install django-filter 
+    pip install python-dotenv
+    pip install djangorestframework-simplejwt
+    pip install django-cors-headers
 ```
 - create .env file inside ***back-end/*** and paste it inside   
   ```SECRET_KEY = "django-insecure"```
