@@ -1,7 +1,10 @@
-<app-entry-register></app-entry-register>
-<app-entry-signin></app-entry-signin>
+<div class="entryDiv">
+  <app-entry-register [@onEnterDOM] *ngIf="isRegisterOnDisplay" (isRegisterOn)="changeIsRegisterOn($event)"></app-entry-register>
+  <app-entry-signin [@onEnterDOM] *ngIf="!isRegisterOnDisplay"  (isRegisterOn)="changeIsRegisterOn($event)"></app-entry-signin>
 <!-- 
   -if your selector doesent contain app you will have imprt proble
   maybe beacuse you extend app module with entryModule so you need app in the selector
   -other solution is to export RegisterComponent and SigninComponent
 -->
+
+</div>
