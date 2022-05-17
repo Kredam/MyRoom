@@ -14,7 +14,6 @@ class Room(models.Model):
 class Topics(models.Model):
   name = models.CharField(max_length=50, null=False, primary_key=True)
   room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True)
-  create = models.DateTimeField(auto_now_add=True)
 
 class Article(models.Model):
   title = models.CharField(max_length=100)
@@ -25,6 +24,7 @@ class Article(models.Model):
 class Message(models.Model):
   room = models.ForeignKey(Room, on_delete=models.CASCADE)
   body = models.TextField()
+  create = models.DateTimeField(auto_now_add=True)
   update = models.DateTimeField(auto_now=True)
 
 class Followed(models.Model):
