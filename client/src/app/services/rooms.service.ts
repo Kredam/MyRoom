@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { IRoom } from "../model/room";
 import { Observable } from 'rxjs';
 import { IFollowed } from "../model/followed";
+import { IArticles } from "../model/articles";
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,15 @@ export class RoomService{
   constructor(private http: HttpClient){ }
 
   getRooms(): Observable<IRoom[]>{
-    return this.http.get<IRoom[]>(this.url + 'all')
+    return this.http.get<IRoom[]>(this.url + "all")
   }
 
   getUserFollowedRooms(): Observable<IFollowed[]>{
     return this.http.get<IFollowed[]>(this.url + "followed-rooms")
+  }
+
+  getArticles(room: string):Observable<IArticles[]>{
+    return this.http.get<IArticles[]>(this.url + room)
   }
 
 }
