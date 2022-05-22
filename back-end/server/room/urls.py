@@ -1,9 +1,15 @@
-from django.urls import path
-from .views import GetAllRoomsView, ListFollowedRooms
+from django.urls import include, path
+from .views import GetAllRoomsView, ListFollowedRooms, ArticlesViewSet, ArticleTestView
+from rest_framework import routers
+
+article = routers.DefaultRouter()
+article.register('', ArticlesViewSet, basename='article')
 
 urlpatterns = [
-  #<str:pk> dynamic routing 
-  path('all', GetAllRoomsView.as_view(), name="room"),
-  path('followed-rooms', ListFollowedRooms.as_view())
-
+  # name = easy to reference in view template
+  path('all/', GetAllRoomsView.as_view()),
+  path('followed-rooms/', ListFollowedRooms.as_view()),
+  path('<str:pk>/', include(article.urls))
+  # path('<str:pk>/', ArticleTestView.as_view()),
 ]
+
