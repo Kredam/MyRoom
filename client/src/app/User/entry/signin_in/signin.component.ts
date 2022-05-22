@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { IUser } from '../../../model/user';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -6,10 +6,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-entry-signin',
   templateUrl: './signin.component.html',
-  styleUrls: []
+  styleUrls: ['../entry.component.scss'],
+  
 })
 
 export class SigninComponent implements OnInit {
+  @Output() isRegisterOn = new EventEmitter<boolean>()
   passwordState = "password"
   validForm : boolean = false
   name = new FormControl('', Validators.required)
@@ -26,6 +28,10 @@ export class SigninComponent implements OnInit {
   }
 
   constructor(private _userService: UserService) { }
+
+  changeToRegisterForm(){
+    this.isRegisterOn.emit(true)
+  }
 
   showPassword(){
     if(this.passwordState === "password"){

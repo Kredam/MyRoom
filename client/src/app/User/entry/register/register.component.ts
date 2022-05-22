@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IUser } from '../../../model/user';
 import { UserService } from '../../../services/user.service';
@@ -6,9 +6,10 @@ import { UserService } from '../../../services/user.service';
 @Component({
   selector: 'app-entry-register',
   templateUrl: './register.component.html',
-  styleUrls: []
+  styleUrls: ['./register.component.scss', '../entry.component.scss']
 })
 export class RegisterComponent{
+  @Output() isRegisterOn = new EventEmitter<boolean>()
   passwordState = "password"
   profileForm = new FormGroup({
     name : new FormControl('', Validators.required),
@@ -17,6 +18,10 @@ export class RegisterComponent{
   })
 
   constructor(private _userService: UserService) { }
+
+  changeToLoginForm(){
+    this.isRegisterOn.emit(false)
+  }
 
   // this._userService.registerUser()
   submitForm(){
