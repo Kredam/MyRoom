@@ -1,0 +1,19 @@
+.room-cards{
+    background-color: gray;
+    color: white;
+    max-width: 400px;
+    margin-bottom: 3rem;
+}
+
+div{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.room-card-title-link{
+    text-decoration: none;
+    color: white;
+}

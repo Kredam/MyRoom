@@ -9,12 +9,9 @@ import { ProfileComponent } from './User/profile/profile.component';
 
 const routes: Routes = [
   { path: 'signin', component:EntryComponent },
+  { path: 'room/:room', component:RoomComponent},
+  { path: 'room/:room/article/:article', component:ArticleComponent},
   { path: '' , component: HomeComponent },
-  { path: 'room/:room', component: RoomComponent, 
-    children:[
-      {path:"article/:article", component:ArticleComponent}
-    ]
-  },
   { path:"user/:uid", component: ProfileComponent},
   { path: '**', component: HomeComponent }
 ];
