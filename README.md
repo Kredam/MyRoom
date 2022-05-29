@@ -38,6 +38,8 @@ with Figma
 - [x] Register
 - [ ] Edit rooms where you are an admin
 - [x] List joined rooms
+- [x] List all rooms
+- [x] List Artilces in a specific room (dynamic url)
 - [ ] Search 
     - [ ] Rooms
     - [ ] Users
