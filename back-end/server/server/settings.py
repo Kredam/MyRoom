@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'users',
     'room',
+    'article'
 ]
 
 AUTH_USER_MODEL = 'users.User'
