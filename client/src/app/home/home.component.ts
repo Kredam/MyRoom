@@ -14,16 +14,15 @@ export class HomeComponent implements OnInit {
 
   public followed_rooms: Array<IFollowed> = []
 
+  followRoom(name: string){
+    this._roomService.followRoom(name).subscribe(console.log)
+  }
+
   constructor(private _roomService: RoomService) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem('access')){
-      this._roomService.getUserFollowedRooms().subscribe(res => this.followed_rooms = res)
-      console.log(this.followed_rooms)
-    }else{
-      this._roomService.getRooms().subscribe(res => this.rooms = res)
-      console.log(this.rooms)
-    }
+    this._roomService.getRooms().subscribe(res => this.rooms = res)
+    console.log(this.rooms)
   }
 
 }
