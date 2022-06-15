@@ -35,7 +35,7 @@
       "picture": "https://upload.wikimedia.org/wikipedia/commons/1/18/My_Hero_Academia_logo_in_Japan_20150106.png"
     }
   },{
-    "model":"room.Article",
+    "model":"article.Article",
     "pk":1,
     "fields":{
       "room":"Stone Ocean",
@@ -44,7 +44,7 @@
       "body":"Netflix ruins jojo with releasing episodes in one method, rather than weekly"
     }
   },{
-    "model":"room.Article",
+    "model":"article.Article",
     "pk":2,
     "fields":{
       "room":"Stone Ocean",
