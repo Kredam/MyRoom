@@ -14,7 +14,8 @@ You will be able to follow specific topics you like. You can make your own room,
 | Database    |                                                      ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)                                                       |
 | Front-end   |                                                     ![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)                                                     |
 | UI          |                                                                                                        Material                                                                                                         |
-
+# Project Management
+https://trello.com/b/aZTdasdK/myroom
 
 # Screen plan
 
