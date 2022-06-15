@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { IRoom } from "../model/room";
 import { Observable } from 'rxjs';
 import { IFollowed } from "../model/followed";
@@ -9,13 +9,23 @@ import { IArticles } from "../model/articles";
   providedIn: 'root'
 })
 export class RoomService{
-  
   private rooms: Array<IRoom> = []
-
+  
   private url = "http://127.0.0.1:8000/api/rooms/"
-
+  
   constructor(private http: HttpClient){ }
-
+  
+  followRoom(name: string) {
+    let bearer = "Bearer " + localStorage.getItem('access')
+    //felsovonas benne maradt ezert hasznaltam replace-t
+    bearer = bearer.replace(/["]+/g, '')
+    return this.http.post(this.url + 'follow/', {name: name, isAdmin:false}, {
+      headers: new HttpHeaders({
+        "Authorization" : bearer
+      })
+    })
+  }
+  
   getRooms(): Observable<IRoom[]>{
     return this.http.get<IRoom[]>(this.url + "all")
   }
