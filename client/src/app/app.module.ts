@@ -17,7 +17,8 @@ import {MatCardModule} from '@angular/material/card';
 import { UserService } from './services/user.service';
 
 import { UserTokenInterceptor } from './User/interceptors/user.interceptor';
-import { AuthenticationInterceptor } from './User/interceptors/auth.interceptor';
+// import { AuthenticationInterceptor } from './User/interceptors/auth.interceptor';
+import { ArticleRoutingModule } from './room/article/article-routing.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AuthenticationInterceptor } from './User/interceptors/auth.interceptor'
   ],
   imports: [
     BrowserModule,
+    ArticleRoutingModule,
     AppRoutingModule,
     HttpClientModule,
     MatCardModule,
@@ -42,10 +44,11 @@ import { AuthenticationInterceptor } from './User/interceptors/auth.interceptor'
     useClass: UserTokenInterceptor,
     multi: true
   },
-  { provide: HTTP_INTERCEPTORS,
-    useClass: AuthenticationInterceptor,
-    multi: true
-  }],
+  // { provide: HTTP_INTERCEPTORS,
+  //   useClass: AuthenticationInterceptor,
+  //   multi: true
+  // }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
