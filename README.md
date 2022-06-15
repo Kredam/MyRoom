@@ -34,7 +34,7 @@ with Figma
 
 ***
 
-- [ ] Join to rooms
+- [x] Follow to rooms
 - [x] Login
 - [x] Register
 - [ ] Edit rooms where you are an admin
