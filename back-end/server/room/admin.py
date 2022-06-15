@@ -1,9 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Article, Room, Followed, Comments, Topics
+from .models import Room, Followed, Topics
 admin.site.register(Room)
 admin.site.register(Followed)
-admin.site.register(Comments)
 admin.site.register(Topics)
-admin.site.register(Article)
