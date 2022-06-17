@@ -1,10 +1,18 @@
-<p>room works!</p>
-<div>
-  <mat-card *ngFor="let article of articles" class="article-cards">
-    <mat-card-title><a (click)="test(article.id)">{{article.title}}</a></mat-card-title>
-    <mat-card-content>{{article.body}}</mat-card-content>
-    <mat-card-footer>likes : {{article.likes}}</mat-card-footer>
-  <!--  <img mat-card-image src="{{article.picture}}" />-->
+<div *ngIf="rooms != []">
+  <mat-card *ngFor="let room of rooms" class="room-cards">
+      <mat-card-title><a class="room-card-title-link" routerLink='room/{{room.name}}'>{{room.name}}</a></mat-card-title>
+      <mat-card-content>{{room.description}}</mat-card-content>
+      <img mat-card-image src="{{room.picture}}" />
+      <mat-card-actions *ngIf="localStorageGet('access')">
+        <button mat-button color="primary" (click)="followRoom($event.target!, room.name)">{{(room.isFollowed|async)? "unfollow" : "follow"}}</button>
+      </mat-card-actions>
   </mat-card>
 </div>
-<router-outlet></router-outlet>
+<div *ngIf="followed_rooms != []">
+  <mat-card *ngFor="let room of followed_rooms" class="room-cards">
+      {{room.isAdmin}} ||
+      {{room.details.name}} ||
+      {{room.details.description}} ||
+      <img src={{room.details.picture}} width="35px" height="25px"/>
+  </mat-card>
+</div>

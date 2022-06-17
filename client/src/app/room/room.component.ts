@@ -1,26 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { IFollowed } from '../model/followed';
+import { IRoom } from '../model/room';
 import { RoomService } from '../services/rooms.service';
-import {IArticles} from "../model/articles";
+
 @Component({
   selector: 'app-room',
   templateUrl: './room.component.html',
-  styleUrls: ['./room.component.sass']
+  styleUrls: ['./room.component.scss']
 })
 export class RoomComponent implements OnInit {
 
-  articles: IArticles[] | undefined;
-  public room_name : string | undefined
+  public rooms: Array<IRoom> = [];
 
-  constructor(private route: ActivatedRoute, private roomService: RoomService, private router: Router) { }
+  public followed_rooms: Array<IFollowed> = []
 
-  test(id: any){
-    this.router.navigate(['article/',id], {relativeTo: this.route})
+
+  followRoom(event: EventTarget, name: string){
+    let action = (event as Element).textContent
+    if(action === 'follow'){
+      this._roomService.followRoom(name, false).subscribe();
+      (event as Element).textContent = "unfollow"
+    }else{
+      this._roomService.followRoom(name, true).subscribe();
+      (event as Element).textContent = "follow"
+    }
   }
 
+
+  localStorageGet(name : string){
+    return localStorage.getItem(name)
+  }
+
+  constructor(private _roomService: RoomService) { }
+
   ngOnInit(): void {
-    this.room_name = this.route.snapshot.params["room"]
-    this.roomService.getArticles(this.room_name!).subscribe(res => {this.articles = res})
+    this._roomService.getRooms().subscribe(event =>{
+      for (let i = 0; i < event.length; i++) {
+        this.rooms.push({...event[i], isFollowed:this._roomService.isFollowed(event[i].name!)})
+      }
+    })
   }
 
 }
