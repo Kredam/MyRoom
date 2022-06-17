@@ -11,7 +11,7 @@ export class UserTokenInterceptor implements HttpInterceptor{
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(catchError(err => {
       if(err.status === 401){
-        // this._userService.logout()
+        this._userService.logout()
       }
 
       return throwError(err.error.message | err.statusText)
