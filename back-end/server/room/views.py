@@ -1,3 +1,4 @@
+from enum import unique
 from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.decorators import action
 from rest_framework.generics import ListAPIView
@@ -26,6 +27,12 @@ class ArticlesViewSet(ModelViewSet):
     room = self.kwargs.get('pk')
     return get_list_or_404(Article, room=room)
 
+
+
+class RoomViewSet(ModelViewSet):
+  queryset = Room.objects.all()
+  serializer_class = FollowedSerializer
+
   @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
   def follow(self, request, pk=None):
     room = Room.objects.get(name=request.data['name'])
@@ -39,10 +46,22 @@ class ArticlesViewSet(ModelViewSet):
     print(serializer.errors)
     return Response("Not Successfull")
 
+  @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+  def unfollow(self, request, pk=None):
+    print(self.kwargs)
+    room = Room.objects.get(name=self.request.data['name'])
+    user = request.user.pk
+    Followed.objects.get(room=room, user=user).delete()
+    return Response('Unfollowed')
 
-class RoomViewSet(ModelViewSet):
-  queryset = Room.objects.all()
-  serializer_class = FollowedSerializer
+  @action(detail=True, methods=['get'], permission_classes=[IsAuthenticated])
+  def followed(self, request, pk=None):
+    room = Room.objects.get(name=self.kwargs['pk'])
+    user = request.user.pk
+    obj = Followed.objects.get(room=room, user=user)
+    if(obj):
+      return Response(True)
+    return Response(False)
 
     
 class ListFollowedRooms(ListAPIView):
