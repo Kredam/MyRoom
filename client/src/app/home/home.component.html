@@ -3,8 +3,8 @@
       <mat-card-title><a class="room-card-title-link" routerLink='room/{{room.name}}'>{{room.name}}</a></mat-card-title>
       <mat-card-content>{{room.description}}</mat-card-content>
       <img mat-card-image src="{{room.picture}}" />
-      <mat-card-actions>
-        <button mat-button color="primary" (click)="followRoom(room.name)">follow</button>
+      <mat-card-actions *ngIf="localStorageGet('access')">
+        <button mat-button *ngIf="room.isFollowed | async as followed" color="primary" (click)="followRoom($event.target!, room.name)">{{followed ? "Followed" : "Follow"}}</button>
       </mat-card-actions>
   </mat-card>
 </div>
