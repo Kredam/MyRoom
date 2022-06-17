@@ -20,4 +20,10 @@ class Topics(models.Model):
 class Followed(models.Model):
   room = models.ForeignKey(Room, on_delete=models.CASCADE)
   user = models.ForeignKey('users.User', on_delete=models.CASCADE)
-  isAdmin = models.BooleanField()
+  isAdmin = models.BooleanField(default=False)
+  class Meta:
+    constraints = [
+      models.UniqueConstraint(
+        fields=['room', 'user'], name='unique_follow'
+      )
+    ]
