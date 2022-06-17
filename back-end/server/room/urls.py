@@ -11,7 +11,9 @@ article.register('article', ArticlesViewSet)
 urlpatterns = [
   # name = easy to reference in view template
   path('all/', GetAllRoomsView.as_view()),
-  path('follow/', ArticlesViewSet.as_view({'post' : 'follow'})),
+  path('follow/', RoomViewSet.as_view({'post' : 'follow'})),
+  path('unfollow/', RoomViewSet.as_view({'post' : 'unfollow'})),
   path('followed-rooms/', ListFollowedRooms.as_view()),
+  path('followed/<str:pk>/', RoomViewSet.as_view({'get' : 'followed'})),
   path('<str:pk>/', include(article.urls)),
 ]
