@@ -58,11 +58,11 @@ class RoomViewSet(ModelViewSet):
   def followed(self, request, pk=None):
     room = Room.objects.get(name=self.kwargs['pk'])
     user = request.user.pk
-    obj = Followed.objects.get(room=room, user=user)
-    if(obj):
+    try:
+      Followed.objects.get(room=room, user=user)
       return Response(True)
-    return Response(False)
-
+    except Followed.DoesNotExist:
+      return Response(False)
     
 class ListFollowedRooms(ListAPIView):
   permission_classes = [IsAuthenticated]
