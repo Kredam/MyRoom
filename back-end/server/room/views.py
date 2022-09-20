@@ -1,54 +1,34 @@
-from enum import unique
-from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.decorators import action
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from .models import Room, Followed
-from article.models import Article
 from .serializer import RoomSerializer, FollowedSerializer
-from article.serializer import ArticleSerializer
-
-class GetAllRoomsView(ListAPIView):
-  serializer_class = RoomSerializer
-  queryset = Room.objects.all()[:5]
-
-
-class ArticlesViewSet(ModelViewSet):
-  serializer_class = ArticleSerializer
-  queryset = Article.objects.all()
-
-  def get_object(self):
-    pk = self.kwargs["pk"]
-    return get_object_or_404(Article, id=pk)
-
-  def get_queryset(self):
-    room = self.kwargs.get('pk')
-    return get_list_or_404(Article, room=room)
-
-
 
 class RoomViewSet(ModelViewSet):
   queryset = Room.objects.all()
+  serializer_class = RoomSerializer
+
+  # @action(detail=True, methods=['get'])
+
+class FollowedViewSet(ModelViewSet):
+  queryset = Followed.objects.all()
   serializer_class = FollowedSerializer
+  permission_classes = [IsAuthenticated]
 
   @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
   def follow(self, request, pk=None):
     room = Room.objects.get(name=request.data['name'])
     admin = request.data['isAdmin']
     serializer = FollowedSerializer(data={'room':room, 'user':request.user.pk, 'isAdmin':admin})
-    print(serializer.initial_data)
     if serializer.is_valid():
-      print(serializer.validated_data)
       serializer.save()
       return Response('Successfull follow')
-    print(serializer.errors)
     return Response("Not Successfull")
 
   @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
   def unfollow(self, request, pk=None):
-    print(self.kwargs)
     room = Room.objects.get(name=self.request.data['name'])
     user = request.user.pk
     Followed.objects.get(room=room, user=user).delete()
