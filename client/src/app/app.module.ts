@@ -23,10 +23,7 @@ import { ArticleRoutingModule } from './room/article/article-routing.module';
 @NgModule({
   declarations: [
     AppComponent,
-    RoomComponent,
     EntryComponent,
-    RoomContentComponent,
-    ArticleComponent,
     ProfileComponent,
   ],
   imports: [
