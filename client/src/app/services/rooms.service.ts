@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { IRoom } from "../model/room";
 import { Observable } from 'rxjs';
-import { IFollowed } from "../model/followed";
+import { environment } from "src/environments/environment";
 import { IArticles } from "../model/articles";
 
 @Injectable({
@@ -11,7 +11,7 @@ import { IArticles } from "../model/articles";
 export class RoomService{
   private rooms: Array<IRoom> = []
   
-  private url = "http://127.0.0.1:8000/api/rooms/"
+  private url = environment.apiUrl + "rooms/"
   
   constructor(private http: HttpClient){ }
   
@@ -30,12 +30,16 @@ export class RoomService{
     return this.http.get<IRoom[]>(this.url + "all")
   }
 
-  getUserFollowedRooms(): Observable<IFollowed[]>{
-    return this.http.get<IFollowed[]>(this.url + "followed-rooms")
+  getUserFollowedRooms(): Observable<String[]>{
+    return this.http.get<String[]>(this.url + "followed-rooms")
   }
 
   getArticles(room: string):Observable<IArticles[]>{
     return this.http.get<IArticles[]>(this.url + room)
+  }
+
+  getThread(offset: number, limit: number): Observable<IArticles[]>{
+    return this.http.get<IArticles[]>(this.url)
   }
 
 }

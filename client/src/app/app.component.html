@@ -2,7 +2,7 @@
   <ul>
     <li><a *ngIf="!getLocalStorage('access')" routerLink="/signin" routerLinkActive="active">Signin</a></li>
     <li><a *ngIf="getLocalStorage('access')">Logout</a></li>
-    <li><a routerLink="/" routerLinkActive="active">Home</a></li>
+    <li><a routerLink="/room" routerLinkActive="active">Home</a></li>
   </ul>
 </nav>
 <router-outlet></router-outlet>

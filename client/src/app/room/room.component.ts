@@ -12,16 +12,16 @@ export class RoomComponent implements OnInit {
 
   public rooms: Array<IRoom> = [];
 
-  public followed_rooms: Array<IFollowed> = []
+  public followed_rooms: Array<String> = []
 
 
   followRoom(event: EventTarget, name: string){
     let action = (event as Element).textContent
     if(action === 'follow'){
-      this._roomService.followRoom(name, false).subscribe();
+      this._roomService.followRoom(name).subscribe();
       (event as Element).textContent = "unfollow"
     }else{
-      this._roomService.followRoom(name, true).subscribe();
+      this._roomService.followRoom(name).subscribe();
       (event as Element).textContent = "follow"
     }
   }
@@ -34,9 +34,13 @@ export class RoomComponent implements OnInit {
   constructor(private _roomService: RoomService) { }
 
   ngOnInit(): void {
+    this._roomService.getUserFollowedRooms().subscribe(event => {
+      this.followed_rooms = event
+      console.log(this.followed_rooms)
+    })
     this._roomService.getRooms().subscribe(event =>{
       for (let i = 0; i < event.length; i++) {
-        this.rooms.push({...event[i], isFollowed:this._roomService.isFollowed(event[i].name!)})
+        this.rooms.push({ ...event[i] })
       }
     })
   }
