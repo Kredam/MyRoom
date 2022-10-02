@@ -19,12 +19,15 @@ import { UserService } from './services/user.service';
 import { UserTokenInterceptor } from './User/interceptors/user.interceptor';
 import { AuthenticationInterceptor } from './User/interceptors/auth.interceptor';
 import { ArticleRoutingModule } from './room/article/article-routing.module';
+import { RoomModule } from './room/room.module';
+import { ThreadComponent } from './thread/thread.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EntryComponent,
     ProfileComponent,
+    ThreadComponent,
   ],
   imports: [
     BrowserModule,

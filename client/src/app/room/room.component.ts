@@ -12,7 +12,7 @@ export class RoomComponent implements OnInit {
 
   public rooms: Array<IRoom> = [];
 
-  public followed_rooms: Array<IFollowed> = []
+  public followed_rooms: Array<String> = []
 
 
   followRoom(event: EventTarget, name: string){
@@ -34,9 +34,13 @@ export class RoomComponent implements OnInit {
   constructor(private _roomService: RoomService) { }
 
   ngOnInit(): void {
+    this._roomService.getUserFollowedRooms().subscribe(event => {
+      this.followed_rooms = event
+      console.log(this.followed_rooms)
+    })
     this._roomService.getRooms().subscribe(event =>{
       for (let i = 0; i < event.length; i++) {
-        this.rooms.push({...event[i] })
+        this.rooms.push({ ...event[i] })
       }
     })
   }

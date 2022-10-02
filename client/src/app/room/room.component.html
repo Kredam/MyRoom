@@ -4,15 +4,7 @@
       <mat-card-content>{{room.description}}</mat-card-content>
       <img mat-card-image src="{{room.picture}}" />
       <mat-card-actions *ngIf="localStorageGet('access')">
-        <button mat-button color="primary" (click)="followRoom($event.target!, room.name)">{{(room.isFollowed|async)? "unfollow" : "follow"}}</button>
+        <button mat-button color="primary" (click)="followRoom($event.target!, room.name)">{{this.followed_rooms.includes(room.name) ? "unfollow" : "follow"}}</button>
       </mat-card-actions>
-  </mat-card>
-</div>
-<div *ngIf="followed_rooms != []">
-  <mat-card *ngFor="let room of followed_rooms" class="room-cards">
-      {{room.isAdmin}} ||
-      {{room.details.name}} ||
-      {{room.details.description}} ||
-      <img src={{room.details.picture}} width="35px" height="25px"/>
   </mat-card>
 </div>
