@@ -19,8 +19,8 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
 
-  //TODO 
-  //rewrite function to fill up user subject with needed information 
+  //TODO
+  //rewrite function to fill up user subject with needed information
   getUserData(): Observable<IUser>{
     return this.http.get<IUser>(this.url + "users/get_all")
   }
@@ -32,6 +32,8 @@ export class UserService {
   //TODO
   //rewrite to extend IUser object rather than replace it
   loginUser(userinfo : IUser): Observable<IUser>{
+    console.log(typeof userinfo)
+    console.log(userinfo)
     return this.http.post<IUser>(this.url + "token", userinfo).pipe(map(res =>{
       this.user.next(res);
       console.log(this.user.value);

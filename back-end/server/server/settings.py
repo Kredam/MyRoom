@@ -43,7 +43,9 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'users.User'
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:4200',
+    'http://localhost:3000',
+    'http://192.168.0.31:3000'
+
 ]
 
 MIDDLEWARE = [

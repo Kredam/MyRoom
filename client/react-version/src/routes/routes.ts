@@ -1,4 +1,7 @@
 export default {
-    MainMenu: '',
-    Rooms: '/rooms'
-}
+  Home: '/',
+  MainMenu: '/menu',
+  Rooms: '/rooms',
+  Login: '/login',
+  Register: '/register'
+};
