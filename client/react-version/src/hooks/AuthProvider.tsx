@@ -1,5 +1,4 @@
 import React, { createContext, useState } from 'react';
-
 export interface IAuth {
   access: string;
   refresh: string;

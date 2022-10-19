@@ -1,5 +1,6 @@
 export default {
   form: {
-    marginTop: '40px'
+    marginTop: '24px',
+    margin: 'auto'
   }
 };

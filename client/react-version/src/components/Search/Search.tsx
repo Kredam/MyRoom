@@ -1,6 +1,6 @@
 import { Grid, TextField } from '@mui/material';
 import React from 'react';
-import SearchIcon from '@mui/icons-material/Search';
+// import SearchIcon from '@mui/icons-material/Search';
 import styles from './Search.styles';
 
 interface Props {
@@ -11,8 +11,8 @@ interface Props {
 const Search = ({ handleSearch, search }: Props): React.ReactElement => {
   return (
     <Grid container>
-      <Grid item xs={4} />
-      <Grid item xs={4}>
+      <Grid item xs />
+      <Grid item xs={6}>
         <TextField
           onChange={handleSearch}
           name="search"
@@ -21,7 +21,7 @@ const Search = ({ handleSearch, search }: Props): React.ReactElement => {
           sx={styles.search}
         />
       </Grid>
-      <Grid item xs={4} />
+      <Grid item xs />
     </Grid>
   );
 };

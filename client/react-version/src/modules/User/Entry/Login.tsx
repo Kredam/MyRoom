@@ -14,7 +14,7 @@ const Login = (): React.ReactElement => {
 
   const submit = (pendingChanges: Object): void => {
     api
-      .post('token', pendingChanges)
+      .post('token/', pendingChanges)
       .then((res) => {
         enqueueSnackbar('Successful log in', { variant: 'success' });
         setAuth(res.data);
@@ -24,7 +24,7 @@ const Login = (): React.ReactElement => {
   };
 
   return (
-    <Grid container>
+    <Grid container spacing={3} justifyContent="center" alignContent="center" direction="column">
       <Entry submit={(pendingChanges) => submit(pendingChanges)} type="Log in" />
     </Grid>
   );

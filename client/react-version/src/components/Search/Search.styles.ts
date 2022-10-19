@@ -1,5 +1,5 @@
 export default {
-    search: {
-        padding: '0px',
-    }
-}
+  search: {
+    padding: '0px'
+  }
+};

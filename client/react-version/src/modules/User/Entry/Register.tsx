@@ -31,10 +31,11 @@ const Register = (): React.ReactElement => {
   };
 
   return (
-    <Grid container>
-      <TextField onChange={handleChange} label="E-mail" name="email" value={data.email} />
+    <Grid container justifyContent="center" alignContent="center" spacing={3} direction="column">
+      <Grid item xs={12}>
+        <TextField onChange={handleChange} label="E-mail" name="email" value={data.email} />
+      </Grid>
       <Entry submit={(pendingChanges) => submit(pendingChanges)} type="Register" />
-      <Grid item xs={12}></Grid>
     </Grid>
   );
 };

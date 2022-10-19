@@ -14,7 +14,9 @@ const Navbar = (): React.ReactElement => {
   const navigate = useNavigate();
   const { auth, setAuth } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>();
-  const [search, setSearch] = useState<String | null>();
+  const [search, setSearch] = useState<String | null>('');
+  // const [filter, setFilter] = useState('')
+  const [rooms, setRooms] = useState({ data: [], isLoading: false });
 
   const handleClose = (): void => {
     setAnchorEl(null);
@@ -43,6 +45,16 @@ const Navbar = (): React.ReactElement => {
     setAuth({ access: '', refresh: '' });
   };
 
+  const getSearch = (): void => {
+    api
+      .post('rooms/search/', { search })
+      .then((res) => {
+        console.log(rooms);
+        setRooms(res.data);
+      })
+      .catch(() => {});
+  };
+
   useEffect(() => {
     const controller = new AbortController();
     searchRooms(controller);
@@ -50,6 +62,15 @@ const Navbar = (): React.ReactElement => {
       controller.abort();
     };
   }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const timer = setTimeout(getSearch, 2000);
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
+  }, [search]);
 
   return (
     <Box sx={styles.navbar}>
@@ -79,11 +100,15 @@ const Navbar = (): React.ReactElement => {
             <AccountCircleIcon />
           </IconButton>
           <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-            {auth.access.length === 0 ? (
-              <MenuItem onClick={() => switchTab(routes.Login)}>Log in/Register</MenuItem>
-            ) : (
-              <MenuItem onClick={() => logout()}>Log out</MenuItem>
-            )}
+            <MenuItem onClick={() => switchTab(routes.Login)} hidden={auth.access.length > 0}>
+              Log in
+            </MenuItem>
+            <MenuItem onClick={() => switchTab(routes.Register)} hidden={auth.access.length > 0}>
+              Register
+            </MenuItem>
+            <MenuItem onClick={() => logout()} hidden={auth.access.length === 0}>
+              Log out
+            </MenuItem>
             <MenuItem onClick={() => handleClose()}>Settings</MenuItem>
           </Menu>
         </Toolbar>

@@ -19,11 +19,12 @@ const CommonForm = ({ submit, type }: Props): React.ReactElement => {
   };
 
   return (
-    <Grid container>
+    <>
       <Grid item xs={12}>
         <TextField
           onChange={handleChange}
           label="Username"
+          fullWidth
           name="username"
           value={pendingChanges.username}
         />
@@ -32,6 +33,7 @@ const CommonForm = ({ submit, type }: Props): React.ReactElement => {
         <TextField
           onChange={handleChange}
           label="Password"
+          fullWidth
           type="password"
           name="password"
           value={pendingChanges.password}
@@ -42,7 +44,7 @@ const CommonForm = ({ submit, type }: Props): React.ReactElement => {
           {type}
         </Button>
       </Grid>
-    </Grid>
+    </>
   );
 };
 

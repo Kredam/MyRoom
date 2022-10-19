@@ -1,9 +1,7 @@
 import React from 'react';
 
-const MainMenu = () => {
-    return (
-        <div>Main menu</div>
-    )
-}
+const MainMenu = (): React.ReactElement => {
+  return <div>Main menu</div>;
+};
 
-export default MainMenu
+export default MainMenu;

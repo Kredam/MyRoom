@@ -1,6 +1,6 @@
 import React from 'react';
 import { MainMenu } from 'components';
-import { Home, Entry, Rooms } from 'modules';
+import { Home, Login, Register, Rooms } from 'modules';
 import routes from 'routes/routes';
 
 const modules = [
@@ -22,12 +22,12 @@ const modules = [
   {
     id: 'login',
     path: routes.Login,
-    component: <Entry />
+    component: <Login />
   },
   {
     id: 'register',
     path: routes.Register,
-    component: <Entry />
+    component: <Register />
   }
 ];
 
