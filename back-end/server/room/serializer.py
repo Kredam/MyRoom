@@ -1,3 +1,4 @@
+from dataclasses import fields
 from .models import Room, Followed
 from rest_framework import serializers
 
@@ -16,6 +17,8 @@ class RoomNameSerializer(serializers.ModelSerializer):
     model = Followed
     fields = ['name']
 
-class RoomSearchSerializer(serializers.Serializer):
-  room = serializers.CharField()
-  followers = serializers.IntegerField()
+class RoomSearchSerializer(serializers.ModelSerializer):
+  followers_nr = serializers.IntegerField()
+  class Meta:
+    model = Followed
+    fields = ('room_id', 'followers_nr')

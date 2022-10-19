@@ -17,7 +17,7 @@ class RoomViewSet(ModelViewSet):
         search = request.data['search']
         # format search to match in any record in database
         # filter = request.data['filter']
-        followed_rooms = Followed.objects.filter(room__name__icontains=search).values('room').annotate(followers=Count('room_id'))
+        followed_rooms = Followed.objects.values('room_id').annotate(followers_nr=Count('room_id')).filter(room__name__icontains=search).order_by('-followers_nr')
         # cursor.execute('SELECT room_id , COUNT(room_id) as followers FROM room_followed rf LEFT JOIN room_room rr ON rf.id = rr.name GROUP BY room_id ORDER BY followers DESC LIMIT 5')
         # row = cursor.fetchall()
         serialized = RoomSearchSerializer(followed_rooms, many=True)
