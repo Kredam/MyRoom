@@ -3,7 +3,7 @@ import { Entry } from 'components';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import routes from 'routes/routes';
-import { api } from 'utils/http-common';
+import { api } from 'api/http-common';
 import { useSnackbar } from 'notistack';
 
 const Register = (): React.ReactElement => {

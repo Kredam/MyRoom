@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { privateApi as api } from 'utils/http-common';
+import { privateApi as api } from 'api/http-common';
 import AuthContext from './AuthProvider';
 
 const useRefreshToken = (): any => {
