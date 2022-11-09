@@ -15,7 +15,7 @@ class FollowedSerializer(serializers.ModelSerializer):
 class RoomNameSerializer(serializers.ModelSerializer):
   class Meta:
     model = Followed
-    fields = ['name']
+    fields = ['room']
 
 class RoomSearchSerializer(serializers.ModelSerializer):
   followers_nr = serializers.IntegerField()
