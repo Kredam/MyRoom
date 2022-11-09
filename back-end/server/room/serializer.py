@@ -1,22 +1,24 @@
+from dataclasses import fields
 from .models import Room, Followed
-from rest_framework.serializers import ModelSerializer, SerializerMethodField
+from rest_framework import serializers
 
-class RoomSerializer(ModelSerializer):
+class RoomSerializer(serializers.ModelSerializer):
   class Meta:
     model = Room
-    fields = ('__all__')
+    fields = '__all__'
 
-class FollowedSerializer(ModelSerializer):
+class FollowedSerializer(serializers.ModelSerializer):
   class Meta:
     model = Followed
-    fields = ('__all__')
+    fields = '__all__'
 
-class FollowedRoomsSerializer(ModelSerializer):
-  room = SerializerMethodField()
-
+class RoomNameSerializer(serializers.ModelSerializer):
   class Meta:
     model = Followed
     fields = ['room']
-  
-  def get_names(self, follow):
-    return follow.values_list('room', flat=True)
+
+class RoomSearchSerializer(serializers.ModelSerializer):
+  followers_nr = serializers.IntegerField()
+  class Meta:
+    model = Followed
+    fields = ('room_id', 'followers_nr')
