@@ -1,12 +1,13 @@
 import { useContext } from 'react';
-import { privateApi as api } from 'api/http-common';
+import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import AuthContext from './AuthProvider';
 
 const useRefreshToken = (): any => {
   const { setAuth } = useContext(AuthContext);
+  const privateApi = useAxiosPrivate();
 
   const refresh = async (): Promise<void> => {
-    return await api.post('token/refresh').then((res) => {
+    await privateApi.post('token/refresh').then((res) => {
       setAuth((prev) => ({
         ...prev,
         access: res.data.access
