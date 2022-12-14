@@ -6,8 +6,10 @@ import { Navbar } from 'layouts';
 import useRefreshToken from 'hooks/useRefreshToken';
 
 const App = (): React.ReactElement => {
+  const refresh = useRefreshToken();
+
   useEffect(() => {
-    useRefreshToken();
+    refresh();
   }, []);
 
   return (
