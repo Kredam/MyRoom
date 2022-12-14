@@ -2,11 +2,11 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { useContext, useEffect } from 'react';
 import AuthContext from './AuthProvider';
 import { privateApi as api } from 'api/http-common';
-import useRefreshToken from './useRefreshToken';
+// import useRefreshToken from './useRefreshToken';
 
 const useAxiosPrivate = (): AxiosInstance => {
   const { auth } = useContext(AuthContext);
-  const refresh = useRefreshToken();
+  // const refresh = useRefreshToken();
 
   const requestInterceptor = (): any => {
     return api.interceptors.request.use(
@@ -27,7 +27,7 @@ const useAxiosPrivate = (): AxiosInstance => {
       (response) => response,
       (error) => {
         if (error.response.data.message === 401) {
-          refresh();
+          // refresh();
         }
       }
     );

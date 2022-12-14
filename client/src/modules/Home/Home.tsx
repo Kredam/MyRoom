@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { privateApi } from 'api/http-common';
-import useAxiosPrivate from 'hooks/useAxiosPrivate';
+import { fetchThread } from 'api/services/services';
 
 const Home = (): React.ReactElement => {
-  const [offset, setOffset] = useState(0);
+  // const [offset, setOffset] = useState(0);
   const [thread, setThread] = useState([]);
-  const axiosPrivate = useAxiosPrivate();
-
 
   useEffect(() => {
-    axiosPrivate
-      .post('article/thread', { limit: 5, offset: 0 })
+    fetchThread(0, 5)
       .then((res) => {
         setThread(res.data);
       })
       .catch(console.log);
   }, []);
-  return <div>Home</div>;
+  return <div>{thread}</div>;
 };
 
 export default Home;

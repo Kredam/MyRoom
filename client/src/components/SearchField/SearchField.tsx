@@ -5,7 +5,7 @@ import { styled, InputBase, alpha } from '@mui/material';
 const SearchDiv = styled('div')(({ theme }) => ({
   position: 'relative',
   cursor: 'pointer',
-  borderRadius: theme.shape.borderRadius,
+  borderRadius: theme.shape.borderRadius + 15,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   minWidth: '650px',
   '&:hover': {
