@@ -11,7 +11,6 @@ import theme from 'utils/theme';
 import { SnackbarProvider } from 'notistack';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import useAxiosPrivate from 'hooks/useAxiosPrivate';
 
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
@@ -38,5 +37,3 @@ root.render(
     </ThemeProvider>
   </React.StrictMode>
 );
-
-useAxiosPrivate();

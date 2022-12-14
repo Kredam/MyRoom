@@ -27,7 +27,7 @@ const useAxiosPrivate = (): AxiosInstance => {
       (response) => response,
       (error) => {
         if (error.response.data.message === 401) {
-          return refresh();
+          refresh();
         }
       }
     );
