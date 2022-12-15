@@ -74,14 +74,9 @@ with Figma
 ---
 ***Currently writing json to pre-populate db***
 
-run these commands
+install dependencies
 ```
-    pip install Django==4.0.3
-    pip install djangorestframework
-    pip install django-filter 
-    pip install python-dotenv
-    pip install djangorestframework-simplejwt
-    pip install django-cors-headers
+pip install -r requirements.txt
 ```
 - create .env file inside ***back-end/*** and paste it inside   
   ```SECRET_KEY = "django-insecure"```
