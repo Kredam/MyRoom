@@ -1,6 +1,11 @@
+asgiref==3.5.2
 Django==4.0.3
-djangorestframework
-django-filter 
-python-dotenv
-djangorestframework-simplejwt
-django-cors-headers
+django-cors-headers==3.13.0
+django-filter==22.1
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.2.2
+psycopg2==2.9.5
+PyJWT==2.6.0
+python-dotenv==0.21.0
+pytz==2022.6
+sqlparse==0.4.3
