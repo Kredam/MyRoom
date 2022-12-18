@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { useContext, useEffect } from 'react';
-import AuthContext from './AuthProvider';
+import AuthContext from 'hooks/AuthProvider';
 import { privateApi as api } from 'api/http-common';
 // import useRefreshToken from './useRefreshToken';
 
