@@ -5,7 +5,6 @@ import { Route, Routes } from 'react-router-dom';
 import { Navbar } from 'layouts';
 
 const App = (): React.ReactElement => {
-
   return (
     <Grid>
       <Navbar />
