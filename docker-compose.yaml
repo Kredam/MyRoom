@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  myroom-frontend:
+    image: myroom-frontend
+    ports:
+      - "3001:80"
+  myroom-backend:
+    image: myroom-backend
+    working_dir: "/app/myroom/backend/"
+    ports:
+      - "8080:8080" 
+    command: sh -c "
+      python manage.py migrate;
+      python manage.py loaddata room/fixtures/room.json;
+      python manage.py runserver 0.0.0.0:8080";
+    # volumes:
+    #   - .:/app/myroom/backend
+    depends_on:
+      - db
+  db:
+    image: postgres
+    # exposed port because of local dev
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+
+volumes:
+  postgres_data:
