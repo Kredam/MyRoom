@@ -89,8 +89,8 @@ DATABASES = {
         "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        "HOST": "localhost",
-        # "HOST": "db",
+        # "HOST": "localhost",
+        "HOST": "db",
         "PORT": 5432
     }
     # 'default': {
@@ -109,7 +109,7 @@ REST_FRAMEWORK = {
 }
 
 ALLOWED_HOSTS = [
-    "*"
+    "127.0.0.1"
 ]
 
 # Django project settings.py
