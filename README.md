@@ -70,22 +70,19 @@ with Figma
 
 
 # Run
+1. Pull the postgress image from docker hub 
+2. Build the backend and the frontend of the project
+- Change directory into client, then run the following command
+```
+    docker build -t . myroom-frontend 
+```
+- Change diretory into backend, then run the following command
+```
+    docker build -t . myroom-backend
+```
+3. Run the docker compose from the root of the folder
+```
+  docker compose up -d --build
+```
 
----
-***Currently writing json to pre-populate db***
-
-install dependencies
-```
-pip install -r requirements.txt
-```
-- create .env file inside ***back-end/*** and paste it inside   
-  ```SECRET_KEY = "django-insecure"```
-- create a db.sqlite3 file inside ***back-end/server*** folder
-- cd into the ***back-end/server*** folder
-```
-    python manage.py migrate 
-    python manage.py loaddata room.json
-    python manage.py runserver
-```
-- open new terminal window
-- then cd into ***client*** dir, and run angular with ```ng serve```
+Now you can view the app on localhost:3001
