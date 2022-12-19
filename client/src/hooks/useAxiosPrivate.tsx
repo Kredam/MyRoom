@@ -1,12 +1,21 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { useContext, useEffect } from 'react';
-import AuthContext from './AuthProvider';
+import AuthContext from 'hooks/AuthProvider';
 import { privateApi as api } from 'api/http-common';
 // import useRefreshToken from './useRefreshToken';
 
 const useAxiosPrivate = (): AxiosInstance => {
   const { auth } = useContext(AuthContext);
   // const refresh = useRefreshToken();
+
+  useEffect(() => {
+    const request = requestInterceptor();
+    const response = responseInterceptors();
+    return () => {
+      axios.interceptors.request.eject(request);
+      axios.interceptors.response.eject(response);
+    };
+  }, [auth]);
 
   const requestInterceptor = (): any => {
     return api.interceptors.request.use(
@@ -32,15 +41,6 @@ const useAxiosPrivate = (): AxiosInstance => {
       }
     );
   };
-
-  useEffect(() => {
-    const request = requestInterceptor();
-    const response = responseInterceptors();
-    return () => {
-      axios.interceptors.request.eject(request);
-      axios.interceptors.response.eject(response);
-    };
-  }, [auth]);
 
   return api;
 };

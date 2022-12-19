@@ -11,9 +11,9 @@ You will be able to follow specific topics you like. You can make your own room,
 |             |                                                                                                                                                                                                                         |
 | :---        |:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | Server      |                                       ![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)                                       |
-| Database    |                                                      ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)                                                       |
-| Front-end   |                                                     ![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)                                                     |
-| UI          |                                                                                                        Material                                                                                                         |
+| Database    |                                                      ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)                                                       |
+| Front-end   |                                                     ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)                                                     |
+| UI          |                                                                                                        ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)                                                                                                         |
 # Project Management
 https://trello.com/b/aZTdasdK/myroom
 
@@ -56,7 +56,7 @@ with Figma
 - [x] Serializers
 - [ ] Tests
 
-***Angular***
+***React***
 - [x] Interceptors
   - [x] Auth errors
   - [x] Set header to  ```Bearer "Auth Token"``` for authentication on server
@@ -70,22 +70,20 @@ with Figma
 
 
 # Run
-
----
-***Currently writing json to pre-populate db***
-
-install dependencies
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+1. Pull the postgress image from docker hub 
+2. Build the backend and the frontend of the project
+- Change directory into client, then run the following command
 ```
-pip install -r requirements.txt
+    docker build . -t myroom-frontend 
 ```
-- create .env file inside ***back-end/*** and paste it inside   
-  ```SECRET_KEY = "django-insecure"```
-- create a db.sqlite3 file inside ***back-end/server*** folder
-- cd into the ***back-end/server*** folder
+- Change diretory into backend, then run the following command
 ```
-    python manage.py migrate 
-    python manage.py loaddata room.json
-    python manage.py runserver
+    docker build . -t myroom-backend
 ```
-- open new terminal window
-- then cd into ***client*** dir, and run angular with ```ng serve```
+3. Run the docker compose from the root of the folder
+```
+  docker compose up -d --build
+```
+4. Then run all the containers in myroom
+5. Now you can view the app on [localhost:3001](http://localhost:3001)
