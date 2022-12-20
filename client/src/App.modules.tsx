@@ -1,6 +1,6 @@
 import React from 'react';
 import { MainMenu } from 'components';
-import { Home, Login, Register, Rooms } from 'modules';
+import { Home, Login, Register, Rooms, Settings } from 'modules';
 import routes from 'routes/routes';
 
 const modules = [
@@ -18,6 +18,11 @@ const modules = [
     id: 'home',
     path: routes.Home,
     component: <Home />
+  },
+  {
+    id: 'settings',
+    path: routes.Settings,
+    component: <Settings />
   },
   {
     id: 'login',
