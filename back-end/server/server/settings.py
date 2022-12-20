@@ -41,7 +41,9 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'users.User'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3001"
+    "http://localhost:3000",
+    "http://127.0.0.1:3001",
+    "http://localhost:3001",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -89,8 +91,8 @@ DATABASES = {
         "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        # "HOST": "localhost",
-        "HOST": "db",
+        "HOST": "localhost",
+        # "HOST": "db",
         "PORT": 5432
     }
     # 'default': {
