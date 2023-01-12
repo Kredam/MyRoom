@@ -85,5 +85,15 @@ with Figma
 ```
   docker compose up -d --build
 ```
-4. Then run all the containers in myroom
-5. Now you can view the app on [localhost:3001](http://localhost:3001)
+4. get the myroom-backend container id with the following command
+```
+  docker container ls
+```
+5. execute the following commands within the container, when creating superuser type in credentials
+```
+  docker exec -it <container_id> python manage.py createsuperuser
+  docker exec -it <container_id> python manage.py loaddata room/fixtures/room.json
+```
+
+6. Then run all the containers in myroom
+7. Now you can view the app on [localhost:3001](http://localhost:3001)
