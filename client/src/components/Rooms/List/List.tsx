@@ -23,13 +23,14 @@ const RoomList = ({ rooms, follows, auth, postFollow }: Props): React.ReactEleme
   return (
     <>
       <List>
-        {rooms.map((room: Room, key: number) => {
+        {rooms.map((room: Room) => {
           return (
             <>
               <ListItem
+                key={room.name}
                 secondaryAction={
                   <>
-                    {auth.access.length > 0 ? (
+                    {auth.access.length > 0 && (
                       <IconButton
                         edge="end"
                         aria-label="comments"
@@ -41,7 +42,7 @@ const RoomList = ({ rooms, follows, auth, postFollow }: Props): React.ReactEleme
                           <AddBoxIcon />
                         )}
                       </IconButton>
-                    ) : null}
+                    )}
                   </>
                 }
               >
