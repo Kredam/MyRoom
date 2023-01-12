@@ -4,10 +4,10 @@ from .models import User
 # Create your views here.
 
 class CreateUserView(CreateAPIView):
-  serializer_class = UserSerializer
-  queryset = User.objects.all()
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
 
 class ListAllUsers(ListAPIView):
-  serializer_class = UserSerializer
-  queryset = User.objects.all()
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
 
