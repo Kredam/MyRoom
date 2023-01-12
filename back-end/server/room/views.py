@@ -44,7 +44,7 @@ class FollowedViewSet(ModelViewSet):
             serializer = FollowedSerializer(data={'room': room, 'user': request.user.pk, 'isAdmin': admin})
             if serializer.is_valid():
                 serializer.save()
-            return Response('Successful follow')
+            return Response('Followed')
 
 
     @action(detail=True, methods=['get'], permission_classes=[IsAuthenticated])
