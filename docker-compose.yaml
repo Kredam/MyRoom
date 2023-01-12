@@ -12,7 +12,6 @@ services:
       - "8080:8080" 
     command: sh -c "
       python manage.py migrate;
-      python manage.py loaddata room/fixtures/room.json;
       python manage.py runserver 0.0.0.0:8080";
     # volumes:
     #   - .:/app/myroom/backend
