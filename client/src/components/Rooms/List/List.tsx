@@ -30,7 +30,11 @@ const RoomList = ({ rooms, follows, auth, postFollow }: Props): React.ReactEleme
                 secondaryAction={
                   <>
                     {auth.access.length > 0 ? (
-                      <IconButton edge="end" aria-label="comments" onClick={postFollow(room.name)}>
+                      <IconButton
+                        edge="end"
+                        aria-label="comments"
+                        onClick={() => postFollow(room.name)}
+                      >
                         {follows.some((item) => item.room === room.name) ? (
                           <CheckBoxIcon />
                         ) : (
