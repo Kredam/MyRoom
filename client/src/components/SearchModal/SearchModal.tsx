@@ -7,9 +7,11 @@ import {
   Divider,
   Typography
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
 import SearchField from 'components/SearchField/SearchField';
+import routes from 'routes/routes';
 import { RoomSearch } from 'models/Room';
 import React from 'react';
 // import styles from './SearchModal.styles';
@@ -32,6 +34,7 @@ const SearchModal = ({
   results,
   autoFocus
 }: Props): React.ReactElement => {
+  const navigate = useNavigate();
   return (
     <Dialog
       BackdropProps={{ style: { backgroundColor: 'transparent' } }}
@@ -79,7 +82,9 @@ const SearchModal = ({
         })}
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined"> Show More</Button>
+        <Button variant="outlined" onClick={() => navigate(routes.Rooms)}>
+          Show More
+        </Button>
       </DialogActions>
     </Dialog>
   );

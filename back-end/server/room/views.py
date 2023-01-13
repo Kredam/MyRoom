@@ -4,6 +4,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
+from django.core.exceptions import ObjectDoesNotExist
+from api.authentication import CustomAuthentication
 from .models import Room, Followed
 from .serializer import RoomNameSerializer, RoomSearchSerializer, RoomSerializer, FollowedSerializer
 
@@ -29,25 +31,24 @@ class FollowedViewSet(ModelViewSet):
     serializer_class = FollowedSerializer
     permission_classes = [IsAuthenticated]
 
-    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
-    def follow(self, request, pk=None):
-        room = Room.objects.get(name=request.data['name'])
-        admin = request.data['isAdmin']
-        serializer = FollowedSerializer(data={'room': room, 'user': request.user.pk, 'isAdmin': admin})
-        if serializer.is_valid():
-            serializer.save()
-            return Response('Successful follow')
-        return Response("Not Successful")
+    @action(detail=True, methods=['post'], permission_classes=[CustomAuthentication])
+    def follow_action(self, request, pk=None):
+        try:
+            room = Room.objects.get(name=self.request.data['name'])
+            user = request.user.pk
+            Followed.objects.get(room=room, user=user).delete()
+            return Response('Unfollowed')
+        except ObjectDoesNotExist:
+            room = Room.objects.get(name=request.data['name'])
+            admin = request.data['isAdmin']
+            serializer = FollowedSerializer(data={'room': room, 'user': request.user.pk, 'isAdmin': admin})
+            if serializer.is_valid():
+                serializer.save()
+            return Response('Followed')
 
-    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
-    def unfollow(self, request, pk=None):
-        room = Room.objects.get(name=self.request.data['name'])
-        user = request.user.pk
-        Followed.objects.get(room=room, user=user).delete()
-        return Response('Unfollowed')
 
     @action(detail=True, methods=['get'], permission_classes=[IsAuthenticated])
-    def followedRooms(self, request):
+    def followed_rooms(self, request):
         user = request.user
         rooms = Followed.objects.filter(user=user)
         # serialized_data = FollowedRoomsSerializer(rooms, many=True).get_names()

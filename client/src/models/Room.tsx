@@ -11,6 +11,6 @@ export interface RoomSearch {
 
 export interface Follows {
   room: string;
-  user: string | number;
+  user: string | number | undefined;
   isAdmin: boolean;
 }

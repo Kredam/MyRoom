@@ -93,7 +93,7 @@ const Navbar = (): React.ReactElement => {
             ) : (
               <MenuItem onClick={() => logout()}>Log out</MenuItem>
             )}
-            <MenuItem onClick={() => handleClose()}>Settings</MenuItem>
+            <MenuItem onClick={() => switchTab(routes.Settings)}>Settings</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>

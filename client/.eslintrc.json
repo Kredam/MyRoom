@@ -9,6 +9,9 @@
         "eslint:recommended",
         "plugin:prettier/recommended"
     ],
+    "globals": {
+        "JSX": true
+    },
     "overrides": [
     ],
     "parserOptions": {
