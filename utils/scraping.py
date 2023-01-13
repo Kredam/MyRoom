@@ -2,8 +2,8 @@ import praw
 import json
 from praw.models import Subreddit, Subreddits
 reddit = praw.Reddit(
-    client_id="K81GemiWX-3dWB2EwGumAg",
-    client_secret="p5jNXYfLGOhPQHeY2dl9SpNdkERmpQ",
+    client_id="",
+    client_secret="",
     user_agent="Mozilla/5.0 Chrome/108.0.0.0 Safari/537.36:com.myroom:v1.0.0 (by SeaInternet8067)",
 )
 
