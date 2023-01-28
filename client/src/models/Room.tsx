@@ -4,6 +4,11 @@ export interface Room {
   picture: string;
 }
 
+export interface RoomQuery {
+  nrOfObjects: number;
+  rooms: Room[];
+}
+
 export interface RoomSearch {
   room_id: string;
   followers_nr: number;

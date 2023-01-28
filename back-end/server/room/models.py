@@ -5,11 +5,11 @@ class Room(models.Model):
   name = models.CharField(max_length=200, null=False, blank=True, primary_key=True)
   description = models.TextField(null=True, blank=True)
   picture = models.URLField()
+  nsfw = models.BooleanField(null=False, blank=False, default=False)
   # can be extended later with room rules, stats etc
 
   def __str__(self):
     return self.name
-
 
 # Reddit like topics, that you can give to articles
 class Topics(models.Model):

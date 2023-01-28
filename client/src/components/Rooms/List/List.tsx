@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { UIEvent } from 'react';
 import { Follows, Room } from 'models/Room';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
@@ -12,21 +12,31 @@ import {
   IconButton
 } from '@mui/material';
 
+import styles from './List.styles';
+
 interface Props {
   rooms: Room[];
   follows: Follows[];
   auth: any;
+  handleScroll: (event: UIEvent) => void;
   postFollow: CallableFunction;
 }
 
-const RoomList = ({ rooms, follows, auth, postFollow }: Props): React.ReactElement => {
+const RoomList = ({
+  rooms,
+  follows,
+  auth,
+  postFollow,
+  handleScroll
+}: Props): React.ReactElement => {
   return (
     <>
-      <List>
+      <List sx={styles.basicGrid} onScroll={handleScroll}>
         {rooms.map((room: Room) => {
           return (
             <>
               <ListItem
+                sx={styles.itemHeight}
                 key={room.name}
                 secondaryAction={
                   <>
@@ -50,7 +60,11 @@ const RoomList = ({ rooms, follows, auth, postFollow }: Props): React.ReactEleme
                   <Avatar alt={room.name} src={room.picture} />
                 </ListItemAvatar>
                 {/* <CardMedia component="img" height="140" image={room.picture} alt={room.name} /> */}
-                <ListItemText primary={room.name} secondary={room.description} />
+                <ListItemText
+                  primary={room.name}
+                  sx={styles.itemText}
+                  secondary={room.description}
+                />
               </ListItem>
               <Divider />
             </>

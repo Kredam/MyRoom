@@ -1,11 +1,12 @@
 import { Grid, TextField, Typography } from '@mui/material';
 import React, { ChangeEvent } from 'react';
 
-const modifyableOptions: string[] = ['Password', 'Username'];
+// const modifyableOptions: string[] = ['New Password', 'Old Password', 'Username'];
 
 interface IPendingChanges {
   Username: string;
-  Password: string;
+  Old_password: string;
+  New_password: string;
 }
 
 interface props {
@@ -26,14 +27,14 @@ const UserDetails = ({ pendingChanges, handleChange }: props): React.ReactElemen
             sx={{ padding: '14px' }}
           >
             <Grid item xs={2}>
-              <Typography variant="body1">{option}</Typography>
+              <Typography variant="body1">{option.replace('_', ' ')}</Typography>
             </Grid>
             <Grid item xs />
             <Grid item xs={4}>
               <TextField
                 variant="outlined"
                 onChange={handleChange}
-                disabled={!modifyableOptions.includes(option)}
+                // disabled={!modifyableOptions.includes(option)}
                 name={option}
                 value={pendingChanges[option as keyof IPendingChanges]}
               />
