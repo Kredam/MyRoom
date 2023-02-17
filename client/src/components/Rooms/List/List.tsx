@@ -15,7 +15,7 @@ import {
 import styles from './List.styles';
 
 interface Props {
-  rooms: Room[];
+  rooms: Room[] | undefined;
   follows: Follows[];
   auth: any;
   handleScroll: (event: UIEvent) => void;
@@ -32,7 +32,7 @@ const RoomList = ({
   return (
     <>
       <List sx={styles.basicGrid} onScroll={handleScroll}>
-        {rooms.map((room: Room) => {
+        {rooms?.map((room: Room) => {
           return (
             <>
               <ListItem

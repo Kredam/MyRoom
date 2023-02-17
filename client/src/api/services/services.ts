@@ -29,7 +29,5 @@ export const fetchFollows = async (): Promise<AxiosResponse> => {
 };
 
 export const fetchRooms = (limit: number, offset: number) => async (): Promise<RoomQuery> => {
-  return await api
-    .post<RoomQuery>('rooms/all/', { limit, offset })
-    .then((response) => response.data);
+  return await api.post<RoomQuery>('rooms/', { limit, offset }).then((response) => response.data);
 };

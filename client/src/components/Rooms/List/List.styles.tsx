@@ -3,7 +3,7 @@ const styles = {
     textOverflow: 'ellipsis'
   },
   itemHeight: {
-    height: '70px',
+    height: '85px',
     textOverflow: 'ellipsis'
   },
   basicGrid: {
