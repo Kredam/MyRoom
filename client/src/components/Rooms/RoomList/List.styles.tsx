@@ -2,13 +2,18 @@ const styles = {
   itemText: {
     textOverflow: 'ellipsis'
   },
-  itemHeight: {
+  list: {
+    // backgroundColor: '#1f1f1f'
+    boxShadow: '0 0 15px rgba(162, 162, 162, 0.10)',
+    borderRadius: '16px'
+  },
+  item: {
     height: '85px',
     textOverflow: 'ellipsis'
   },
   basicGrid: {
     overflowY: 'scroll',
-    height: '97%',
+    height: '85vh',
 
     /* width */
     '&::-webkit-scrollbar': {

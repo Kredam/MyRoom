@@ -1,7 +1,7 @@
 import { Grid, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-const VisibilityDetails = (): React.ReactElement => {
+const VisibilityOption = (): React.ReactElement => {
   const [alignment, setAlignment] = useState<string | null>();
 
   const handleAlignment = (_: React.MouseEvent<HTMLElement>, newAlignment: string | null): void => {
@@ -27,4 +27,4 @@ const VisibilityDetails = (): React.ReactElement => {
   );
 };
 
-export default VisibilityDetails;
+export default VisibilityOption;

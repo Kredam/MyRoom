@@ -10,10 +10,11 @@ import {
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
-import SearchField from 'components/SearchField/SearchField';
+import SearchField from 'components/Search/SearchField/SearchField';
 import routes from 'routes/routes';
 import { RoomSearch } from 'models/Room';
 import React from 'react';
+import styles from './SearchModal.styles';
 // import styles from './SearchModal.styles';
 // import SearchIcon from '@mui/icons-material/Search';
 
@@ -39,17 +40,7 @@ const SearchModal = ({
     <Dialog
       BackdropProps={{ style: { backgroundColor: 'transparent' } }}
       PaperProps={{
-        sx: {
-          position: 'fixed',
-          top: 12,
-          margin: 0,
-          marginLeft: 9,
-          borderRadius: 5,
-          boxShadow: 'none',
-          minWidth: '650px',
-          maxWidth: '100%',
-          backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09))'
-        }
+        sx: styles.paperProps
       }}
       open={openModal}
       onClose={() => setOpenModal(false)}
@@ -82,7 +73,7 @@ const SearchModal = ({
         })}
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" onClick={() => navigate(routes.Rooms)}>
+        <Button variant="outlined" onClick={() => navigate(routes.List)}>
           Show More
         </Button>
       </DialogActions>

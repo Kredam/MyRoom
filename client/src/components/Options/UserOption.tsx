@@ -14,7 +14,7 @@ interface props {
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const UserDetails = ({ pendingChanges, handleChange }: props): React.ReactElement => {
+const UserOption = ({ pendingChanges, handleChange }: props): React.ReactElement => {
   return (
     <Grid container direction="column">
       {Object.keys(pendingChanges).map((option: string) => {
@@ -46,4 +46,4 @@ const UserDetails = ({ pendingChanges, handleChange }: props): React.ReactElemen
   );
 };
 
-export default UserDetails;
+export default UserOption;

@@ -12,8 +12,12 @@ class UserSerializerCreate(serializers.ModelSerializer):
     validated_data['password'] = make_password(validated_data['password'])
     user = UserModel._default_manager.create(**validated_data)
     return user
-    
+
 class UserSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
     fields = ('id', 'last_login', 'username', 'first_name', 'last_name', 'is_staff', 'date_joined', 'joined', 'born', 'NSFW')
+
+class ListUserSerializer(serializers.Serializer):
+  nrOfUsers = serializers.IntegerField()
+  users = serializers.ListField(child=UserSerializer())

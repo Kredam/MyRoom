@@ -1,38 +1,51 @@
 import React from 'react';
 import { MainMenu } from 'components';
-import { Home, Login, Register, Rooms, Settings } from 'modules';
+import { Home, Login, Register, Spaces, Settings, Profile } from 'modules';
 import routes from 'routes/routes';
+import protected_routes from 'routes/protected.routes';
 
 const modules = [
   {
     id: 'main-menu',
     path: routes.MainMenu,
-    component: <MainMenu />
+    component: <MainMenu />,
+    authed: false
   },
   {
     id: 'rooms',
-    path: routes.Rooms,
-    component: <Rooms />
+    path: routes.List,
+    component: <Spaces />,
+    authed: false
   },
   {
     id: 'home',
     path: routes.Home,
-    component: <Home />
+    component: <Home />,
+    authed: false
   },
   {
     id: 'settings',
-    path: routes.Settings,
-    component: <Settings />
+    path: protected_routes.settings,
+    component: <Settings />,
+    authed: true
   },
   {
     id: 'login',
     path: routes.Login,
-    component: <Login />
+    component: <Login />,
+    authed: false
   },
   {
     id: 'register',
     path: routes.Register,
-    component: <Register />
+    component: <Register />,
+    authed: false
+  },
+  {
+    id: 'profile',
+    path: protected_routes.profile,
+    component: <Profile />,
+    authed: true
   }
 ];
 

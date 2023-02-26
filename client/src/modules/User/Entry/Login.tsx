@@ -6,6 +6,7 @@ import AuthContext from 'hooks/AuthProvider';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 import routes from 'routes/routes';
+import styles from './Entry.styles';
 
 const Login = (): React.ReactElement => {
   const { setAuth } = useContext(AuthContext);
@@ -24,7 +25,14 @@ const Login = (): React.ReactElement => {
   };
 
   return (
-    <Grid container spacing={3} justifyContent="center" alignContent="center" direction="column">
+    <Grid
+      container
+      spacing={3}
+      justifyContent="center"
+      alignContent="center"
+      direction="column"
+      sx={styles.formDiv}
+    >
       <Entry submit={(pendingChanges) => submit(pendingChanges)} type="Log in" />
     </Grid>
   );

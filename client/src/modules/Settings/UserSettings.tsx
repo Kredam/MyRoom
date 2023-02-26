@@ -1,4 +1,4 @@
-import { UserDetails } from 'components';
+import { UserOption } from 'components';
 import React, { ChangeEvent, useState } from 'react';
 
 const UserSettings = (): React.ReactElement => {
@@ -18,7 +18,7 @@ const UserSettings = (): React.ReactElement => {
 
   return (
     <>
-      <UserDetails pendingChanges={pendingChanges} handleChange={handleChange} />
+      <UserOption pendingChanges={pendingChanges} handleChange={handleChange} />
     </>
   );
 };

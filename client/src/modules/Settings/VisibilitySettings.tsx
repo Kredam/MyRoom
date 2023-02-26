@@ -1,8 +1,8 @@
-import { VisibilitiyDetails } from 'components';
+import { VisibilitiyOption } from 'components';
 import * as React from 'react';
 
 const VisibilitySettings = (): React.ReactElement => {
-  return <VisibilitiyDetails />;
+  return <VisibilitiyOption />;
 };
 
 export default VisibilitySettings;

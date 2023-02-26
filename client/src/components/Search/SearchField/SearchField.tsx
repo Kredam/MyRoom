@@ -7,7 +7,7 @@ const SearchDiv = styled('div')(({ theme }) => ({
   cursor: 'pointer',
   borderRadius: theme.shape.borderRadius + 15,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
-  minWidth: '650px',
+  minWidth: '850px',
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25)
   },

@@ -6,6 +6,6 @@ export default {
     }
   },
   navbar: {
-    marginBottom: '67px'
+    // marginBottom: '67px'
   }
 };

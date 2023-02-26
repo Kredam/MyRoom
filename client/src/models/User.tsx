@@ -10,3 +10,8 @@ export interface User {
   // born: Date;
   NSFW: boolean;
 }
+
+export interface UsersQuery {
+  nrOfUsers: number;
+  users: User[];
+}

@@ -2,7 +2,7 @@ export default {
   Home: '/',
   MainMenu: '/menu',
   Settings: '/settings',
-  Rooms: '/rooms',
+  List: '/list',
   Login: '/login',
   Register: '/register'
 };

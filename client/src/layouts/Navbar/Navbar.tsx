@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react';
-import { AppBar, Box, IconButton, Menu, Toolbar, MenuItem } from '@mui/material';
+import { AppBar, Box, IconButton, Menu, Toolbar, MenuItem, Tooltip } from '@mui/material';
 import routes from 'routes/routes';
 import HomeIcon from '@mui/icons-material/Home';
-import PeopleIcon from '@mui/icons-material/People';
+import ListIcon from '@mui/icons-material/List';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 import styles from './Navbar.styles';
 import AuthContext from 'hooks/AuthProvider';
 import { Search } from 'modules';
-import SearchField from 'components/SearchField/SearchField';
+import SearchField from 'components/Search/SearchField/SearchField';
 import { privateApi } from 'api/http-common';
 import { useSnackbar } from 'notistack';
 
@@ -59,15 +59,17 @@ const Navbar = (): React.ReactElement => {
           >
             <HomeIcon />
           </IconButton>
-          <IconButton
-            sx={styles.icon}
-            size="medium"
-            edge="start"
-            onClick={() => switchTab(routes.Rooms)}
-            aria-label="Rooms"
-          >
-            <PeopleIcon />
-          </IconButton>
+          <Tooltip title="Spaces" placement="bottom">
+            <IconButton
+              sx={styles.icon}
+              size="medium"
+              edge="start"
+              onClick={() => switchTab(routes.List)}
+              aria-label="RoomsView"
+            >
+              <ListIcon />
+            </IconButton>
+          </Tooltip>
           {/* implement own styled search component */}
           <Box flexGrow="1" />
           {openModal ? (
