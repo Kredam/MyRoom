@@ -7,8 +7,8 @@ from rest_framework.permissions import IsAuthenticated
 from django.core.exceptions import ObjectDoesNotExist
 from users.models import User
 from api.authentication import CustomAuthentication
-from .models import Room, Followed
-from .serializer import RoomNameSerializer, RoomSearchSerializer, RoomSerializer, FollowedSerializer, RoomListSerializer
+from .models import Room, Followed, Topics
+from .serializer import RoomNameSerializer, RoomSearchSerializer, RoomSerializer, FollowedSerializer, RoomListSerializer, TopicSerializer
 
 
 class RoomViewSet(ModelViewSet):
@@ -21,13 +21,12 @@ class RoomViewSet(ModelViewSet):
         offset = request.data['offset']
         rooms = self.get_queryset()[offset:offset+limit]
         instance = {"nrOfObjects": len(self.get_queryset()), "rooms": rooms}
-        room_serialized = RoomListSerializer(instance)
+        room_serialized  = RoomListSerializer(instance)
         return Response(room_serialized.data)
 
     @action(detail=True, methods=["post"])
     def search(self, request, pk=None):
         search = request.data['search']
-        # if (len(search) == 0): return Response()
         followed_rooms = Followed.objects.values('room_id').annotate(followers_nr=Count(
             'room_id')).filter(room__name__icontains=search).order_by('-followers_nr')
         # cursor.execute('SELECT room_id , COUNT(room_id) as followers FROM room_followed rf LEFT JOIN room_room rr ON rf.id = rr.name
@@ -37,13 +36,16 @@ class RoomViewSet(ModelViewSet):
         serialized = RoomSearchSerializer(followed_rooms, many=True)
         return Response(serialized.data)
 
+class TopicViewSet(ModelViewSet):
+    queryset = Topics.objects.all()
+    serializer_class = TopicSerializer
 
 class FollowedViewSet(ModelViewSet):
     queryset = Followed.objects.all()
     serializer_class = FollowedSerializer
 
     @action(detail=True, methods=['post'], permission_classes=[CustomAuthentication])
-    def follow_action(self, request, pk=None):
+    def create(self, request, pk=None):
         try:
             room = Room.objects.get(name=self.request.data['name'])
             user = request.user.pk
@@ -59,12 +61,10 @@ class FollowedViewSet(ModelViewSet):
             return Response('Followed')
 
     @action(detail=True, methods=['get'], permission_classes=[IsAuthenticated])
-    def followed_rooms(self, request):
+    def list(self, request):
         user = request.user
         rooms = Followed.objects.filter(user=user)
-        # serialized_data = FollowedRoomsSerializer(rooms, many=True).get_names()
         serialized = RoomNameSerializer(rooms, many=True)
-        # return Response(serialized_data)
         print(serialized.data)
         return Response(serialized.data)
 

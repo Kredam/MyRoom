@@ -2,6 +2,9 @@ from django.db import models
 
 # Create your models here.
 
+class Topics(models.Model):
+    name = models.CharField(max_length=50, null=False, primary_key=True)
+    # room should be primary key
 
 class Room(models.Model):
     name = models.CharField(max_length=200, null=False,
@@ -9,18 +12,13 @@ class Room(models.Model):
     description = models.TextField(null=True, blank=True)
     picture = models.URLField()
     nsfw = models.BooleanField(null=False, blank=False, default=False)
+    topics = models.ManyToManyField(Topics)
     # can be extended later with room rules, stats etc
 
     def __str__(self):
         return self.name
 
 # Reddit like topics, that you can give to articles
-
-
-class Topics(models.Model):
-    name = models.CharField(max_length=50, null=False, primary_key=True)
-    # room should be primary key
-    room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True)
 
 
 class Followed(models.Model):

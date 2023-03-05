@@ -1,5 +1,5 @@
 from dataclasses import fields
-from .models import Room, Followed
+from .models import Room, Followed, Topics
 from rest_framework import serializers
 
 
@@ -16,6 +16,9 @@ class RoomSerializer(serializers.ModelSerializer):
         return Followed.objects.filter(user=user, room=obj).exists()
 
 
+class TopicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Topics
 
 class RoomListSerializer(serializers.Serializer):
     nrOfObjects = serializers.IntegerField()
