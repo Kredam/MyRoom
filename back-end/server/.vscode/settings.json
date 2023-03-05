@@ -1,0 +1,14 @@
+{
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintUseMinimalCheckers": false,
+    "python.formatting.provider": "autopep8",
+    "python.formatting.autopep8Args": ["--max-line-length=100", "--indent-size=4"],
+    "python.linting.pylintArgs": [
+      "--max-line-length=100", 
+      "--indent-string='    '", "--disable=missing-module-docstring", "--disable=missing-function-docstring", "--disable=missing-class-docstring", "--disable=too-few-public-methods", "--disable=too-many-arguments", "--disable=too-many-instance-attributes", "--disable=too-many-locals", "--disable=too-many-public-methods", "--disable=too-many-lines", "--disable=too-many-statements", "--disable=invalid-name", "--disable=duplicate-code", "--disable=bad-continuation",
+      "--load-plugins",
+      "pylint_django",
+      "--django-settings-module=server.settings"
+    ]
+  }

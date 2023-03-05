@@ -9,5 +9,5 @@ article.register('article', ArticleViewSet)
 
 urlpatterns = [
     path('<int:pk>/', ArticleViewSet.as_view({'get': 'get_details'})),
-    path('thread', ArticleViewSet.as_view({'post' : 'thread'})),
+    path('thread', ArticleViewSet.as_view({'post': 'thread'})),
 ]

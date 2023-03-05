@@ -1,15 +1,15 @@
-import React, { UIEvent, useContext, useState } from 'react';
-import AuthContext from 'hooks/AuthProvider';
+import React, { UIEvent, useState } from 'react';
 import Utils from '../../../utils';
 import { usersFetchQuery } from '../../../api/services/services';
 import UserList from 'components/User/UserList/UserList';
 
 interface props {
   isShown: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedDetail: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const UsersView = ({ isShown }: props): React.ReactElement => {
-  const { auth } = useContext(AuthContext);
+const UsersView = ({ isShown, setSelectedDetail }: props): React.ReactElement => {
+  // const { auth } = useContext(AuthContext);
   // const queryClient = useQueryClient();
   const [offset, setOffset] = useState(0);
   const { data: usersData, isSuccess } = usersFetchQuery(offset);
@@ -31,8 +31,8 @@ const UsersView = ({ isShown }: props): React.ReactElement => {
     return (
       <UserList
         users={usersData?.users}
-        auth={auth}
         isShown={isShown}
+        setSelectedDetail={setSelectedDetail}
         handleScroll={handleScroll}
         postFollow={undefined}
       />

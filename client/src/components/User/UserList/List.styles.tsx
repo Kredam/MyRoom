@@ -1,3 +1,5 @@
+import { lightBlue } from '@mui/material/colors';
+
 const styles = {
   itemText: {
     textOverflow: 'ellipsis'
@@ -10,6 +12,9 @@ const styles = {
   item: {
     height: '85px',
     textOverflow: 'ellipsis'
+  },
+  avatar: {
+    backgroundColor: lightBlue[500]
   },
   basicGrid: {
     overflowY: 'scroll',

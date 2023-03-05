@@ -17,6 +17,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name='followed',
-            constraint=models.UniqueConstraint(fields=('room', 'user'), name='unique_follow'),
+            constraint=models.UniqueConstraint(
+                fields=('room', 'user'), name='unique_follow'),
         ),
     ]

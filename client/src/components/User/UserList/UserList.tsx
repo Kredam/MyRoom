@@ -14,17 +14,27 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 interface Props {
   users: User[];
   // follows: Follows[];
-  auth: any;
+  setSelectedDetail: React.Dispatch<React.SetStateAction<number>>;
   postFollow: CallableFunction | undefined;
   handleScroll: (event: UIEvent<HTMLUListElement>) => void;
   isShown: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const UserList = ({ users, auth, handleScroll, isShown }: Props): React.ReactElement => {
+const UserList = ({
+  users,
+  setSelectedDetail,
+  handleScroll,
+  isShown
+}: Props): React.ReactElement => {
+  const handleDetailSelection = (index: number): void => {
+    setSelectedDetail(index);
+    isShown(true);
+  };
+
   return (
     <Paper sx={styles.list}>
       <List onScroll={(e) => handleScroll(e)}>
-        {users?.map((user: User) => {
+        {users?.map((user: User, index) => {
           return (
             <>
               <ListItem
@@ -32,19 +42,26 @@ const UserList = ({ users, auth, handleScroll, isShown }: Props): React.ReactEle
                 sx={styles.item}
                 key={user.id}
                 secondaryAction={
-                  <IconButton edge="end" aria-label="comments" onClick={() => isShown(true)}>
+                  <IconButton
+                    edge="end"
+                    aria-label="comments"
+                    onClick={() => handleDetailSelection(index)}
+                  >
                     <MoreVertIcon />
                   </IconButton>
                 }
               >
                 <ListItemAvatar>
-                  <Avatar alt={user.first_name} src="" />
+                  <Avatar sx={styles.avatar}>
+                    {user?.first_name[0]}
+                    {user?.last_name[0]}
+                  </Avatar>
                 </ListItemAvatar>
                 {/* <CardMedia component="img" height="140" image={room.picture} alt={room.name} /> */}
                 <ListItemText
-                  primary={user.username}
+                  primary={`${user.first_name} ${user.last_name}`}
                   sx={styles.itemText}
-                  secondary={user.username}
+                  secondary={'@' + user.username}
                 />
               </ListItem>
             </>

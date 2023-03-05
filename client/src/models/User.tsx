@@ -5,9 +5,10 @@ export interface User {
   first_name: string;
   last_name: string;
   is_staff: boolean;
-  // date_joined: Date;
-  // joined: Date;
-  // born: Date;
+  date_joined: Date;
+  email: string;
+  joined: Date;
+  born: Date;
   NSFW: boolean;
 }
 

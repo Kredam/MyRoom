@@ -9,4 +9,3 @@ urlpatterns = [
     path('api/token/', include('api.urls')),
     path('api/article/', include('article.urls'))
 ]
- 

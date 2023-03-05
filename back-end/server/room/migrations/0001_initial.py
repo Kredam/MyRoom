@@ -17,7 +17,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Room',
             fields=[
-                ('name', models.CharField(blank=True, max_length=200, primary_key=True, serialize=False)),
+                ('name', models.CharField(blank=True,
+                 max_length=200, primary_key=True, serialize=False)),
                 ('description', models.TextField(blank=True, null=True)),
                 ('picture', models.URLField()),
             ],
@@ -25,39 +26,49 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Topics',
             fields=[
-                ('name', models.CharField(max_length=50, primary_key=True, serialize=False)),
-                ('room', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='room.room')),
+                ('name', models.CharField(max_length=50,
+                 primary_key=True, serialize=False)),
+                ('room', models.ForeignKey(
+                    null=True, on_delete=django.db.models.deletion.SET_NULL, to='room.room')),
             ],
         ),
         migrations.CreateModel(
             name='Followed',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('isAdmin', models.BooleanField()),
-                ('room', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='room.room')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('room', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='room.room')),
+                ('user', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
             name='Comments',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('body', models.TextField(blank=True)),
                 ('likes', models.IntegerField(default=0)),
                 ('create', models.DateTimeField(auto_now_add=True)),
                 ('update', models.DateTimeField(auto_now=True)),
-                ('room', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='room.room')),
-                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                ('room', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='room.room')),
+                ('user', models.ForeignKey(
+                    null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
             name='Article',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=100)),
                 ('likes', models.IntegerField(default=0)),
                 ('body', models.TextField(blank=True)),
-                ('room', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='room.room')),
+                ('room', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='room.room')),
             ],
         ),
     ]

@@ -8,7 +8,8 @@ import RoomsView from './ListView/RoomsView';
 const Spaces = (): React.ReactElement => {
   const [shown, isShown] = useState(false);
   const [listType, setListType] = useState<string>('User');
-
+  // selected index wof the user array
+  const [selectedDetail, setSelectedDetail] = useState<number>(-1);
   const listTypeChange = (event: React.MouseEvent<HTMLElement>, type: string | null): void => {
     if (type === null) return;
     setListType(type);
@@ -32,11 +33,13 @@ const Spaces = (): React.ReactElement => {
           <ToggleButton value="User">User</ToggleButton>
           <ToggleButton value="Rooms">Rooms</ToggleButton>
         </ToggleButtonGroup>
-        {listType === 'User' && <UsersView isShown={isShown} />}
+        {listType === 'User' && (
+          <UsersView isShown={isShown} setSelectedDetail={setSelectedDetail} />
+        )}
         {listType === 'Rooms' && <RoomsView />}
       </Grid>
       <Grid item xs={5}>
-        {shown ? <UserDetails /> : null}
+        {shown ? <UserDetails selectedDetail={selectedDetail} /> : null}
       </Grid>
       <Grid item xs />
     </Grid>

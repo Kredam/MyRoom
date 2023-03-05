@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from api.authentication import CustomAuthentication
 
+
 class ArticleViewSet(ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
@@ -15,7 +16,7 @@ class ArticleViewSet(ModelViewSet):
         serialized = self.get_serializer(article, many=False)
         return Response(serialized.data)
         # return Response("serialized.data")
-    
+
     @action(detail=True, methods=['POST'])
     def thread(self, request, pk=None):
         limit = request.data['limit']

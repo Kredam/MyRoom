@@ -4,7 +4,7 @@ import { Follows, RoomQuery } from 'models/Room';
 import { User, UsersQuery } from 'models/User';
 import Utils from 'utils';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
-import { AxiosInstance } from 'axios';
+import { AxiosInstance, AxiosResponse } from 'axios';
 
 // export const fetchThread = async (limit: number, offset: number): Promise<AxiosResponse> => {
 //   return await useAxiosPrivate().post('article/thread', { limit, offset });
@@ -37,6 +37,13 @@ export const fetchRooms = (offset: number) => async (): Promise<RoomQuery> => {
   const limit = Utils.LIMIT;
   const result = await api.post<RoomQuery>('rooms/', { limit, offset });
   return result.data;
+};
+
+export const postFollowUser = async (
+  userId: number,
+  api: AxiosInstance
+): Promise<AxiosResponse<string>> => {
+  return await api.post<string>('users/follow', { id: userId });
 };
 
 export const roomsQuery = (offset: number): UseQueryResult<RoomQuery> =>

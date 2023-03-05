@@ -1,27 +1,44 @@
 from dataclasses import fields
 from .models import Room, Followed
 from rest_framework import serializers
+
+
 class RoomSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Room
-    fields = '__all__'
+    is_followed = serializers.SerializerMethodField()
+    class Meta:
+        model = Room
+        fields = '__all__'
+
+    def get_is_followed(self, obj):
+        user = self.context.get('user')
+        if user is None:
+            return None
+        return Followed.objects.filter(user=user, room=obj).exists()
+
+
 
 class RoomListSerializer(serializers.Serializer):
-  nrOfObjects = serializers.IntegerField()
-  rooms = serializers.ListField(child=RoomSerializer())
+    nrOfObjects = serializers.IntegerField()
+    rooms = serializers.ListField(child=RoomSerializer())
+
 
 class FollowedSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Followed
-    fields = '__all__'
+    class Meta:
+        model = Followed
+        fields = '__all__'
+
+    def get_user_related_rooms(self, obj):
+        return RoomSerializer(obj.room).data
 
 class RoomNameSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Followed
-    fields = ['room']
+    class Meta:
+        model = Followed
+        fields = ['room']
+
 
 class RoomSearchSerializer(serializers.ModelSerializer):
-  followers_nr = serializers.IntegerField()
-  class Meta:
-    model = Followed
-    fields = ('room_id', 'followers_nr')
+    followers_nr = serializers.IntegerField()
+
+    class Meta:
+        model = Followed
+        fields = ('room_id', 'followers_nr')
