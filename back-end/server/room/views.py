@@ -29,10 +29,6 @@ class RoomViewSet(ModelViewSet):
         search = request.data['search']
         followed_rooms = Followed.objects.values('room_id').annotate(followers_nr=Count(
             'room_id')).filter(room__name__icontains=search).order_by('-followers_nr')
-        # cursor.execute('SELECT room_id , COUNT(room_id) as followers FROM room_followed rf LEFT JOIN room_room rr ON rf.id = rr.name
-        # GROUP BY room_id ORDER BY followers DESC LIMIT 5 WHERE room_id')
-        # row = cursor.fetchall()
-        # print(row)
         serialized = RoomSearchSerializer(followed_rooms, many=True)
         return Response(serialized.data)
 
@@ -59,6 +55,7 @@ class FollowedViewSet(ModelViewSet):
             if serializer.is_valid():
                 serializer.save()
             return Response('Followed')
+        
 
     @action(detail=True, methods=['post'])
     def list(self, request):

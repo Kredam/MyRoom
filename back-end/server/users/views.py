@@ -49,7 +49,7 @@ class FollowedViewSet(ModelViewSet):
             return Response('Followed')
     
     @action(detail=True, methods=['post'])
-    def followed(self, request):
+    def list(self, request):
         user_pk = request.data['pk']
         limit = request.data['limit']
         offset = request.data['offset']

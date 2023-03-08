@@ -4,7 +4,7 @@ import AuthContext from 'hooks/AuthProvider';
 import { Follows, RoomQuery } from 'models/Room';
 
 import React, { useContext, useEffect, useState, UIEvent } from 'react';
-import { fetchRooms, followsQuery, postFollow, roomsQuery } from 'api/services/services';
+import { fetchRooms, followsQuery, postFollowRoom, roomsQuery } from 'api/services/services';
 import Utils from 'utils';
 
 const RoomsView = (): React.ReactElement => {
@@ -37,7 +37,7 @@ const RoomsView = (): React.ReactElement => {
   });
 
   const mutateFollows = useMutation({
-    mutationFn: async (name: string) => await postFollow(name),
+    mutationFn: async (name: string) => await postFollowRoom(name),
     onMutate: async (data: string) => {
       await queryClient.cancelQueries(['follows']);
       const prevFollows = queryClient.getQueryData<Follows[]>(['follows']);

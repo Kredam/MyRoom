@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
-// import RoomsView from './ListView/RoomsView';
 import UsersView from './ListView/UsersView';
 import UserDetails from './DetailsView/UserDetailsView';
 import RoomsView from './ListView/RoomsView';
@@ -21,7 +20,6 @@ const Spaces = (): React.ReactElement => {
 
   return (
     <Grid container direction="row" spacing={3}>
-      <Grid item xs />
       <Grid item xs={4}>
         {/* <RoomsView /> */}
         <ToggleButtonGroup
@@ -34,11 +32,15 @@ const Spaces = (): React.ReactElement => {
           <ToggleButton value="Rooms">Rooms</ToggleButton>
         </ToggleButtonGroup>
         {listType === 'User' && (
-          <UsersView isShown={isShown} setSelectedDetail={setSelectedDetail} />
+          <UsersView
+            isShown={isShown}
+            setSelectedDetail={setSelectedDetail}
+            selectedDetail={selectedDetail}
+          />
         )}
         {listType === 'Rooms' && <RoomsView />}
       </Grid>
-      <Grid item xs={5}>
+      <Grid item xs>
         {shown ? <UserDetails selectedDetail={selectedDetail} /> : null}
       </Grid>
       <Grid item xs />

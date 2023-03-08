@@ -5,3 +5,4 @@ export { default as RoomList } from './Rooms/RoomList/RoomList';
 export { default as SettingsList } from './SettingsList/SettingsList';
 export * from './Options';
 export * from './User';
+export * from './Tables';
