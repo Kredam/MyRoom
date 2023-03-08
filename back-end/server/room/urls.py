@@ -11,8 +11,6 @@ router.register('', TopicViewSet)
 urlpatterns = [
     # name = easy to reference in view template
     path('', RoomViewSet.as_view({'post': 'list'})),
-    path('user-rooms',
-         FollowedViewSet.as_view({'post': 'user_followed_rooms'})),
     path('search/', RoomViewSet.as_view({'post': 'search'})),
     path('follow/', FollowedViewSet.as_view({'post': 'create'})),
     path('followed-rooms/',

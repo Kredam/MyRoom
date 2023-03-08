@@ -1,12 +1,12 @@
+from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import get_object_or_404
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from api.authentication import CustomAuthentication
 from .serializer import UserSerializerCreate, UserSerializer, ListUserSerializer, FollowedUserSerializer
 from rest_framework.generics import CreateAPIView, ListAPIView
 from .models import User, Followed
-from django.core.exceptions import ObjectDoesNotExist
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.decorators import action
-from django.shortcuts import get_object_or_404
-from api.authentication import CustomAuthentication
-from rest_framework.response import Response
 # Create your views here.
 
 
@@ -28,8 +28,13 @@ class UserViewSet(ModelViewSet):
         user_serialized = ListUserSerializer(instance)
         return Response(user_serialized.data)
 
+
+class FollowedViewSet(ModelViewSet):
+    serializer_class = FollowedUserSerializer
+    queryset = Followed.objects.all()
+
     @action(detail=True, methods=['POST'], permission_classes=[CustomAuthentication])
-    def follow(self, request):
+    def create(self, request):
         try:
             followed = User.objects.get(id=self.request.data['id'])
             user = request.user.pk
@@ -44,19 +49,19 @@ class UserViewSet(ModelViewSet):
             return Response('Followed')
     
     @action(detail=True, methods=['post'])
-    def user_followed_users(self, request):
+    def followed(self, request):
         user_pk = request.data['pk']
         limit = request.data['limit']
         offset = request.data['offset']
         user = get_object_or_404(User, pk=user_pk)
         user_folows = Followed.objects.select_related('follower').filter(follower=user)[offset:limit+offset]
-        rooms_data = []
+        users = []
         for user_follow in user_folows:
             if request.user.is_authenticated:
                 serializer = UserSerializer(instance=user_follow.follower, context={'user': request.user})
-                rooms_data.append(serializer.data)
+                users.append(serializer.data)
                 continue
-            rooms_data.append(UserSerializer(user_follow.follower).data)
-        return Response(rooms_data)
-
-    
+            users.append(UserSerializer(user_follow.follower).data)
+        instance = {"nrOfUsers": len(users), "users": users}
+        serializer = ListUserSerializer(instance=instance)
+        return Response(serializer.data)

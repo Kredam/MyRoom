@@ -60,16 +60,8 @@ class FollowedViewSet(ModelViewSet):
                 serializer.save()
             return Response('Followed')
 
-    @action(detail=True, methods=['get'], permission_classes=[IsAuthenticated])
-    def list(self, request):
-        user = request.user
-        rooms = Followed.objects.filter(user=user)
-        serialized = RoomNameSerializer(rooms, many=True)
-        print(serialized.data)
-        return Response(serialized.data)
-
     @action(detail=True, methods=['post'])
-    def user_followed_rooms(self, request):
+    def list(self, request):
         user_pk = request.data['pk']
         limit = request.data['limit']
         offset = request.data['offset']
@@ -82,6 +74,8 @@ class FollowedViewSet(ModelViewSet):
                 rooms_data.append(serializer.data)
                 continue
             rooms_data.append(RoomSerializer(user_room.room).data)
+        instance = {"nrOfObjects": len(rooms_data), "room": rooms_data}
+        serializer = RoomListSerializer(instance=instance)
         return Response(rooms_data)
 
     
