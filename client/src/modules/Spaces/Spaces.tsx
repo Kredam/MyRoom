@@ -19,7 +19,7 @@ const Spaces = (): React.ReactElement => {
   }, [listType]);
 
   return (
-    <Grid container direction="row" spacing={3}>
+    <Grid container direction="row" spacing={3} padding={3}>
       <Grid item xs={4}>
         {/* <RoomsView /> */}
         <ToggleButtonGroup

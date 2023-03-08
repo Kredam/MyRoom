@@ -55,12 +55,12 @@ export const postFollowUser = async (
 export const roomsQuery = (offset: number): UseQueryResult<RoomQuery> =>
   useQuery(['rooms'], fetchRooms(offset));
 
-export const fetchFollowedRoomsQuery = (
+export const fetchFollowedUsersQuery = (
   pk: number,
   limit: number,
   offset: number,
   authed: boolean
-): UseQueryResult<RoomQuery> => {
+): UseQueryResult<UsersQuery> => {
   const api = authed ? useAxiosPrivate() : privateApi;
   return useQuery(['followed-users'], async () => await fetchFollowedUsers(pk, limit, offset, api));
 };
@@ -72,4 +72,4 @@ export const followsQuery = (enabled: boolean): UseQueryResult<Follows[]> =>
   });
 
 export const usersFetchQuery = (offset: number): UseQueryResult<UsersQuery> =>
-  useQuery(['all-users'], fetchUsers(offset));
+  useQuery(['users'], fetchUsers(offset));

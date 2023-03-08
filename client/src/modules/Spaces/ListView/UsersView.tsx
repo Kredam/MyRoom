@@ -1,8 +1,8 @@
 import React, { UIEvent, useContext, useEffect, useState } from 'react';
 import Utils from '../../../utils';
 import {
-  fetchFollowedRoomsQuery,
   fetchFollowedUsers,
+  fetchFollowedUsersQuery,
   usersFetchQuery
 } from 'api/services/services';
 import UserList from 'components/User/UserList/UserList';
@@ -12,6 +12,8 @@ import { UsersQuery } from 'models/User';
 import AuthContext from 'hooks/AuthProvider';
 import { Grid } from '@mui/material';
 import { UsersTable } from 'components/Tables';
+import { AxiosInstance } from 'axios';
+import { privateApi } from '../../../api/http-common';
 
 interface props {
   isShown: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,7 +24,7 @@ interface props {
 interface followedUsersParams {
   pk: number;
   offset: number;
-  tableOffset: number;
+  api: AxiosInstance;
 }
 
 const UsersView = ({ isShown, setSelectedDetail, selectedDetail }: props): React.ReactElement => {
@@ -31,10 +33,10 @@ const UsersView = ({ isShown, setSelectedDetail, selectedDetail }: props): React
   const [tableOffset, setTableOffset] = useState<number>(0);
   const [offset, setOffset] = useState(0);
   const { data: usersData, isSuccess } = usersFetchQuery(offset);
-  const { data: followedUsers } = fetchFollowedRoomsQuery(
+  const { data: followedUsers, isSuccess: fetchFollowSuccess } = fetchFollowedUsersQuery(
     -1,
     Utils.LIMIT,
-    tableOffet,
+    tableOffset,
     auth.access !== ''
   );
 
@@ -52,12 +54,13 @@ const UsersView = ({ isShown, setSelectedDetail, selectedDetail }: props): React
   // });
 
   const mutateFollowedUsers = useMutation({
-    mutationFn: async ({ pk, offset }: followedUsersParams) =>
-      await fetchFollowedUsers(pk, Utils.LIMIT, offset, useAxiosPrivate()),
+    mutationFn: async ({ pk, offset, api }: followedUsersParams) =>
+      await fetchFollowedUsers(pk, Utils.LIMIT, offset, api),
     onSuccess: async (result: UsersQuery) => {
+      await queryClient.cancelQueries(['followed-users']);
       const prevFollows: UsersQuery | undefined = queryClient.getQueryData(['followed-users']);
       if (prevFollows !== undefined) {
-        queryClient.setQueryData(['followed-rooms'], {
+        queryClient.setQueryData(['followed-users'], {
           nrOfUsers: result.nrOfUsers,
           users: [...prevFollows.users, result.users]
         });
@@ -66,13 +69,17 @@ const UsersView = ({ isShown, setSelectedDetail, selectedDetail }: props): React
   });
 
   useEffect(() => {
-    if (selectedDetail === -1) return;
-    setTableOffset(0);
-  }, [selectedDetail]);
+    const api = auth.access !== '' ? useAxiosPrivate() : privateApi;
+    mutateFollowedUsers.mutate({ pk: selectedDetail, offset: tableOffset, api });
+  }, [tableOffset]);
 
   useEffect(() => {
-    mutateFollowedUsers.mutate({ pk: selectedDetail, offset: tableOffset });
-  }, [tableOffset]);
+    if (selectedDetail === -1) return;
+    setTableOffset(0);
+    console.log(selectedDetail);
+    const api = auth.access !== '' ? useAxiosPrivate() : privateApi;
+    mutateFollowedUsers.mutate({ pk: selectedDetail, offset: tableOffset, api });
+  }, [selectedDetail]);
 
   if (isSuccess) {
     return (
@@ -86,9 +93,11 @@ const UsersView = ({ isShown, setSelectedDetail, selectedDetail }: props): React
             postFollow={undefined}
           />
         </Grid>
-        <Grid item xs>
-          <UsersTable />
-        </Grid>
+        {fetchFollowSuccess && (
+          <Grid item xs>
+            <UsersTable followedUsers={followedUsers} />
+          </Grid>
+        )}
       </Grid>
     );
   }
