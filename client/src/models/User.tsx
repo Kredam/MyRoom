@@ -1,4 +1,5 @@
 export interface User {
+  is_followed: boolean | null;
   id: number;
   password: string;
   username: string;

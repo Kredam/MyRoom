@@ -1,4 +1,5 @@
 export interface Room {
+  is_followed: boolean | null;
   name: string;
   description: string;
   picture: string;
