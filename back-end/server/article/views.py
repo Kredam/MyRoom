@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
-from .models import Article
-from .serializer import ArticleSerializer
+from .models import Article, Comments
+from .serializer import ArticleSerializer, CommentsSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from api.authentication import CustomAuthentication
@@ -18,7 +18,7 @@ class ArticleViewSet(ModelViewSet):
         # return Response("serialized.data")
 
     @action(detail=True, methods=['POST'])
-    def thread(self, request, pk=None):
+    def thread(self, request):
         limit = request.data['limit']
         offset = request.data['offset']
         if CustomAuthentication().authenticate(request):
@@ -27,3 +27,7 @@ class ArticleViewSet(ModelViewSet):
             articles = Article.objects.all()[offset:offset+limit]
             serialized = self.get_serializer(articles, many=True)
             return Response(serialized.data)
+        
+class CommentsViewSet(ModelViewSet):
+    queryset = Comments.objects.all()
+    serializer_class = CommentsSerializer
