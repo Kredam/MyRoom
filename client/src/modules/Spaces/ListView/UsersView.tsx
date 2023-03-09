@@ -13,12 +13,12 @@ import AuthContext from 'hooks/AuthProvider';
 import { Grid } from '@mui/material';
 import { UsersTable } from 'components/Tables';
 import { AxiosInstance } from 'axios';
-import { privateApi } from '../../../api/http-common';
+import { privateApi } from 'api/http-common';
 
 interface props {
   isShown: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectedDetail: React.Dispatch<React.SetStateAction<number>>;
-  selectedDetail: number;
+  setSelectedDetail: React.Dispatch<React.SetStateAction<number | null>>;
+  selectedDetail: number | null;
 }
 
 interface followedUsersParams {
@@ -69,17 +69,16 @@ const UsersView = ({ isShown, setSelectedDetail, selectedDetail }: props): React
   });
 
   useEffect(() => {
+    if (selectedDetail === null) return;
+    setTableOffset(0);
+    // mutateFollowedUsers.mutate({ pk: selectedDetail, offset: tableOffset, api });
+  }, [selectedDetail]);
+
+  useEffect(() => {
+    if (selectedDetail === null) return;
     const api = auth.access !== '' ? useAxiosPrivate() : privateApi;
     mutateFollowedUsers.mutate({ pk: selectedDetail, offset: tableOffset, api });
   }, [tableOffset]);
-
-  useEffect(() => {
-    if (selectedDetail === -1) return;
-    setTableOffset(0);
-    console.log(selectedDetail);
-    const api = auth.access !== '' ? useAxiosPrivate() : privateApi;
-    mutateFollowedUsers.mutate({ pk: selectedDetail, offset: tableOffset, api });
-  }, [selectedDetail]);
 
   if (isSuccess) {
     return (

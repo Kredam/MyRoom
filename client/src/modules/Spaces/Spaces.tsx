@@ -8,7 +8,7 @@ const Spaces = (): React.ReactElement => {
   const [shown, isShown] = useState(false);
   const [listType, setListType] = useState<string>('User');
   // selected index wof the user array
-  const [selectedDetail, setSelectedDetail] = useState<number>(-1);
+  const [selectedDetail, setSelectedDetail] = useState<number | null>(null);
   const listTypeChange = (event: React.MouseEvent<HTMLElement>, type: string | null): void => {
     if (type === null) return;
     setListType(type);
@@ -41,7 +41,7 @@ const Spaces = (): React.ReactElement => {
         {listType === 'Rooms' && <RoomsView />}
       </Grid>
       <Grid item xs>
-        {shown ? <UserDetails selectedDetail={selectedDetail} /> : null}
+        {shown && selectedDetail !== null ? <UserDetails selectedDetail={selectedDetail} /> : null}
       </Grid>
       <Grid item xs />
     </Grid>

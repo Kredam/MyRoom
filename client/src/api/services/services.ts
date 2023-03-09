@@ -62,7 +62,11 @@ export const fetchFollowedUsersQuery = (
   authed: boolean
 ): UseQueryResult<UsersQuery> => {
   const api = authed ? useAxiosPrivate() : privateApi;
-  return useQuery(['followed-users'], async () => await fetchFollowedUsers(pk, limit, offset, api));
+  return useQuery(
+    ['followed-users'],
+    async () => await fetchFollowedUsers(pk, limit, offset, api),
+    { retry: false }
+  );
 };
 
 export const followsQuery = (enabled: boolean): UseQueryResult<Follows[]> =>
