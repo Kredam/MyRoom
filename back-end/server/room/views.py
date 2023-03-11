@@ -42,9 +42,10 @@ class FollowedViewSet(ModelViewSet):
 
     @action(detail=True, methods=['post'], permission_classes=[CustomAuthentication])
     def create(self, request, pk=None):
+        user = request.user
+        pk = self.request.data['name']
+        room = get_object_or_404(Room, name=pk)
         try:
-            room = Room.objects.get(name=self.request.data['name'])
-            user = request.user.pk
             Followed.objects.get(room=room, user=user).delete()
             return Response('Unfollowed')
         except ObjectDoesNotExist:
