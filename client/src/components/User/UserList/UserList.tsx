@@ -14,20 +14,23 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 interface Props {
   users: User[];
   // follows: Follows[];
-  setSelectedDetail: React.Dispatch<React.SetStateAction<number | null>>;
+  setSelectedDetail: React.Dispatch<React.SetStateAction<number | undefined>>;
   postFollow: CallableFunction | undefined;
   handleScroll: (event: UIEvent<HTMLUListElement>) => void;
   isShown: React.Dispatch<React.SetStateAction<boolean>>;
+  getFollowedUser: (selectedUser: number) => void;
 }
 
 const UserList = ({
   users,
   setSelectedDetail,
   handleScroll,
+  getFollowedUser,
   isShown
 }: Props): React.ReactElement => {
   const handleDetailSelection = (pk: number): void => {
     setSelectedDetail(pk);
+    getFollowedUser(pk);
     isShown(true);
   };
 

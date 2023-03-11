@@ -1,4 +1,4 @@
-import { api, privateApi } from 'api/http-common';
+import { api } from 'api/http-common';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { Follows, RoomQuery } from 'models/Room';
 import { User, UsersQuery } from 'models/User';
@@ -27,9 +27,9 @@ export const fetchFollowedUsers = async (
   pk: number,
   limit: number,
   offset: number,
-  api: AxiosInstance
+  customApi: AxiosInstance
 ): Promise<UsersQuery> => {
-  const result = await api.post<UsersQuery>('users/user-follows', { pk, limit, offset });
+  const result = await customApi.post<UsersQuery>('users/user-follows', { pk, limit, offset });
   return result.data;
 };
 
@@ -61,10 +61,10 @@ export const fetchFollowedUsersQuery = (
   offset: number,
   authed: boolean
 ): UseQueryResult<UsersQuery> => {
-  const api = authed ? useAxiosPrivate() : privateApi;
+  const customApi = authed ? useAxiosPrivate() : api;
   return useQuery(
     ['followed-users'],
-    async () => await fetchFollowedUsers(pk, limit, offset, api),
+    async () => await fetchFollowedUsers(pk, limit, offset, customApi),
     { retry: false }
   );
 };

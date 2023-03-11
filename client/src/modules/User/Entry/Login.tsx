@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Grid } from '@mui/material';
 import { Entry } from 'components';
-import { privateApi } from 'api/http-common';
+import { api } from 'api/http-common';
 import AuthContext from 'hooks/AuthProvider';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +14,7 @@ const Login = (): React.ReactElement => {
   const navigate = useNavigate();
 
   const submit = (pendingChanges: Object): void => {
-    privateApi
+    api
       .post('token/', pendingChanges)
       .then((res) => {
         enqueueSnackbar('Successful log in', { variant: 'success' });

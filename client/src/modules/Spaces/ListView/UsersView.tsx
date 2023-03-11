@@ -1,44 +1,33 @@
-import React, { UIEvent, useContext, useEffect, useState } from 'react';
+import React, { UIEvent, useContext, useState } from 'react';
 import Utils from '../../../utils';
-import {
-  fetchFollowedUsers,
-  fetchFollowedUsersQuery,
-  usersFetchQuery
-} from 'api/services/services';
+import { fetchFollowedUsers, usersFetchQuery } from 'api/services/services';
 import UserList from 'components/User/UserList/UserList';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { UsersQuery } from 'models/User';
 import AuthContext from 'hooks/AuthProvider';
 import { Grid } from '@mui/material';
-import { UsersTable } from 'components/Tables';
 import { AxiosInstance } from 'axios';
-import { privateApi } from 'api/http-common';
+import { api } from 'api/http-common';
 
 interface props {
   isShown: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectedDetail: React.Dispatch<React.SetStateAction<number | null>>;
-  selectedDetail: number | null;
+  setSelectedDetail: React.Dispatch<React.SetStateAction<number | undefined>>;
+  selectedDetail: number | undefined;
 }
 
 interface followedUsersParams {
   pk: number;
   offset: number;
-  api: AxiosInstance;
+  customApi: AxiosInstance;
 }
 
 const UsersView = ({ isShown, setSelectedDetail, selectedDetail }: props): React.ReactElement => {
   const { auth } = useContext(AuthContext);
   const queryClient = useQueryClient();
-  const [tableOffset, setTableOffset] = useState<number>(0);
   const [offset, setOffset] = useState(0);
   const { data: usersData, isSuccess } = usersFetchQuery(offset);
-  const { data: followedUsers, isSuccess: fetchFollowSuccess } = fetchFollowedUsersQuery(
-    -1,
-    Utils.LIMIT,
-    tableOffset,
-    auth.access !== ''
-  );
+  const customApi = auth.access !== '' ? useAxiosPrivate() : api;
 
   const handleScroll = (event: UIEvent<HTMLUListElement>): void => {
     if (usersData !== undefined && Utils.LIMIT + offset > usersData.nrOfUsers) return;
@@ -49,36 +38,29 @@ const UsersView = ({ isShown, setSelectedDetail, selectedDetail }: props): React
     // if ((scrollTop * Utils.ITEM_HEIGHT) / scrollHeight > 8.5) setOffset(limit + offset);
   };
 
-  // const usersListMutation = useMutation({
-  //   mutationFn: async (offset: number) => fetchUsers(offset)
-  // });
-
   const mutateFollowedUsers = useMutation({
-    mutationFn: async ({ pk, offset, api }: followedUsersParams) =>
-      await fetchFollowedUsers(pk, Utils.LIMIT, offset, api),
+    mutationFn: async ({ pk, offset, customApi }: followedUsersParams) =>
+      await fetchFollowedUsers(pk, Utils.LIMIT, offset, customApi),
     onSuccess: async (result: UsersQuery) => {
-      await queryClient.cancelQueries(['followed-users']);
-      const prevFollows: UsersQuery | undefined = queryClient.getQueryData(['followed-users']);
-      if (prevFollows !== undefined) {
+      const prevFollows = queryClient.getQueryData<UsersQuery>(['followed-users']);
+      if (prevFollows != null) {
         queryClient.setQueryData(['followed-users'], {
           nrOfUsers: result.nrOfUsers,
-          users: [...prevFollows.users, result.users]
+          users: [...prevFollows.users, ...result.users]
+        });
+      } else {
+        queryClient.setQueryData(['followed-users'], {
+          nrOfUsers: result.nrOfUsers,
+          users: result.users
         });
       }
     }
   });
 
-  useEffect(() => {
-    if (selectedDetail === null) return;
-    setTableOffset(0);
-    // mutateFollowedUsers.mutate({ pk: selectedDetail, offset: tableOffset, api });
-  }, [selectedDetail]);
-
-  useEffect(() => {
-    if (selectedDetail === null) return;
-    const api = auth.access !== '' ? useAxiosPrivate() : privateApi;
-    mutateFollowedUsers.mutate({ pk: selectedDetail, offset: tableOffset, api });
-  }, [tableOffset]);
+  const getFollowedUsers = (selectedUser: number): void => {
+    const pk = queryClient.getQueryData<UsersQuery>(['users'])?.users[selectedUser].id as number;
+    mutateFollowedUsers.mutate({ pk, offset: 0, customApi });
+  };
 
   if (isSuccess) {
     return (
@@ -90,13 +72,9 @@ const UsersView = ({ isShown, setSelectedDetail, selectedDetail }: props): React
             setSelectedDetail={setSelectedDetail}
             handleScroll={handleScroll}
             postFollow={undefined}
+            getFollowedUser={getFollowedUsers}
           />
         </Grid>
-        {fetchFollowSuccess && (
-          <Grid item xs>
-            <UsersTable followedUsers={followedUsers} />
-          </Grid>
-        )}
       </Grid>
     );
   }

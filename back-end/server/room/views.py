@@ -70,7 +70,8 @@ class FollowedViewSet(ModelViewSet):
                 serializer = RoomSerializer(instance=user_room.room, context={'user': request.user})
                 rooms_data.append(serializer.data)
                 continue
-            rooms_data.append(RoomSerializer(user_room.room).data)
+            else:
+                rooms_data.append(RoomSerializer(user_room.room).data)
         instance = {"nrOfObjects": len(rooms_data), "room": rooms_data}
         serializer = RoomListSerializer(instance=instance)
         return Response(rooms_data)

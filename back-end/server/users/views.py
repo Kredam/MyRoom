@@ -7,6 +7,7 @@ from api.authentication import CustomAuthentication
 from .serializer import UserSerializerCreate, UserSerializer, ListUserSerializer, FollowedUserSerializer
 from rest_framework.generics import CreateAPIView, ListAPIView
 from .models import User, Followed
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 
@@ -37,7 +38,6 @@ class FollowedViewSet(ModelViewSet):
     def create(self, request):
         try:
             followed = User.objects.get(id=self.request.data['id'])
-            user = request.user.pk
             Followed.objects.get(following=followed, follower=user).delete()
             return Response('Unfollowed')
         except ObjectDoesNotExist:
@@ -57,10 +57,10 @@ class FollowedViewSet(ModelViewSet):
         user_folows = Followed.objects.select_related('follower').filter(follower=user)[offset:limit+offset]
         users = []
         for user_follow in user_folows:
-            if request.user.is_authenticated:
-                serializer = UserSerializer(instance=user_follow.follower, context={'user': request.user})
-                users.append(serializer.data)
-                continue
+            # if request.user.is_authenticated:
+            #     serializer = UserSerializer(instance=user_follow.follower, context={'user': request.user})
+            #     users.append(serializer.data)
+            #     continue
             users.append(UserSerializer(user_follow.follower).data)
         instance = {"nrOfUsers": len(users), "users": users}
         serializer = ListUserSerializer(instance=instance)
