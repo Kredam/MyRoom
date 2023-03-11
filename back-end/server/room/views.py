@@ -49,22 +49,22 @@ class FollowedViewSet(ModelViewSet):
             Followed.objects.get(room=room, user=user).delete()
             return Response('Unfollowed')
         except ObjectDoesNotExist:
-            room = Room.objects.get(name=request.data['name'])
             admin = request.data['isAdmin']
             serializer = FollowedSerializer(
                 data={'room': room, 'user': request.user.pk, 'isAdmin': admin})
             if serializer.is_valid():
                 serializer.save()
-            return Response('Followed')
+                return Response('Followed')
+            return Response('Ooops something went wrong')
         
 
     @action(detail=True, methods=['post'])
     def list(self, request):
-        user_pk = request.data['pk']
+        pk = request.data['name']
         limit = request.data['limit']
         offset = request.data['offset']
-        user = get_object_or_404(User, pk=user_pk)
-        user_rooms = Followed.objects.prefetch_related('room').filter(user=user)[offset:limit+offset]
+        room = get_object_or_404(Room, name=pk)
+        user_rooms = Followed.objects.prefetch_related('room').filter(room=room)[offset:limit+offset]
         rooms_data = []
         for user_room in user_rooms:
             if request.user.is_authenticated:
