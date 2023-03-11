@@ -35,7 +35,7 @@ class ListUserSerializer(serializers.Serializer):
     users = serializers.ListField(child=UserSerializer())
 
 
-class FollowedUserSerializer(serializers.ModelSerializer):
+class FollowUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = Followed
         fields = '__all__'

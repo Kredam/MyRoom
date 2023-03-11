@@ -4,7 +4,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from api.authentication import CustomAuthentication
-from .serializer import UserSerializerCreate, UserSerializer, ListUserSerializer, FollowedUserSerializer
+from .serializer import UserSerializerCreate, UserSerializer, ListUserSerializer, FollowUserSerializer
 from rest_framework.generics import CreateAPIView, ListAPIView
 from .models import User, Followed
 from rest_framework.permissions import IsAuthenticated
@@ -31,23 +31,26 @@ class UserViewSet(ModelViewSet):
 
 
 class FollowedViewSet(ModelViewSet):
-    serializer_class = FollowedUserSerializer
+    serializer_class = FollowUserSerializer
     queryset = Followed.objects.all()
 
-    @action(detail=True, methods=['POST'], permission_classes=[CustomAuthentication])
+    @action(detail=True, methods=['POST'], permission_classes=[CustomAuthentication, IsAuthenticated])
     def create(self, request):
+        id = self.request.data['id']
+        followed = get_object_or_404(User, pk=id)
         try:
-            followed = User.objects.get(id=self.request.data['id'])
-            Followed.objects.get(following=followed, follower=user).delete()
+            user =request.user
+            Followed.objects.get(following=followed.pk, follower=user.pk).delete()
             return Response('Unfollowed')
         except ObjectDoesNotExist:
-            followed = User.objects.get(id=request.data['id'])
-            serializer = FollowedUserSerializer(
-                data={'following': followed, 'follower': request.user.pk})
+            serializer = FollowUserSerializer(
+                data={'following': followed.pk, 'follower': user.pk})
             if serializer.is_valid():
                 serializer.save()
-            return Response('Followed')
-    
+                return Response('Followed')
+            print(serializer.errors)
+            return Response('Oops somehting went wrong')
+
     @action(detail=True, methods=['post'])
     def followed(self, request):
         user_pk = request.data['pk']
