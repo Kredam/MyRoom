@@ -1,5 +1,5 @@
 import React, { UIEvent } from 'react';
-import { Follows, Room } from 'models/Room';
+import { Room } from 'models/Room';
 // import AddBoxIcon from '@mui/icons-material/AddBox';
 // import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import {
@@ -17,19 +17,11 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 interface Props {
   rooms: Room[];
-  follows: Follows[];
   auth: any;
   handleScroll: (event: UIEvent<HTMLUListElement>) => void;
-  postFollow: CallableFunction;
 }
 
-const RoomList = ({
-  rooms,
-  follows,
-  auth,
-  postFollow,
-  handleScroll
-}: Props): React.ReactElement => {
+const RoomList = ({ rooms, auth, handleScroll }: Props): React.ReactElement => {
   return (
     <Paper sx={styles.list}>
       <List sx={styles.basicGrid} onScroll={handleScroll}>

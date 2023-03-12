@@ -1,6 +1,6 @@
 import { api } from 'api/http-common';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
-import { Follows, RoomQuery } from 'models/Room';
+import { RoomQuery } from 'models/Room';
 import { User, UsersQuery } from 'models/User';
 import Utils from 'utils';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
@@ -18,8 +18,17 @@ export const postFollowRoom = async (name: string): Promise<String> => {
     .then((response) => response.data);
 };
 
-export const fetchFollowedRooms = (privateAxios: AxiosInstance) => async (): Promise<Follows[]> => {
-  const result = await privateAxios.get<Follows[]>('rooms/followed-rooms/');
+export const fetchFollowedRooms = async (
+  pk: number,
+  limit: number,
+  offset: number,
+  customApi: AxiosInstance
+): Promise<RoomQuery> => {
+  const result = await customApi.post<RoomQuery>('users/room-follows', {
+    user_pk: pk,
+    limit,
+    offset
+  });
   return result.data;
 };
 
@@ -29,7 +38,11 @@ export const fetchFollowedUsers = async (
   offset: number,
   customApi: AxiosInstance
 ): Promise<UsersQuery> => {
-  const result = await customApi.post<UsersQuery>('users/user-follows', { pk, limit, offset });
+  const result = await customApi.post<UsersQuery>('users/user-follows', {
+    pk,
+    limit,
+    offset
+  });
   return result.data;
 };
 
@@ -47,9 +60,9 @@ export const fetchRooms = (offset: number) => async (): Promise<RoomQuery> => {
 
 export const postFollowUser = async (
   userId: number,
-  api: AxiosInstance
+  customApi: AxiosInstance
 ): Promise<AxiosResponse<string>> => {
-  return await api.post<string>('users/follow', { id: userId });
+  return await customApi.post<string>('users/follow', { id: userId });
 };
 
 export const roomsQuery = (offset: number): UseQueryResult<RoomQuery> =>
@@ -69,11 +82,19 @@ export const fetchFollowedUsersQuery = (
   );
 };
 
-export const followsQuery = (enabled: boolean): UseQueryResult<Follows[]> =>
-  useQuery(['followed-rooms'], fetchFollowedRooms(useAxiosPrivate()), {
-    retry: 2,
-    enabled
-  });
+export const fetchFollowedRoomsQuery = (
+  pk: number,
+  limit: number,
+  offset: number,
+  authed: boolean
+): UseQueryResult<RoomQuery> => {
+  const customApi = authed ? useAxiosPrivate() : api;
+  return useQuery(
+    ['followed-rooms'],
+    async () => await fetchFollowedRooms(pk, limit, offset, customApi),
+    { retry: false }
+  );
+};
 
 export const usersFetchQuery = (offset: number): UseQueryResult<UsersQuery> =>
   useQuery(['users'], fetchUsers(offset));

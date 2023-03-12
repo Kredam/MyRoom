@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Avatar, Chip, Divider, Grid, Paper, Typography } from '@mui/material';
 import styles from './UserDetails.styles';
-import { User } from '../../../models/User';
+import { User } from 'models/User';
 import Button from '@mui/material/Button';
 import AddOutlined from '@mui/icons-material/AddOutlined';
 import moment from 'moment';
-import { DateFormats } from '../../../consts';
+import { DateFormats } from 'consts';
+import AuthContext from 'hooks/AuthProvider';
+import Utils from 'utils';
 interface props {
   user: User;
+  setTableType: React.Dispatch<React.SetStateAction<string>>;
   followUser: (userId: number) => void;
+  nrOfUsersFollowed: number | undefined;
+  nrOfRoomsFollowed: number | undefined;
 }
-const UserDetails = ({ user, followUser }: props): React.ReactElement => {
+const UserDetails = ({
+  user,
+  followUser,
+  setTableType,
+  nrOfUsersFollowed,
+  nrOfRoomsFollowed
+}: props): React.ReactElement => {
+  const { auth } = useContext(AuthContext);
   return (
     <Paper elevation={1} sx={styles.paper}>
       <Grid container direction="column">
@@ -35,10 +47,12 @@ const UserDetails = ({ user, followUser }: props): React.ReactElement => {
             </Grid>
           </Grid>
           <Grid item xs={2}>
-            <Button variant="outlined" sx={styles.button} onClick={() => followUser(user.id)}>
-              Follow
-              <AddOutlined />
-            </Button>
+            {auth.access !== '' && (
+              <Button variant="outlined" sx={styles.button} onClick={() => followUser(user.id)}>
+                Follow
+                <AddOutlined />
+              </Button>
+            )}
           </Grid>
           <Grid item xs />
         </Grid>
@@ -73,6 +87,22 @@ const UserDetails = ({ user, followUser }: props): React.ReactElement => {
                 {moment(user.born).format(DateFormats.DATE)}
               </Typography>
             </Grid>
+          </Grid>
+          <Grid item mt={6} justifyContent="center" xs>
+            <Button variant="text" onClick={() => setTableType(Utils.TABLE_TYPE.USERS)}>
+              User Followed:
+            </Button>
+            <Typography variant="subtitle1" textAlign="center">
+              {nrOfUsersFollowed}
+            </Typography>
+          </Grid>
+          <Grid item mt={6} xs>
+            <Button variant="text" onClick={() => setTableType(Utils.TABLE_TYPE.ROOMS)}>
+              Rooms Followed:
+            </Button>
+            <Typography variant="subtitle1" textAlign="center">
+              {nrOfRoomsFollowed}
+            </Typography>
           </Grid>
         </Grid>
       </Grid>

@@ -54,8 +54,8 @@ const Navbar = (): React.ReactElement => {
             sx={styles.icon}
             size="medium"
             edge="start"
-            onClick={() => switchTab(routes.Home)}
-            aria-label="Home"
+            onClick={() => switchTab(routes.LandingPage)}
+            aria-label="Landing Page"
           >
             <HomeIcon />
           </IconButton>

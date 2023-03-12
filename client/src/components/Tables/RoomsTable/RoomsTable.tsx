@@ -1,5 +1,5 @@
 import React from 'react';
-import { UsersQuery } from 'models/User';
+import { RoomQuery } from 'models/Room';
 import {
   Paper,
   Table,
@@ -11,11 +11,11 @@ import {
 } from '@mui/material';
 import styles from '../Table.styles';
 interface props {
-  followedUsers: UsersQuery | undefined;
+  followedRooms: RoomQuery | undefined;
 }
 
-const HEADERS: string[] = ['Username', 'First name', 'Last name'];
-const UsersTable = ({ followedUsers }: props): React.ReactElement => {
+const HEADERS: string[] = ['Name', 'Description'];
+const RoomsTable = ({ followedRooms }: props): React.ReactElement => {
   return (
     <TableContainer sx={styles.table}>
       <Table>
@@ -27,12 +27,11 @@ const UsersTable = ({ followedUsers }: props): React.ReactElement => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {followedUsers?.users.map((user) => {
+          {followedRooms?.rooms.map((room) => {
             return (
-              <TableRow sx={styles.row} component={Paper} key={user.id}>
-                <TableCell>@{user.username}</TableCell>
-                <TableCell>{user.first_name}</TableCell>
-                <TableCell>{user.last_name}</TableCell>
+              <TableRow sx={styles.row} component={Paper} key={room.name}>
+                <TableCell>@{room.name}</TableCell>
+                <TableCell>{room.description}</TableCell>
               </TableRow>
             );
           })}
@@ -42,4 +41,4 @@ const UsersTable = ({ followedUsers }: props): React.ReactElement => {
   );
 };
 
-export default UsersTable;
+export default RoomsTable;

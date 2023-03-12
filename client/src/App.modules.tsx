@@ -1,6 +1,6 @@
 import React from 'react';
 import { MainMenu } from 'components';
-import { Home, Login, Register, Spaces, Settings, Profile } from 'modules';
+import { Login, Register, Spaces, Settings, Profile, LandingPage } from 'modules';
 import routes from 'routes/routes';
 import protected_routes from 'routes/protected.routes';
 
@@ -18,9 +18,9 @@ const modules = [
     authed: false
   },
   {
-    id: 'home',
-    path: routes.Home,
-    component: <Home />,
+    id: 'landing-page',
+    path: routes.LandingPage,
+    component: <LandingPage />,
     authed: false
   },
   {

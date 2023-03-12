@@ -1,5 +1,5 @@
 export default {
-  Home: '/',
+  LandingPage: '/',
   MainMenu: '/menu',
   Settings: '/settings',
   List: '/list',

@@ -57,6 +57,7 @@ class FollowedViewSet(ModelViewSet):
                 return Response('Followed')
             return Response('Ooops something went wrong')
         
+    
 
     @action(detail=True, methods=['post'])
     def list(self, request):

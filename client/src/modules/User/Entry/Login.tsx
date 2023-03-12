@@ -19,7 +19,7 @@ const Login = (): React.ReactElement => {
       .then((res) => {
         enqueueSnackbar('Successful log in', { variant: 'success' });
         setAuth(res.data);
-        navigate(routes.Home);
+        navigate(routes.LandingPage);
       })
       .catch(() => enqueueSnackbar('Unsuccessful log in', { variant: 'error' }));
   };

@@ -3,7 +3,8 @@ import { lightBlue } from '@mui/material/colors';
 const styles = {
   table: {
     height: '100%',
-    marginTop: '52px'
+    marginTop: '52px',
+    maxHeight: '80vh'
   },
   header: {
     boxShadow: '0 0 15px rgba(162, 162, 162, 0.10)',
@@ -23,6 +24,9 @@ const styles = {
       backgroundColor: 'white',
       borderColor: 'black'
     }
+  },
+  row: {
+    height: '25px'
   }
 };
 

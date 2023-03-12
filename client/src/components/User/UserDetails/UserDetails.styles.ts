@@ -2,7 +2,7 @@ import { lightBlue } from '@mui/material/colors';
 
 const styles = {
   paper: {
-    height: '100%',
+    height: '60vh',
     padding: '24px',
     margin: '52px',
     boxShadow: '0 0 15px rgba(162, 162, 162, 0.10)',

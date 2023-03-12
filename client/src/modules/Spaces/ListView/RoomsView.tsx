@@ -1,17 +1,16 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { RoomList } from 'components';
 import AuthContext from 'hooks/AuthProvider';
-import { Follows, RoomQuery } from 'models/Room';
 
 import React, { useContext, useEffect, useState, UIEvent } from 'react';
-import { fetchRooms, followsQuery, postFollowRoom, roomsQuery } from 'api/services/services';
+import { fetchRooms, roomsQuery } from 'api/services/services';
 import Utils from 'utils';
+import { RoomQuery } from 'models/Room';
 
 const RoomsView = (): React.ReactElement => {
   const { auth } = useContext(AuthContext);
   const queryClient = useQueryClient();
   const [offset, setOffset] = useState<number>(0);
-  const { data: followedRooms } = followsQuery(auth.access.length !== 0);
   const { data: roomsData, isSuccess } = roomsQuery(offset);
 
   const handleScroll = (event: UIEvent<HTMLUListElement>): void => {
@@ -36,26 +35,26 @@ const RoomsView = (): React.ReactElement => {
     }
   });
 
-  const mutateFollows = useMutation({
-    mutationFn: async (name: string) => await postFollowRoom(name),
-    onMutate: async (data: string) => {
-      await queryClient.cancelQueries(['follows']);
-      const prevFollows = queryClient.getQueryData<Follows[]>(['follows']);
-      if (prevFollows != null && data === 'Unfollowed') {
-        queryClient.setQueryData<Follows[]>(['follows'], {
-          ...prevFollows.filter((follow) => follow.room !== data)
-        });
-      }
-      if (data === 'Followed') {
-        const optimisticFollow: Follows = { room: data, isAdmin: false, user: undefined };
-        queryClient.setQueryData(['follows'], {
-          ...prevFollows,
-          optimisticFollow
-        });
-      }
-      await queryClient.invalidateQueries({ queryKey: ['follows'] });
-    }
-  });
+  // const mutateFollows = useMutation({
+  //   mutationFn: async (name: string) => await postFollowRoom(name),
+  //   onMutate: async (data: string) => {
+  //     await queryClient.cancelQueries(['follows']);
+  //     const prevFollows = queryClient.getQueryData<Follows[]>(['follows']);
+  //     if (prevFollows != null && data === 'Unfollowed') {
+  //       queryClient.setQueryData<Follows[]>(['follows'], {
+  //         ...prevFollows.filter((follow) => follow.room !== data)
+  //       });
+  //     }
+  //     if (data === 'Followed') {
+  //       const optimisticFollow: Follows = { room: data, isAdmin: false, user: undefined };
+  //       queryClient.setQueryData(['follows'], {
+  //         ...prevFollows,
+  //         optimisticFollow
+  //       });
+  //     }
+  //     await queryClient.invalidateQueries({ queryKey: ['follows'] });
+  //   }
+  // });
 
   useEffect(() => {
     mutateRooms.mutate();
@@ -68,9 +67,7 @@ const RoomsView = (): React.ReactElement => {
           // setOffset={setOffset}
           // limit={limit}
           handleScroll={handleScroll}
-          follows={followedRooms ?? []}
           rooms={roomsData.rooms}
-          postFollow={mutateFollows.mutate}
           auth={auth}
         />
       ) : null}
