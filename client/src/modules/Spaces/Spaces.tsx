@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import UsersView from './ListView/UsersView';
+import UsersListView from './ListView/UsersListView';
 import UserDetails from './DetailsView/UserDetailsView';
-import RoomsView from './ListView/RoomsView';
+import RoomsView from './ListView/RoomsListView';
 
 const Spaces = (): React.ReactElement => {
   const [shown, isShown] = useState(false);
@@ -32,7 +32,7 @@ const Spaces = (): React.ReactElement => {
           <ToggleButton value="Rooms">Rooms</ToggleButton>
         </ToggleButtonGroup>
         {listType === 'User' && (
-          <UsersView
+          <UsersListView
             isShown={isShown}
             setSelectedDetail={setSelectedDetail}
             selectedDetail={selectedDetail}

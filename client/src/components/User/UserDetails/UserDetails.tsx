@@ -7,7 +7,7 @@ import AddOutlined from '@mui/icons-material/AddOutlined';
 import moment from 'moment';
 import { DateFormats } from 'consts';
 import AuthContext from 'hooks/AuthProvider';
-import Utils from 'utils';
+// import Utils from 'utils';
 interface props {
   user: User;
   setTableType: React.Dispatch<React.SetStateAction<string>>;
@@ -61,7 +61,7 @@ const UserDetails = ({
             <Chip label="Information" />
           </Divider>
         </Grid>
-        <Grid container direction="row" alignContent="center">
+        <Grid container justifyContent="center" direction="row" alignContent="center">
           <Grid item mb={1} xs>
             <Typography variant="subtitle1" textAlign="center" fontWeight="bold">
               E-mail address
@@ -89,17 +89,17 @@ const UserDetails = ({
             </Grid>
           </Grid>
           <Grid item mt={6} justifyContent="center" xs>
-            <Button variant="text" onClick={() => setTableType(Utils.TABLE_TYPE.USERS)}>
+            <Typography variant="subtitle1" textAlign="center" fontWeight="bold">
               User Followed:
-            </Button>
+            </Typography>
             <Typography variant="subtitle1" textAlign="center">
               {nrOfUsersFollowed}
             </Typography>
           </Grid>
           <Grid item mt={6} xs>
-            <Button variant="text" onClick={() => setTableType(Utils.TABLE_TYPE.ROOMS)}>
+            <Typography variant="subtitle1" textAlign="center" fontWeight="bold">
               Rooms Followed:
-            </Button>
+            </Typography>
             <Typography variant="subtitle1" textAlign="center">
               {nrOfRoomsFollowed}
             </Typography>

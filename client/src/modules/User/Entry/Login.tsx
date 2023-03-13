@@ -1,19 +1,22 @@
 import React, { useContext } from 'react';
 import { Grid } from '@mui/material';
 import { Entry } from 'components';
+import { User } from 'models/User';
 import { api } from 'api/http-common';
 import AuthContext from 'hooks/AuthProvider';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 import routes from 'routes/routes';
 import styles from './Entry.styles';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 const Login = (): React.ReactElement => {
   const { setAuth } = useContext(AuthContext);
+  const { handleSubmit, control } = useForm<User>();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
-  const submit = (pendingChanges: Object): void => {
+  const submit: SubmitHandler<User> = (pendingChanges: Object): void => {
     api
       .post('token/', pendingChanges)
       .then((res) => {
@@ -33,7 +36,9 @@ const Login = (): React.ReactElement => {
       direction="column"
       sx={styles.formDiv}
     >
-      <Entry submit={(pendingChanges) => submit(pendingChanges)} type="Log in" />
+      <form onSubmit={handleSubmit(submit)}>
+        <Entry type="Log in" />
+      </form>
     </Grid>
   );
 };
