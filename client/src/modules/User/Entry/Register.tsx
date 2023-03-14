@@ -1,5 +1,5 @@
 import { TextField, Grid } from '@mui/material';
-import { Entry } from 'components';
+// import { Entry } from 'components';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import routes from 'routes/routes';
@@ -22,6 +22,8 @@ const Register = (): React.ReactElement => {
       .catch(() => enqueueSnackbar('Unsuccessful registration', { variant: 'error' }));
   };
 
+  console.log(submit);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.currentTarget;
     setData((prev) => ({
@@ -35,7 +37,7 @@ const Register = (): React.ReactElement => {
       <Grid item xs={12}>
         <TextField onChange={handleChange} label="E-mail" name="email" value={data.email} />
       </Grid>
-      <Entry submit={(pendingChanges) => submit(pendingChanges)} type="Register" />
+      {/* <Entry submit={(pendingChanges) => submit(pendingChanges)} type="Register" /> */}
     </Grid>
   );
 };

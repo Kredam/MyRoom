@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 import routes from 'routes/routes';
 import styles from './Entry.styles';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 const Login = (): React.ReactElement => {
   const { setAuth } = useContext(AuthContext);
@@ -16,9 +16,10 @@ const Login = (): React.ReactElement => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
-  const submit: SubmitHandler<User> = (pendingChanges: Object): void => {
-    api
-      .post('token/', pendingChanges)
+  const onSubmit = async (data: User): Promise<void> => {
+    console.log(data);
+    await api
+      .post('token/', data)
       .then((res) => {
         enqueueSnackbar('Successful log in', { variant: 'success' });
         setAuth(res.data);
@@ -36,8 +37,8 @@ const Login = (): React.ReactElement => {
       direction="column"
       sx={styles.formDiv}
     >
-      <form onSubmit={handleSubmit(submit)}>
-        <Entry type="Log in" />
+      <form onSubmit={() => handleSubmit(onSubmit)}>
+        <Entry control={control} type="Log in" />
       </form>
     </Grid>
   );
