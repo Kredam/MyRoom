@@ -9,7 +9,7 @@ export interface User {
   date_joined: Date;
   email: string;
   joined: Date;
-  born: Date;
+  born: Date | undefined;
   NSFW: boolean;
 }
 

@@ -10,7 +10,7 @@ import {
 import { useSnackbar } from 'notistack';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { Grid } from '@mui/material';
-import Utils from 'utils';
+import { Utils } from 'consts';
 interface props {
   selectedDetail: number;
 }

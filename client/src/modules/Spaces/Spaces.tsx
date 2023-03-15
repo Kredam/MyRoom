@@ -3,10 +3,11 @@ import { Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import UsersListView from './ListView/UsersListView';
 import UserDetails from './DetailsView/UserDetailsView';
 import RoomsView from './ListView/RoomsListView';
+import { Views } from 'consts';
 
 const Spaces = (): React.ReactElement => {
   const [shown, isShown] = useState(false);
-  const [listType, setListType] = useState<string>('User');
+  const [listType, setListType] = useState<string>(Views.USERS);
   // selected index wof the user array
   const [selectedDetail, setSelectedDetail] = useState<number | undefined>(undefined);
   const listTypeChange = (event: React.MouseEvent<HTMLElement>, type: string | null): void => {
@@ -28,17 +29,17 @@ const Spaces = (): React.ReactElement => {
           onChange={listTypeChange}
           sx={{ margin: '12px' }}
         >
-          <ToggleButton value="User">User</ToggleButton>
-          <ToggleButton value="Rooms">Rooms</ToggleButton>
+          <ToggleButton value={Views.USERS}>{Views.USERS}</ToggleButton>
+          <ToggleButton value={Views.ROOMS}>{Views.ROOMS}</ToggleButton>
         </ToggleButtonGroup>
-        {listType === 'User' && (
+        {listType === Views.USERS && (
           <UsersListView
             isShown={isShown}
             setSelectedDetail={setSelectedDetail}
             selectedDetail={selectedDetail}
           />
         )}
-        {listType === 'Rooms' && <RoomsView />}
+        {listType === Views.ROOMS && <RoomsView />}
       </Grid>
       <Grid item xs>
         {shown && selectedDetail !== undefined ? (

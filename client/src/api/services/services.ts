@@ -2,7 +2,7 @@ import { api } from 'api/http-common';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { RoomQuery } from 'models/Room';
 import { User, UsersQuery } from 'models/User';
-import Utils from 'utils';
+import { Utils } from 'consts';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { AxiosInstance, AxiosResponse } from 'axios';
 

@@ -16,7 +16,7 @@ const CommonForm = ({ type, control }: Props): React.ReactElement => {
         <Controller
           control={control}
           name="username"
-          render={({ ...field }) => {
+          render={({ field }) => {
             return <TextField {...field} label="Username" fullWidth />;
           }}
         />
@@ -24,8 +24,8 @@ const CommonForm = ({ type, control }: Props): React.ReactElement => {
       <Grid item xs={12}>
         <Controller
           control={control}
-          name="username"
-          render={({ ...field }) => {
+          name="password"
+          render={({ field }) => {
             return <TextField label="Password" fullWidth type="password" {...field} />;
           }}
         />

@@ -4,7 +4,7 @@ import AuthContext from 'hooks/AuthProvider';
 
 import React, { useContext, useEffect, useState, UIEvent } from 'react';
 import { fetchRooms, roomsQuery } from 'api/services/services';
-import Utils from 'utils';
+import { Utils } from 'consts';
 import { RoomQuery } from 'models/Room';
 
 const RoomsView = (): React.ReactElement => {

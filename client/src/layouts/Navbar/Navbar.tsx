@@ -13,10 +13,10 @@ import { privateApi } from 'api/http-common';
 import { useSnackbar } from 'notistack';
 
 const Navbar = (): React.ReactElement => {
+  const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const [openModal, setOpenModal] = useState(false);
-  const { auth, setAuth } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>();
 
   const handleClose = (): void => {

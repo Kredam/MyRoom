@@ -1,8 +1,6 @@
 import React from 'react';
 
-interface props {}
-
-const RoomDetailView = ({}: props): React.ReactElement => {
+const RoomDetailView = (): React.ReactElement => {
   return <div></div>;
 };
 

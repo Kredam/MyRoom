@@ -72,6 +72,7 @@ class FollowedViewSet(ModelViewSet):
         user = get_object_or_404(User, pk=user_pk)
         user_folows = Followed.objects.select_related('follower').filter(follower=user)[offset:limit+offset]
         users = []
+        print(request.user)
         for user_follow in user_folows:
             if request.user.is_authenticated:
                 serializer = UserSerializer(instance=user_follow.follower, context={'user': request.user})

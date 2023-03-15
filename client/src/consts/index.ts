@@ -1,3 +1,19 @@
 export const DateFormats = {
-  DATE: 'yyyy-MM-DD HH:mm'
+  DATE: 'YYYY-MM-DD'
 };
+
+export const Utils = {
+  ITEM_HEIGHT: 85,
+  LIMIT: 15,
+  TABLE_TYPE: {
+    USERS: 'Users',
+    ROOMS: 'Rooms'
+  }
+};
+
+export const Views = {
+  USERS: 'Users',
+  ROOMS: 'Rooms'
+};
+
+export const QUERY_KEYS = {};

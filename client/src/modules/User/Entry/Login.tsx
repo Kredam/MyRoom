@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useContext } from 'react';
 import { Grid } from '@mui/material';
-import { Entry } from 'components';
+import { CommonForm } from 'components';
 import { User } from 'models/User';
 import { api } from 'api/http-common';
 import AuthContext from 'hooks/AuthProvider';
@@ -12,7 +13,7 @@ import { useForm } from 'react-hook-form';
 
 const Login = (): React.ReactElement => {
   const { setAuth } = useContext(AuthContext);
-  const { handleSubmit, control } = useForm<User>();
+  const { handleSubmit, control } = useForm<any>();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
@@ -35,10 +36,10 @@ const Login = (): React.ReactElement => {
       justifyContent="center"
       alignContent="center"
       direction="column"
-      sx={styles.formDiv}
+      sx={styles.paper}
     >
-      <form onSubmit={() => handleSubmit(onSubmit)}>
-        <Entry control={control} type="Log in" />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <CommonForm control={control} type="Log in" />
       </form>
     </Grid>
   );

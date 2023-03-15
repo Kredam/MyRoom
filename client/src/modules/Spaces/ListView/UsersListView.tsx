@@ -1,5 +1,5 @@
 import React, { UIEvent, useContext, useState } from 'react';
-import Utils from '../../../utils';
+import { Utils } from 'consts';
 import { fetchFollowedRooms, fetchFollowedUsers, usersFetchQuery } from 'api/services/services';
 import UserList from 'components/User/UserList/UserList';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
