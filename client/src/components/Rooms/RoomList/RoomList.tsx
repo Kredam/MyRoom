@@ -13,41 +13,29 @@ import {
 } from '@mui/material';
 
 import styles from './List.styles';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 interface Props {
   rooms: Room[];
   auth: any;
+  setSelectedDetail: React.Dispatch<React.SetStateAction<number | undefined>>;
   handleScroll: (event: UIEvent<HTMLUListElement>) => void;
 }
 
-const RoomList = ({ rooms, auth, handleScroll }: Props): React.ReactElement => {
+const RoomList = ({ rooms, auth, handleScroll, setSelectedDetail }: Props): React.ReactElement => {
   return (
     <Paper sx={styles.list}>
       <List sx={styles.basicGrid} onScroll={handleScroll}>
-        {rooms?.map((room: Room) => {
+        {rooms?.map((room: Room, id) => {
           return (
             <ListItem
               sx={styles.item}
               key={room.name}
               divider
               secondaryAction={
-                <>
-                  {auth.access.length > 0 && (
-                    <IconButton
-                      edge="end"
-                      aria-label="comments"
-                      // onClick={() => postFollow(room.name)}
-                    >
-                      <MoreVertIcon />
-                      {/* {follows.some((item) => item.room === room.name) ? ( */}
-                      {/*  <CheckBoxIcon /> */}
-                      {/* ) : ( */}
-                      {/*  <AddBoxIcon /> */}
-                      {/* )} */}
-                    </IconButton>
-                  )}
-                </>
+                <IconButton edge="end" aria-label="comments" onClick={() => setSelectedDetail(id)}>
+                  <VisibilityIcon />
+                </IconButton>
               }
             >
               <ListItemAvatar>

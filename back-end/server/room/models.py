@@ -20,6 +20,10 @@ class Room(models.Model):
 
 # Reddit like topics, that you can give to articles
 
+class SubRoom(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50, null=False,
+                            blank=True, primary_key=True)
 
 class Followed(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)

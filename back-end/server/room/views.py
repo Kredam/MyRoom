@@ -7,8 +7,9 @@ from rest_framework.permissions import IsAuthenticated
 from django.core.exceptions import ObjectDoesNotExist
 from users.models import User
 from api.authentication import CustomAuthentication
+from users.serializer import UserSerializer, ListUserSerializer
 from .models import Room, Followed, Topics
-from .serializer import RoomNameSerializer, RoomSearchSerializer, RoomSerializer, FollowedSerializer, RoomListSerializer, TopicSerializer
+from .serializer import RoomSearchSerializer, RoomSerializer, FollowedSerializer, RoomListSerializer, TopicSerializer
 
 
 class RoomViewSet(ModelViewSet):
@@ -60,17 +61,17 @@ class FollowedViewSet(ModelViewSet):
     
 
     @action(detail=True, methods=['post'])
-    def list(self, request):
+    def room_followed_user(self, request):
         pk = request.data['name']
         limit = request.data['limit']
         offset = request.data['offset']
         room = get_object_or_404(Room, name=pk)
-        user_rooms = Followed.objects.prefetch_related('room').filter(room=room)
+        user_rooms = Followed.objects.prefetch_related('user').filter(room=room)
         rooms_data = []
         for user_room in user_rooms[offset:limit+offset]:
-                rooms_data.append(RoomSerializer(user_room.room).data)
-        instance = {"nrOfObjects": len(user_rooms), "room": rooms_data}
-        serializer = RoomListSerializer(instance=instance, context={'user': request.user})
+                rooms_data.append(UserSerializer(user_room.user).data)
+        instance = {"nrOfUsers": len(user_rooms), "users": rooms_data}
+        serializer = ListUserSerializer(instance=instance, context={'user': request.user})
         return Response(serializer.data)
 
     

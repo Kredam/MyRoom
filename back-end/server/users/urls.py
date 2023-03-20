@@ -7,5 +7,5 @@ urlpatterns = [
     path('room-follows', FollowedViewSet.as_view({'post': 'user_followed_rooms'})),
     path('follow', FollowedViewSet.as_view({'post': 'create'})),
     path('register/', CreateUserView.as_view(), name="register user"),
-    path('all', UserViewSet.as_view({'post': 'list'})),
+    path('all', UserViewSet.as_view({'post' : 'list'})),
 ]

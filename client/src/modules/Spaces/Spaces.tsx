@@ -40,7 +40,7 @@ const Spaces = (): React.ReactElement => {
             selectedDetail={selectedDetail}
           />
         )}
-        {listType === Views.ROOMS && <RoomsListView />}
+        {listType === Views.ROOMS && <RoomsListView setSelectedDetail={setSelectedDetail} />}
       </Grid>
       <Grid item xs>
         {shown && selectedDetail !== undefined && listType === Views.USERS ? (

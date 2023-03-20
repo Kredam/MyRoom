@@ -12,12 +12,20 @@ export const fetchUserInfo = async (): Promise<User> => {
     .then((response) => response.data);
 };
 
-export const postFollowRoom = async (name: string): Promise<String> => {
-  return await useAxiosPrivate()
-    .post('rooms/follow/', { name })
-    .then((response) => response.data);
+export const postFollowRoom = async (name: string, customApi: AxiosInstance): Promise<String> => {
+  const result = await customApi.post('rooms/follow/', { name });
+  return result.data;
 };
 
+export const fetchRoomUsers = async (
+  name: string | undefined,
+  customApi: AxiosInstance,
+  limit: number,
+  offset: number
+): Promise<UsersQuery> => {
+  const result = await customApi.post<UsersQuery>('rooms/followed-rooms/', { name, limit, offset });
+  return result.data;
+};
 export const fetchFollowedRooms = async (
   pk: number,
   limit: number,
@@ -67,6 +75,9 @@ export const postFollowUser = async (
 
 export const roomsQuery = (offset: number): UseQueryResult<RoomQuery> =>
   useQuery(['rooms'], fetchRooms(offset));
+
+export const fetchRoomRelatedUsersQuery = (): UseQueryResult<UsersQuery> =>
+  useQuery(['room-related-user'], fetchRoomUsers(undefined, api, 0, 15));
 
 export const fetchFollowedUsersQuery = (
   pk: number,

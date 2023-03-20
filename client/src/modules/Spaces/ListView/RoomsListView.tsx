@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { RoomList } from 'components';
 import AuthContext from 'hooks/AuthProvider';
@@ -7,7 +8,11 @@ import { fetchRooms, roomsQuery } from 'api/services/services';
 import { Utils } from 'consts';
 import { RoomQuery } from 'models/Room';
 
-const RoomsView = (): React.ReactElement => {
+interface props {
+  setSelectedDetail: React.Dispatch<React.SetStateAction<number | undefined>>;
+}
+
+const RoomsView = ({ setSelectedDetail }: props): React.ReactElement => {
   const { auth } = useContext(AuthContext);
   const queryClient = useQueryClient();
   const [offset, setOffset] = useState<number>(0);
@@ -66,6 +71,7 @@ const RoomsView = (): React.ReactElement => {
         <RoomList
           // setOffset={setOffset}
           // limit={limit}
+          setSelectedDetail={setSelectedDetail}
           handleScroll={handleScroll}
           rooms={roomsData.rooms}
           auth={auth}

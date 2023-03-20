@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Article(models.Model):
-    room = models.ForeignKey('room.Room', on_delete=models.CASCADE)
+    sub_room = models.ForeignKey('room.Subroom', on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     likes = models.IntegerField(default=0)
     body = models.TextField(blank=True)
