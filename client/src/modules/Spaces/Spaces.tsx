@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import UsersListView from './ListView/UsersListView';
-import UserDetails from './DetailsView/UserDetailsView';
-import RoomsView from './ListView/RoomsListView';
+import UserDetailsView from './DetailsView/UserDetailsView';
+import RoomDetailsView from './DetailsView/RoomDetailsView';
+import RoomsListView from './ListView/RoomsListView';
 import { Views } from 'consts';
 
 const Spaces = (): React.ReactElement => {
@@ -39,11 +40,14 @@ const Spaces = (): React.ReactElement => {
             selectedDetail={selectedDetail}
           />
         )}
-        {listType === Views.ROOMS && <RoomsView />}
+        {listType === Views.ROOMS && <RoomsListView />}
       </Grid>
       <Grid item xs>
-        {shown && selectedDetail !== undefined ? (
-          <UserDetails selectedDetail={selectedDetail} />
+        {shown && selectedDetail !== undefined && listType === Views.USERS ? (
+          <UserDetailsView selectedDetail={selectedDetail} />
+        ) : null}
+        {shown && selectedDetail !== undefined && listType === Views.ROOMS ? (
+          <RoomDetailsView selectedDetail={selectedDetail} />
         ) : null}
       </Grid>
     </Grid>

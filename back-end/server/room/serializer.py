@@ -13,7 +13,7 @@ class RoomSerializer(serializers.ModelSerializer):
         user = self.context.get('user')
         if user is None:
             return None
-        return Followed.objects.filter(user=user, room=obj).exists()
+        return Followed.objects.filter(user=user.pk, room=obj['id']).exists()
 
 
 class TopicSerializer(serializers.ModelSerializer):
@@ -23,7 +23,6 @@ class TopicSerializer(serializers.ModelSerializer):
 class RoomListSerializer(serializers.Serializer):
     nrOfObjects = serializers.IntegerField()
     rooms = serializers.ListField(child=RoomSerializer())
-
 
 class FollowedSerializer(serializers.ModelSerializer):
     class Meta:

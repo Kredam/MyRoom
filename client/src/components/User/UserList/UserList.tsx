@@ -10,7 +10,7 @@ import {
   Paper
 } from '@mui/material';
 import styles from './List.styles';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 interface Props {
   users: User[];
   // follows: Follows[];
@@ -50,7 +50,7 @@ const UserList = ({
                     aria-label="comments"
                     onClick={() => handleDetailSelection(index)}
                   >
-                    <MoreVertIcon />
+                    <VisibilityIcon />
                   </IconButton>
                 }
               >

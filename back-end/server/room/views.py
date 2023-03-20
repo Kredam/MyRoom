@@ -65,17 +65,12 @@ class FollowedViewSet(ModelViewSet):
         limit = request.data['limit']
         offset = request.data['offset']
         room = get_object_or_404(Room, name=pk)
-        user_rooms = Followed.objects.prefetch_related('room').filter(room=room)[offset:limit+offset]
+        user_rooms = Followed.objects.prefetch_related('room').filter(room=room)
         rooms_data = []
-        for user_room in user_rooms:
-            if request.user.is_authenticated:
-                serializer = RoomSerializer(instance=user_room.room, context={'user': request.user})
-                rooms_data.append(serializer.data)
-                continue
-            else:
+        for user_room in user_rooms[offset:limit+offset]:
                 rooms_data.append(RoomSerializer(user_room.room).data)
-        instance = {"nrOfObjects": len(rooms_data), "room": rooms_data}
-        serializer = RoomListSerializer(instance=instance)
-        return Response(rooms_data)
+        instance = {"nrOfObjects": len(user_rooms), "room": rooms_data}
+        serializer = RoomListSerializer(instance=instance, context={'user': request.user})
+        return Response(serializer.data)
 
     

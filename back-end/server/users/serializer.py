@@ -24,9 +24,10 @@ class UserSerializer(serializers.ModelSerializer):
     
     def get_is_followed(self, obj):
         user = self.context.get('user')
+        print(obj)
         if user is None:
             return None
-        return Followed.objects.filter(following=user, follower=obj).exists()
+        return Followed.objects.filter(following=user.pk, follower=obj['id']).exists()
 
 
 class ListUserSerializer(serializers.Serializer):

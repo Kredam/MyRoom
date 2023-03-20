@@ -10,6 +10,8 @@ import {
   TableRow
 } from '@mui/material';
 import styles from '../Table.styles';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+// import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 interface props {
   followedUsers: UsersQuery | undefined;
 }
@@ -21,6 +23,7 @@ const UsersTable = ({ followedUsers }: props): React.ReactElement => {
       <Table>
         <TableHead component={Paper} sx={styles.header}>
           <TableRow>
+            <TableCell>Mutual</TableCell>
             {HEADERS.map((header) => (
               <TableCell key={header}>{header}</TableCell>
             ))}
@@ -30,6 +33,7 @@ const UsersTable = ({ followedUsers }: props): React.ReactElement => {
           {followedUsers?.users.map((user) => {
             return (
               <TableRow sx={styles.row} component={Paper} key={user.id}>
+                <TableCell>{user.is_followed === true && <CheckCircleOutlineIcon />}</TableCell>
                 <TableCell>@{user.username}</TableCell>
                 <TableCell>{user.first_name}</TableCell>
                 <TableCell>{user.last_name}</TableCell>

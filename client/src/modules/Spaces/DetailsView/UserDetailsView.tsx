@@ -8,7 +8,7 @@ import {
   postFollowUser
 } from 'api/services/services';
 import { useSnackbar } from 'notistack';
-import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
+import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { Grid } from '@mui/material';
 import { Utils } from 'consts';
 interface props {

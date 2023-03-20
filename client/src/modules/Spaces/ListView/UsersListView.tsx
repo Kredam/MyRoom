@@ -23,12 +23,16 @@ interface followedUsersParams {
   customApi: AxiosInstance;
 }
 
-const UsersView = ({ isShown, setSelectedDetail, selectedDetail }: props): React.ReactElement => {
+const UsersListView = ({
+  isShown,
+  setSelectedDetail,
+  selectedDetail
+}: props): React.ReactElement => {
   const { auth } = useContext(AuthContext);
+  const customApi = auth.access !== '' ? useAxiosPrivate() : api;
   const queryClient = useQueryClient();
   const [offset, setOffset] = useState(0);
   const { data: usersData, isSuccess } = usersFetchQuery(offset);
-  const customApi = auth.access !== '' ? useAxiosPrivate() : api;
 
   const handleScroll = (event: UIEvent<HTMLUListElement>): void => {
     if (usersData !== undefined && Utils.LIMIT + offset > usersData.nrOfUsers) return;
@@ -101,4 +105,4 @@ const UsersView = ({ isShown, setSelectedDetail, selectedDetail }: props): React
   return <></>;
 };
 
-export default UsersView;
+export default UsersListView;
