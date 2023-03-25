@@ -21,8 +21,8 @@ const UserDetailsView = ({ selectedDetail }: props): React.ReactElement => {
   const [tableType, setTableType] = useState<string>(Utils.TABLE_TYPE.USERS);
   const [tableOffset, setTableOffset] = useState<number>(0);
   const { enqueueSnackbar } = useSnackbar();
-  const { data: followedUsers } = fetchFollowedUsersQuery(-1, Utils.LIMIT, tableOffset, false);
-  const { data: followedRooms } = fetchFollowedRoomsQuery(-1, Utils.LIMIT, tableOffset, false);
+  const { data: followedUsers } = fetchFollowedUsersQuery(-1, tableOffset, false);
+  const { data: followedRooms } = fetchFollowedRoomsQuery(-1, tableOffset, false);
   const user = queryClient.getQueryData<UsersQuery>(['users'])?.users[selectedDetail];
   const followUser = (userId: number): void => {
     postFollowUser(userId, customApi)

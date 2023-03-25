@@ -18,11 +18,26 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 interface Props {
   rooms: Room[];
   auth: any;
+  isShown: React.Dispatch<React.SetStateAction<boolean>>;
+  getRoomUsers: (name: string) => void;
   setSelectedDetail: React.Dispatch<React.SetStateAction<number | undefined>>;
   handleScroll: (event: UIEvent<HTMLUListElement>) => void;
 }
 
-const RoomList = ({ rooms, auth, handleScroll, setSelectedDetail }: Props): React.ReactElement => {
+const RoomList = ({
+  rooms,
+  auth,
+  getRoomUsers,
+  handleScroll,
+  setSelectedDetail,
+  isShown
+}: Props): React.ReactElement => {
+  const handleClick = (name: string, index: number): void => {
+    setSelectedDetail(index);
+    getRoomUsers(name);
+    isShown(true);
+  };
+
   return (
     <Paper sx={styles.list}>
       <List sx={styles.basicGrid} onScroll={handleScroll}>
@@ -33,7 +48,11 @@ const RoomList = ({ rooms, auth, handleScroll, setSelectedDetail }: Props): Reac
               key={room.name}
               divider
               secondaryAction={
-                <IconButton edge="end" aria-label="comments" onClick={() => setSelectedDetail(id)}>
+                <IconButton
+                  edge="end"
+                  aria-label="comments"
+                  onClick={() => handleClick(room.name, id)}
+                >
                   <VisibilityIcon />
                 </IconButton>
               }

@@ -11,7 +11,7 @@ const Spaces = (): React.ReactElement => {
   const [listType, setListType] = useState<string>(Views.USERS);
   // selected index wof the user array
   const [selectedDetail, setSelectedDetail] = useState<number | undefined>(undefined);
-  const listTypeChange = (event: React.MouseEvent<HTMLElement>, type: string | null): void => {
+  const listTypeChange = (_: React.MouseEvent<HTMLElement>, type: string | null): void => {
     if (type === null) return;
     setListType(type);
   };
@@ -40,15 +40,17 @@ const Spaces = (): React.ReactElement => {
             selectedDetail={selectedDetail}
           />
         )}
-        {listType === Views.ROOMS && <RoomsListView setSelectedDetail={setSelectedDetail} />}
+        {listType === Views.ROOMS && (
+          <RoomsListView isShown={isShown} setSelectedDetail={setSelectedDetail} />
+        )}
       </Grid>
       <Grid item xs>
-        {shown && selectedDetail !== undefined && listType === Views.USERS ? (
+        {shown && selectedDetail !== undefined && listType === Views.USERS && (
           <UserDetailsView selectedDetail={selectedDetail} />
-        ) : null}
-        {shown && selectedDetail !== undefined && listType === Views.ROOMS ? (
+        )}
+        {shown && selectedDetail !== undefined && listType === Views.ROOMS && (
           <RoomDetailsView selectedDetail={selectedDetail} />
-        ) : null}
+        )}
       </Grid>
     </Grid>
   );
