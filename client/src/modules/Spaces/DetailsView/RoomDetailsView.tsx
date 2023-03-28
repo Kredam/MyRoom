@@ -35,7 +35,7 @@ const RoomDetailView = ({ selectedDetail }: props): React.ReactElement => {
         {room !== undefined && <RoomDetail room={room} followRoom={followRoom} />}
       </Grid>
       <Grid item xs>
-        <UsersTable followedUsers={followedUsers} />
+        {followedUsers !== undefined && <UsersTable followedUsers={followedUsers} />}
       </Grid>
     </Grid>
   );

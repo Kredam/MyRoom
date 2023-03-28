@@ -20,7 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'last_login', 'username', 'email', 'first_name',
-                  'last_name', 'is_staff', 'date_joined', 'joined', 'born', 'NSFW', 'is_followed')
+                  'last_name', 'is_staff', 'last_login', 'date_joined', 'joined', 'born', 'NSFW', 'is_followed')
     
     def get_is_followed(self, obj):
         user = self.context.get('user')

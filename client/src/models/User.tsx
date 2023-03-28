@@ -4,6 +4,7 @@ export interface User {
   password: string;
   username: string;
   first_name: string;
+  last_login: Date;
   last_name: string;
   is_staff: boolean;
   date_joined: Date;

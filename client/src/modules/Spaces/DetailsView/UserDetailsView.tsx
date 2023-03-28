@@ -55,8 +55,12 @@ const UserDetailsView = ({ selectedDetail }: props): React.ReactElement => {
           ;
         </Grid>
         <Grid item xs>
-          {tableType === Utils.TABLE_TYPE.USERS && <UsersTable followedUsers={followedUsers} />}
-          {tableType === Utils.TABLE_TYPE.ROOMS && <RoomsTable followedRooms={followedRooms} />}
+          {tableType === Utils.TABLE_TYPE.USERS && followedUsers != null && (
+            <UsersTable followedUsers={followedUsers} />
+          )}
+          {tableType === Utils.TABLE_TYPE.ROOMS && followedRooms != null && (
+            <RoomsTable followedRooms={followedRooms} />
+          )}
         </Grid>
       </Grid>
     );
