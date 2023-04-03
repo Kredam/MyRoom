@@ -48,6 +48,9 @@ const RoomDetail = ({ room, followRoom }: props): React.ReactElement => {
             <Chip label="Description" />
           </Divider>
         </Grid>
+        <Grid item>
+          <Typography variant="body1">{room.description}</Typography>
+        </Grid>
       </Grid>
     </Paper>
   );
