@@ -1,6 +1,6 @@
 import React from 'react';
 import { MainMenu } from 'components';
-import { Login, Register, Spaces, Settings, Profile, LandingPage } from 'modules';
+import { Login, Register, Spaces, Settings, Profile, LandingPage, RoomView } from 'modules';
 import routes from 'routes/routes';
 import protected_routes from 'routes/protected.routes';
 
@@ -12,8 +12,8 @@ const modules = [
     authed: false
   },
   {
-    id: 'rooms',
-    path: routes.List,
+    id: 'spaces',
+    path: routes.Spaces,
     component: <Spaces />,
     authed: false
   },
@@ -46,6 +46,12 @@ const modules = [
     path: protected_routes.profile,
     component: <Profile />,
     authed: true
+  },
+  {
+    id: 'room',
+    path: routes.Room,
+    component: <RoomView />,
+    authed: false
   }
 ];
 

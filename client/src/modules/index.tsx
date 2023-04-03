@@ -6,3 +6,4 @@ export { default as Search } from './Search/Search';
 export { default as Settings } from './Settings/Settings';
 export { default as Spaces } from './Spaces/Spaces';
 export { default as Profile } from './User/Profile/Profile';
+export { default as RoomView } from './RoomView/RoomView';

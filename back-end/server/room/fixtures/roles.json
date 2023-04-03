@@ -1,0 +1,23 @@
+[
+    {
+      "model": "room.Role",
+      "fields": {
+        "name": "VISITOR",
+        "desc": "Can only view the room nothing else"
+      }
+    },
+    {
+        "model": "room.Role",
+        "fields": {
+          "name": "MEMBER",
+          "desc": "Can view room, send chat messages in a room"
+        }
+    },
+    {
+        "model": "room.Role",
+        "fields": {
+          "name": "ADMIN",
+          "desc": "Can manage a room(remove member, change member role, delete and rename room)"
+        }
+    }
+]

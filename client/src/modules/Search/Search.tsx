@@ -28,6 +28,7 @@ const Search = ({ setOpenModal, openModal, autoFocus }: Props): React.ReactEleme
   };
 
   useEffect(() => {
+    console.log(search);
     setRooms((previous) => ({
       ...previous,
       isLoading: true

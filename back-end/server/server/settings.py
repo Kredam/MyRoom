@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 from datetime import timedelta
-from pickle import TRUE
 from dotenv import load_dotenv
 
 
@@ -20,7 +19,16 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+
+ASGI_APPLICATION = 'server.asgi.application'
+
 # Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -35,7 +43,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'users',
     'room',
-    'article'
+    'chat',
+    'channels'
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -47,6 +56,8 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+WSGI_APPLICATION = 'server.wsgi.application'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -78,9 +89,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'server.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases

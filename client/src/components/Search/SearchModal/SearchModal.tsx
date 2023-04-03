@@ -67,13 +67,20 @@ const SearchModal = ({
                     <Typography variant="caption">{result.followers_nr} members</Typography>
                   </Grid>
                 </Grid>
+                <Grid item xs>
+                  <Grid item xs={12}>
+                    <Button variant="contained" onClick={() => navigate(`/room/${result.room_id}`)}>
+                      Join
+                    </Button>
+                  </Grid>
+                </Grid>
               </Grid>
             </>
           );
         })}
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" onClick={() => navigate(routes.List)}>
+        <Button variant="outlined" onClick={() => navigate(routes.Spaces)}>
           Show More
         </Button>
       </DialogActions>

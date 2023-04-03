@@ -64,7 +64,7 @@ const Navbar = (): React.ReactElement => {
               sx={styles.icon}
               size="medium"
               edge="start"
-              onClick={() => switchTab(routes.List)}
+              onClick={() => switchTab(routes.Spaces)}
               aria-label="RoomsView"
             >
               <ListIcon />

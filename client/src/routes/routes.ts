@@ -2,7 +2,8 @@ export default {
   LandingPage: '/',
   MainMenu: '/menu',
   Settings: '/settings',
-  List: '/list',
+  Spaces: '/spaces',
   Login: '/login',
-  Register: '/register'
+  Register: '/register',
+  Room: '/room/:id'
 };

@@ -15,7 +15,7 @@ export const fetchUserInfo = async (): Promise<User> => {
 };
 
 export const postFollowRoom = async (name: string, customApi: AxiosInstance): Promise<String> => {
-  const result = await customApi.post('rooms/follow/', { name });
+  const result = await customApi.post('rooms/follow/', { name, isAdmin: false });
   return result.data;
 };
 
