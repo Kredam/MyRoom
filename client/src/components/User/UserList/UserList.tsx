@@ -13,27 +13,12 @@ import styles from './List.styles';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 interface Props {
   users: User[];
-  // follows: Follows[];
-  setSelectedDetail: React.Dispatch<React.SetStateAction<number | undefined>>;
-  postFollow: CallableFunction | undefined;
+  activeUsers?: number[];
+  handleDetailSelection?: (pk: number) => void;
   handleScroll: (event: UIEvent<HTMLUListElement>) => void;
-  isShown: React.Dispatch<React.SetStateAction<boolean>>;
-  getFollowedUser: (selectedUser: number) => void;
 }
 
-const UserList = ({
-  users,
-  setSelectedDetail,
-  handleScroll,
-  getFollowedUser,
-  isShown
-}: Props): React.ReactElement => {
-  const handleDetailSelection = (pk: number): void => {
-    setSelectedDetail(pk);
-    getFollowedUser(pk);
-    isShown(true);
-  };
-
+const UserList = ({ users, handleDetailSelection, handleScroll }: Props): React.ReactElement => {
   return (
     <Paper sx={styles.list}>
       <List onScroll={(e) => handleScroll(e)}>
@@ -45,13 +30,15 @@ const UserList = ({
                 sx={styles.item}
                 key={user.id}
                 secondaryAction={
-                  <IconButton
-                    edge="end"
-                    aria-label="comments"
-                    onClick={() => handleDetailSelection(index)}
-                  >
-                    <VisibilityIcon />
-                  </IconButton>
+                  handleDetailSelection != null && (
+                    <IconButton
+                      edge="end"
+                      aria-label="comments"
+                      onClick={() => handleDetailSelection(index)}
+                    >
+                      <VisibilityIcon />
+                    </IconButton>
+                  )
                 }
               >
                 <ListItemAvatar>

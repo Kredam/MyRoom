@@ -1,5 +1,5 @@
 from dataclasses import fields
-from .models import Room, Followed, Topics
+from .models import Room, Followed, Topics, Role
 from rest_framework import serializers
 
 
@@ -44,3 +44,9 @@ class RoomSearchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Followed
         fields = ('room_id', 'followers_nr')
+
+
+class RoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Role
+        fields = '__all__'

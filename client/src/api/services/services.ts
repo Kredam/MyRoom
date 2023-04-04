@@ -1,6 +1,6 @@
 import { api } from 'api/http-common';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
-import { RoomQuery } from 'models/Room';
+import { RoomChat, RoomQuery } from 'models/Room';
 import { User, UsersQuery } from 'models/User';
 import { Utils } from 'consts';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
@@ -15,14 +15,14 @@ export const fetchUserInfo = async (): Promise<User> => {
 };
 
 export const postFollowRoom = async (name: string, customApi: AxiosInstance): Promise<String> => {
-  const result = await customApi.post('rooms/follow/', { name, isAdmin: false });
+  const result = await customApi.post('rooms/follow/', { name, role: 'MEMBER' });
   return result.data;
 };
 
 export const fetchRoomUsers = async (
   name: string | undefined,
   offset: number,
-  customApi: AxiosInstance
+  customApi: AxiosInstance = api
 ): Promise<UsersQuery> => {
   const result = await customApi.post<UsersQuery>('rooms/followed-rooms/', { name, limit, offset });
   return result.data;
@@ -37,6 +37,11 @@ export const fetchFollowedRooms = async (
     limit,
     offset
   });
+  return result.data;
+};
+
+export const fetchMessageHistory = async (room: string): Promise<RoomChat[]> => {
+  const result = await api.get<RoomChat[]>(`chat/${room}/history`);
   return result.data;
 };
 

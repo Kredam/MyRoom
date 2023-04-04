@@ -1,8 +1,17 @@
+import { User } from 'models/User';
+
 export interface Room {
   is_followed: boolean | null;
   name: string;
   description: string;
   picture: string;
+}
+
+export interface RoomChat {
+  room: string;
+  user: User;
+  message: string;
+  sent_time: Date;
 }
 
 export interface RoomQuery {

@@ -11,8 +11,8 @@ import { User } from 'models/User';
 import { DateFormats } from 'consts';
 import * as Constraints from 'consts/constraints';
 import { DateField } from '@mui/x-date-pickers';
-import bcryptjs from 'bcryptjs';
 import style from './Entry.styles';
+import moment from 'moment';
 
 const defaultValues = {
   email: '',
@@ -21,19 +21,18 @@ const defaultValues = {
   born: undefined
 };
 
-const SALT = process.env.REACT_APP_SALT;
-
 const Register = (): React.ReactElement => {
   const { control, handleSubmit } = useForm<User>({ defaultValues });
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
   const submit = async (data: User): Promise<void> => {
-    console.log(bcryptjs.genSalt());
-    const hashedPassword = await bcryptjs.hashSync(data.password, SALT);
-    const body = { ...data, password: hashedPassword };
+    const body = {
+      ...data,
+      born: moment(data.born).format(DateFormats.DATE)
+    };
     api
-      .post('users/register/', { body })
+      .post('users/register/', body)
       .then(() => {
         enqueueSnackbar('Registration successful', { variant: 'success' });
         navigate(routes.Login);
@@ -68,6 +67,14 @@ const Register = (): React.ReactElement => {
             render={({ field }) => (
               <DateField {...field} format={DateFormats.DATE} label="Birthdate" fullWidth />
             )}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Controller
+            control={control}
+            name="email"
+            rules={{ required: true }}
+            render={({ field }) => <TextField type="email" {...field} label="E-mail" fullWidth />}
           />
         </Grid>
         <CommonForm control={control} type="Register" />

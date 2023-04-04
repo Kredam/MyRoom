@@ -14,8 +14,6 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 from api.authentication import TokenAuthMiddleWare
 from chat.routing import websocket_urlpatterns
 
-print(websocket_urlpatterns)
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'server.settings')
 
 application = ProtocolTypeRouter({

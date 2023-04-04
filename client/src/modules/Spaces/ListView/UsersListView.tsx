@@ -86,17 +86,20 @@ const UsersListView = ({
     mutateFollowedRooms.mutate({ pk, offset: 0, customApi });
   };
 
+  const handleDetailSelection = (pk: number): void => {
+    setSelectedDetail(pk);
+    getFollowedUsers(pk);
+    isShown(true);
+  };
+
   if (isSuccess) {
     return (
       <Grid container>
         <Grid item xs>
           <UserList
             users={usersData?.users}
-            isShown={isShown}
-            setSelectedDetail={setSelectedDetail}
             handleScroll={handleScroll}
-            postFollow={undefined}
-            getFollowedUser={getFollowedUsers}
+            handleDetailSelection={handleDetailSelection}
           />
         </Grid>
       </Grid>

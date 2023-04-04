@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from .models import User, Followed
 from django.contrib.auth.hashers import make_password
-
+from room.serializer import RoleSerializer
 
 class UserSerializerCreate(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'email', 'password')
+        fields = ('username', 'email', 'password', 'first_name', 'last_name', 'born')
 
     def create(self, validated_data):
         UserModel = self.Meta.model
@@ -14,9 +14,10 @@ class UserSerializerCreate(serializers.ModelSerializer):
         user = UserModel._default_manager.create(**validated_data)
         return user
 
-
 class UserSerializer(serializers.ModelSerializer):
     is_followed = serializers.SerializerMethodField()
+    online = serializers.SerializerMethodField()
+    role = serializers.SerializerMethodField()
     class Meta:
         model = User
         fields = ('id', 'last_login', 'username', 'email', 'first_name',
@@ -24,7 +25,6 @@ class UserSerializer(serializers.ModelSerializer):
     
     def get_is_followed(self, obj):
         user = self.context.get('user')
-        print(obj)
         if user is None:
             return None
         return Followed.objects.filter(following=user.pk, follower=obj['id']).exists()

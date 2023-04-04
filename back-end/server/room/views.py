@@ -5,9 +5,8 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from django.core.exceptions import ObjectDoesNotExist
-from users.models import User
 from api.authentication import CustomAuthentication
-from users.serializer import UserSerializer, ListUserSerializer
+from users.serializer import ListUserSerializer, UserSerializer
 from .models import Room, Followed, Topics
 from .serializer import RoomSearchSerializer, RoomSerializer, FollowedSerializer, RoomListSerializer, TopicSerializer
 
@@ -50,9 +49,9 @@ class FollowedViewSet(ModelViewSet):
             Followed.objects.get(room=room, user=user).delete()
             return Response('Unfollowed')
         except ObjectDoesNotExist:
-            admin = request.data['isAdmin']
+            role = request.data['role']
             serializer = FollowedSerializer(
-                data={'room': room, 'user': request.user.pk, 'isAdmin': admin})
+                data={'room': room, 'user': request.user.pk, 'role': role})
             if serializer.is_valid():
                 serializer.save()
                 return Response('Followed')
@@ -69,7 +68,8 @@ class FollowedViewSet(ModelViewSet):
         user_rooms = Followed.objects.prefetch_related('user').filter(room=room)
         rooms_data = []
         for user_room in user_rooms[offset:limit+offset]:
-                rooms_data.append(UserSerializer(user_room.user).data)
+                instance = {"user": user_room.user, "online": user_room.online, "role": user_room.role}
+                rooms_data.append(UserSerializer(instance=instance).data)
         instance = {"nrOfUsers": len(user_rooms), "users": rooms_data}
         serializer = ListUserSerializer(instance=instance, context={'user': request.user})
         return Response(serializer.data)
