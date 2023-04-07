@@ -70,7 +70,7 @@ const SearchModal = ({
                 <Grid item xs>
                   <Grid item xs={12}>
                     <Button variant="contained" onClick={() => navigate(`/room/${result.room_id}`)}>
-                      Join
+                      Connect
                     </Button>
                   </Grid>
                 </Grid>

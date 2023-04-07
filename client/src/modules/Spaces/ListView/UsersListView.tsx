@@ -1,4 +1,4 @@
-import React, { UIEvent, useContext, useState } from 'react';
+import React, { UIEvent, useContext, useEffect, useState } from 'react';
 import { Utils } from 'consts';
 import { fetchFollowedRooms, fetchFollowedUsers, usersFetchQuery } from 'api/services/services';
 import UserList from 'components/User/UserList/UserList';
@@ -19,8 +19,12 @@ interface props {
 
 interface followedUsersParams {
   pk: number;
-  offset: number;
   customApi: AxiosInstance;
+}
+
+interface IStatus {
+  user: number;
+  online: boolean;
 }
 
 const UsersListView = ({
@@ -28,11 +32,11 @@ const UsersListView = ({
   setSelectedDetail,
   selectedDetail
 }: props): React.ReactElement => {
-  const { auth } = useContext(AuthContext);
+  const { auth, lastStatusMessage } = useContext(AuthContext);
   const customApi = auth.access !== '' ? useAxiosPrivate() : api;
   const queryClient = useQueryClient();
   const [offset, setOffset] = useState(0);
-  const { data: usersData, isSuccess } = usersFetchQuery(offset);
+  const { data: usersData, isSuccess } = usersFetchQuery(offset, auth.access !== '');
 
   const handleScroll = (event: UIEvent<HTMLUListElement>): void => {
     if (usersData !== undefined && Utils.LIMIT + offset > usersData.nrOfUsers) return;
@@ -44,8 +48,8 @@ const UsersListView = ({
   };
 
   const mutateFollowedUsers = useMutation({
-    mutationFn: async ({ pk, offset, customApi }: followedUsersParams) =>
-      await fetchFollowedUsers(pk, offset, customApi),
+    mutationFn: async ({ pk, customApi }: followedUsersParams) =>
+      await fetchFollowedUsers(pk, customApi),
     onSuccess: async (result: UsersQuery) => {
       const prevFollows = queryClient.getQueryData<UsersQuery>(['followed-users']);
       if (prevFollows != null) {
@@ -62,8 +66,8 @@ const UsersListView = ({
   });
 
   const mutateFollowedRooms = useMutation({
-    mutationFn: async ({ pk, offset, customApi }: followedUsersParams) =>
-      await fetchFollowedRooms(pk, offset, customApi),
+    mutationFn: async ({ pk, customApi }: followedUsersParams) =>
+      await fetchFollowedRooms(pk, customApi),
     onSuccess: async (result: RoomQuery) => {
       const prevFollows = queryClient.getQueryData<RoomQuery>(['followed-rooms']);
       if (prevFollows != null) {
@@ -79,11 +83,31 @@ const UsersListView = ({
     }
   });
 
+  const mutateUserStatus = useMutation({
+    onMutate: (variables: IStatus) => {
+      const users = queryClient.getQueryData<UsersQuery>(['users']);
+      users?.users.map((user) => {
+        if (user.id === variables.user) {
+          user.online = variables.online;
+          return user;
+        }
+        return user;
+      });
+    }
+  });
+
+  useEffect(() => {
+    if (lastStatusMessage !== null) {
+      const message = JSON.parse(lastStatusMessage.data);
+      mutateUserStatus.mutate(message);
+    }
+  }, [lastStatusMessage]);
+
   const getFollowedUsers = (selectedUser: number): void => {
     if (selectedDetail === selectedUser) return;
     const pk = queryClient.getQueryData<UsersQuery>(['users'])?.users[selectedUser].id as number;
-    mutateFollowedUsers.mutate({ pk, offset: 0, customApi });
-    mutateFollowedRooms.mutate({ pk, offset: 0, customApi });
+    mutateFollowedUsers.mutate({ pk, customApi });
+    mutateFollowedRooms.mutate({ pk, customApi });
   };
 
   const handleDetailSelection = (pk: number): void => {

@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import User, Followed
+from room.models import Followed as RoomFollows, Role
+from room.serializer import RoleSerializer, FollowedSerializer as RoomFollowSerializer
 from django.contrib.auth.hashers import make_password
 from room.serializer import RoleSerializer
 
@@ -16,23 +18,32 @@ class UserSerializerCreate(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     is_followed = serializers.SerializerMethodField()
-    online = serializers.SerializerMethodField()
     role = serializers.SerializerMethodField()
     class Meta:
         model = User
-        fields = ('id', 'last_login', 'username', 'email', 'first_name',
-                  'last_name', 'is_staff', 'last_login', 'date_joined', 'joined', 'born', 'NSFW', 'is_followed')
+        fields = ('id', 'last_login', 'username', 'online', 'email', 'first_name',
+                  'last_name', 'is_staff', 'last_login', 'date_joined', 'joined', 'born', 'NSFW', 'is_followed', 'online', 'role')
     
     def get_is_followed(self, obj):
         user = self.context.get('user')
         if user is None:
             return None
-        return Followed.objects.filter(following=user.pk, follower=obj['id']).exists()
+        print(obj)
+        return Followed.objects.get(following=user, follower=obj).exists()
+
+    def get_role(self, obj):
+        room = self.context.get('room')
+        if room is None:
+            return None
+        user = obj.id
+        query = Role.objects.get(followed__room=room, followed__user=user)
+        serializer = RoleSerializer(query)
+        return serializer.data['name']
 
 
 class ListUserSerializer(serializers.Serializer):
     nrOfUsers = serializers.IntegerField()
-    users = serializers.ListField(child=UserSerializer())
+    users = serializers.ListField()
 
 
 class FollowUserSerializer(serializers.ModelSerializer):

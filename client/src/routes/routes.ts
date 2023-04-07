@@ -4,6 +4,5 @@ export default {
   Settings: '/settings',
   Spaces: '/spaces',
   Login: '/login',
-  Register: '/register',
-  Room: '/room/:id'
+  Register: '/register'
 };

@@ -12,7 +12,7 @@ urlpatterns = [
     path('', RoomViewSet.as_view({'post': 'list'})),
     path('search/', RoomViewSet.as_view({'post': 'search'})),
     path('follow/', FollowedViewSet.as_view({'post': 'create'})),
-    path('followed-rooms/',
-         FollowedViewSet.as_view({'post': 'room_followed_user'})),
+    path('followed-rooms',
+         FollowedViewSet.as_view({'get': 'room_followed_user'})),
     path('topics', include(router.urls))
 ]

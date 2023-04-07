@@ -72,16 +72,17 @@ const Navbar = (): React.ReactElement => {
           </Tooltip>
           {/* implement own styled search component */}
           <Box flexGrow="1" />
-          {openModal ? (
-            <Search autoFocus={true} setOpenModal={setOpenModal} openModal={openModal} />
-          ) : (
-            <SearchField
-              disabled={true}
-              onClick={() => {
-                setOpenModal(true);
-              }}
-            />
-          )}
+          {auth.access !== '' &&
+            (openModal ? (
+              <Search autoFocus={true} setOpenModal={setOpenModal} openModal={openModal} />
+            ) : (
+              <SearchField
+                disabled={true}
+                onClick={() => {
+                  setOpenModal(true);
+                }}
+              />
+            ))}
           <Box flexGrow="1" />
           <IconButton size="medium" edge="end" onClick={openUserMenu} aria-label="User">
             <AccountCircleIcon />

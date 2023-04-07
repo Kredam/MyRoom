@@ -12,7 +12,7 @@ import styles from './Entry.styles';
 import { useForm } from 'react-hook-form';
 
 const Login = (): React.ReactElement => {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth, setUser } = useContext(AuthContext);
   const { handleSubmit, control } = useForm<any>();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
@@ -23,7 +23,8 @@ const Login = (): React.ReactElement => {
       .post('token/', data)
       .then((res) => {
         enqueueSnackbar('Successful log in', { variant: 'success' });
-        setAuth(res.data);
+        setAuth(res.data.tokens);
+        setUser(res.data.user);
         navigate(routes.LandingPage);
       })
       .catch(() => enqueueSnackbar('Unsuccessful log in', { variant: 'error' }));

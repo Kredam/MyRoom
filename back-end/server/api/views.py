@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from django.middleware import csrf
+from users.serializer import UserSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenRefreshView
@@ -63,7 +64,8 @@ class LoginView(APIView):
                     samesite=SIMPLE_JWT['AUTH_COOKIE_SAMESITE'],
                 )
                 csrf.get_token(request)
-                response.data = token
+                serializer = UserSerializer(user)
+                response.data = {"tokens": token, "user": serializer.data}
                 return response
             else:
                 return Response({"Not active": "This account is not active"}, status=status.HTTP_404_NOT_FOUND)

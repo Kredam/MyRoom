@@ -4,6 +4,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from api.authentication import CustomAuthentication
+from rest_framework import status
 from .serializer import UserSerializerCreate, UserSerializer, ListUserSerializer, FollowUserSerializer
 from rest_framework.generics import CreateAPIView, ListAPIView
 from .models import User, Followed
@@ -22,13 +23,18 @@ class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
-    @action(detail=True, methods=['POST'])
+    def get_object(self):
+        pk = self.kwargs['user']
+        queryset = self.queryset
+        return queryset.get(pk=pk)
+
+    @action(detail=True, methods=['GET'])
     def list(self, request):
-        limit = request.data['limit']
-        offset = request.data['offset']
+        limit = int(self.request.GET.get("limit"))
+        offset = int(self.request.GET.get("offset"))
         users = self.get_queryset()[offset:offset+limit]
-        instance = {"nrOfUsers": len(users), "users": users}
-        user_serialized = ListUserSerializer(instance)
+        instance = {"nrOfUsers": users.count(), "users": self.get_serializer(users, many=True, context={'user': self.request.user.pk}).data}
+        user_serialized = ListUserSerializer(instance=instance)
         return Response(user_serialized.data)
 
 
@@ -39,7 +45,7 @@ class FollowedViewSet(ModelViewSet):
     @action(detail=True, methods=['POST'], permission_classes=[CustomAuthentication, IsAuthenticated])
     def create(self, request):
         id = self.request.data['id']
-        if request.user.pk is id: 
+        if request.user.pk is id:
             return
         followed = get_object_or_404(User, pk=id)
         try:
@@ -52,30 +58,23 @@ class FollowedViewSet(ModelViewSet):
             if serializer.is_valid():
                 serializer.save()
                 return Response('Followed')
-            return Response('Oops somehting went wrong')
+            return Response('Oops somehting went wrong', status=status.HTTP_404_NOT_FOUND)
         
-    @action(detail=True, methods=['POST'])
+    @action(detail=True, methods=['GET'])
     def user_followed_rooms(self, request):
-        pk = request.data['user_pk']
-        limit = request.data['limit']
-        offset = request.data['offset']
+        pk = int(self.request.GET.get("user_pk"))
         user_follows = RoomFollows.objects.prefetch_related('room').filter(user=pk)
         rooms = []
-        for user_follow in user_follows[offset:limit+offset]:
+        for user_follow in user_follows:
             rooms.append(RoomSerializer(user_follow.room).data)
         serializer = RoomListSerializer({'nrOfObjects': len(user_follows), 'rooms': rooms})
         return Response(serializer.data)
 
-    @action(detail=True, methods=['post'])
+    @action(detail=True, methods=['GET'])
     def followed(self, request):
-        user_pk = request.data['pk']
-        limit = request.data['limit']
-        offset = request.data['offset']
+        user_pk = self.request.GET.get("pk")
         user = get_object_or_404(User, pk=user_pk)
-        user_folows = Followed.objects.select_related('follower').filter(follower=user.pk)
-        users = []
-        for user_follow in user_folows[offset:limit+offset]:
-            users.append(UserSerializer(instance=user_follow.following).data)
-        instance = {"nrOfUsers": len(user_folows), "users": users}
-        serializer = ListUserSerializer(instance=instance, context={'user': request.user})
+        user_folows = User.objects.filter(followers=user.pk)
+        instance = {"nrOfUsers": user_folows.count(), "users": UserSerializer(user_folows, many=True, context={'user': request.user.pk}).data}
+        serializer = ListUserSerializer(instance=instance)
         return Response(serializer.data)

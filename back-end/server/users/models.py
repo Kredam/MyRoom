@@ -8,6 +8,7 @@ class User(AbstractUser):
     joined = models.DateTimeField(auto_now_add=True)
     born = models.DateField(null=True, blank=True)
     NSFW = models.BooleanField(null=False, blank=False, default=False)
+    online = models.BooleanField(default=False, null=False)
 
 
 class Followed(models.Model):

@@ -21,21 +21,17 @@ export const postFollowRoom = async (name: string, customApi: AxiosInstance): Pr
 
 export const fetchRoomUsers = async (
   name: string | undefined,
-  offset: number,
   customApi: AxiosInstance = api
 ): Promise<UsersQuery> => {
-  const result = await customApi.post<UsersQuery>('rooms/followed-rooms/', { name, limit, offset });
+  const result = await customApi.get<UsersQuery>('rooms/followed-rooms', { params: { name } });
   return result.data;
 };
 export const fetchFollowedRooms = async (
   pk: number,
-  offset: number,
   customApi: AxiosInstance
 ): Promise<RoomQuery> => {
-  const result = await customApi.post<RoomQuery>('users/room-follows', {
-    user_pk: pk,
-    limit,
-    offset
+  const result = await customApi.get<RoomQuery>('users/room-follows', {
+    params: { user_pk: pk }
   });
   return result.data;
 };
@@ -47,21 +43,19 @@ export const fetchMessageHistory = async (room: string): Promise<RoomChat[]> => 
 
 export const fetchFollowedUsers = async (
   pk: number,
-  offset: number,
   customApi: AxiosInstance
 ): Promise<UsersQuery> => {
-  const result = await customApi.post<UsersQuery>('users/user-follows', {
-    pk,
-    limit,
-    offset
+  const result = await customApi.get<UsersQuery>('users/user-follows', {
+    params: { pk }
   });
   return result.data;
 };
 
-export const fetchUsers = (offset: number) => async (): Promise<UsersQuery> => {
-  const result = await api.post<UsersQuery>('users/all', { limit, offset });
-  return result.data;
-};
+export const fetchUsers =
+  (offset: number, customApi: AxiosInstance) => async (): Promise<UsersQuery> => {
+    const result = await customApi.get<UsersQuery>('users/all', { params: { limit, offset } });
+    return result.data;
+  };
 
 export const fetchRooms = (offset: number) => async (): Promise<RoomQuery> => {
   const result = await api.post<RoomQuery>('rooms/', { limit, offset });
@@ -79,29 +73,28 @@ export const roomsQuery = (offset: number): UseQueryResult<RoomQuery> =>
   useQuery(['rooms'], fetchRooms(offset));
 
 export const fetchRoomRelatedUsersQuery = (): UseQueryResult<UsersQuery> =>
-  useQuery(['room-related-user'], async () => await fetchRoomUsers(undefined, 15, api));
+  useQuery(['room-related-users'], async () => await fetchRoomUsers(undefined, api), {
+    enabled: false
+  });
 
 export const fetchFollowedUsersQuery = (
   pk: number,
-  offset: number,
   authed: boolean
 ): UseQueryResult<UsersQuery> => {
   const customApi = authed ? useAxiosPrivate() : api;
-  return useQuery(['followed-users'], async () => await fetchFollowedUsers(pk, offset, customApi), {
-    retry: false
+  return useQuery(['followed-users'], async () => await fetchFollowedUsers(pk, customApi), {
+    enabled: false
   });
 };
 
-export const fetchFollowedRoomsQuery = (
-  pk: number,
-  offset: number,
-  authed: boolean
-): UseQueryResult<RoomQuery> => {
+export const fetchFollowedRoomsQuery = (pk: number, authed: boolean): UseQueryResult<RoomQuery> => {
   const customApi = authed ? useAxiosPrivate() : api;
-  return useQuery(['followed-rooms'], async () => await fetchFollowedRooms(pk, offset, customApi), {
-    retry: false
+  return useQuery(['followed-rooms'], async () => await fetchFollowedRooms(pk, customApi), {
+    enabled: false
   });
 };
 
-export const usersFetchQuery = (offset: number): UseQueryResult<UsersQuery> =>
-  useQuery(['users'], fetchUsers(offset));
+export const usersFetchQuery = (offset: number, authed: boolean): UseQueryResult<UsersQuery> => {
+  const customApi = authed ? useAxiosPrivate() : api;
+  return useQuery(['users'], fetchUsers(offset, customApi));
+};

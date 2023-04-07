@@ -45,8 +45,7 @@ const RoomsListView = ({ setSelectedDetail, isShown }: props): React.ReactElemen
   });
 
   const mutateRoomUsers = useMutation({
-    mutationFn: async ({ name, offset, customApi }: any) =>
-      await fetchRoomUsers(name, offset, customApi),
+    mutationFn: async ({ name, customApi }: any) => await fetchRoomUsers(name, customApi),
     onSuccess: async (result: UsersQuery) => {
       const prevFollows = queryClient.getQueryData<UsersQuery>(['room-related-users']);
       if (prevFollows != null) {
@@ -62,33 +61,13 @@ const RoomsListView = ({ setSelectedDetail, isShown }: props): React.ReactElemen
     }
   });
 
-  // const mutateFollows = useMutation({
-  //   mutationFn: async (name: string) => await postFollowRoom(name),
-  //   onMutate: async (data: string) => {
-  //     await queryClient.cancelQueries(['follows']);
-  //     const prevFollows = queryClient.getQueryData<Follows[]>(['follows']);
-  //     if (prevFollows != null && data === 'Unfollowed') {
-  //       queryClient.setQueryData<Follows[]>(['follows'], {
-  //         ...prevFollows.filter((follow) => follow.room !== data)
-  //       });
-  //     }
-  //     if (data === 'Followed') {
-  //       const optimisticFollow: Follows = { room: data, isAdmin: false, user: undefined };
-  //       queryClient.setQueryData(['follows'], {
-  //         ...prevFollows,
-  //         optimisticFollow
-  //       });
-  //     }
-  //     await queryClient.invalidateQueries({ queryKey: ['follows'] });
-  //   }
-  // });
-
   useEffect(() => {
     mutateRooms.mutate();
   }, [offset]);
 
   const getRoomUsers = (name: string): void => {
-    mutateRoomUsers.mutate({ name, offset, customApi });
+    queryClient.setQueryData(['room-related-users'], null);
+    mutateRoomUsers.mutate({ name, customApi });
   };
 
   return (

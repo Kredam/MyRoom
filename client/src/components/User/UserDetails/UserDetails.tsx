@@ -21,7 +21,7 @@ const UserDetails = ({
   nrOfUsersFollowed,
   nrOfRoomsFollowed
 }: props): React.ReactElement => {
-  const { auth } = useContext(AuthContext);
+  const { auth, user: myUser } = useContext(AuthContext);
   return (
     <Paper elevation={1} sx={styles.paper}>
       <Grid container direction="column">
@@ -46,7 +46,7 @@ const UserDetails = ({
             </Grid>
           </Grid>
           <Grid item xs={2}>
-            {auth.access !== '' && (
+            {auth.access !== '' && user.id !== myUser?.id && (
               <Button variant="outlined" sx={styles.button} onClick={() => followUser(user.id)}>
                 Follow
                 <AddOutlined />

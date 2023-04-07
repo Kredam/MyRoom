@@ -49,9 +49,9 @@ const modules = [
   },
   {
     id: 'room',
-    path: routes.Room,
+    path: protected_routes.Room,
     component: <RoomView />,
-    authed: false
+    authed: true
   }
 ];
 

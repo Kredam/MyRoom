@@ -3,6 +3,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import status
+from users.models import User
 from rest_framework.permissions import IsAuthenticated
 from django.core.exceptions import ObjectDoesNotExist
 from api.authentication import CustomAuthentication
@@ -27,8 +29,9 @@ class RoomViewSet(ModelViewSet):
     @action(detail=True, methods=["post"])
     def search(self, request, pk=None):
         search = request.data['search']
+        user = request.user.pk
         followed_rooms = Followed.objects.values('room_id').annotate(followers_nr=Count(
-            'room_id')).filter(room__name__icontains=search).order_by('-followers_nr')
+            'room_id')).filter(user=user,room__name__icontains=search).order_by('-followers_nr')
         serialized = RoomSearchSerializer(followed_rooms, many=True)
         return Response(serialized.data)
 
@@ -55,23 +58,15 @@ class FollowedViewSet(ModelViewSet):
             if serializer.is_valid():
                 serializer.save()
                 return Response('Followed')
-            return Response('Ooops something went wrong')
+            return Response('Ooops something went wrong', status=status.HTTP_404_NOT_FOUND)
         
-    
 
-    @action(detail=True, methods=['post'])
+    @action(detail=True, methods=['GET'])
     def room_followed_user(self, request):
-        pk = request.data['name']
-        limit = request.data['limit']
-        offset = request.data['offset']
+        pk = self.request.GET.get("name")
         room = get_object_or_404(Room, name=pk)
-        user_rooms = Followed.objects.prefetch_related('user').filter(room=room)
-        rooms_data = []
-        for user_room in user_rooms[offset:limit+offset]:
-                instance = {"user": user_room.user, "online": user_room.online, "role": user_room.role}
-                rooms_data.append(UserSerializer(instance=instance).data)
-        instance = {"nrOfUsers": len(user_rooms), "users": rooms_data}
-        serializer = ListUserSerializer(instance=instance, context={'user': request.user})
+        users = User.objects.filter(followed__room=room.pk)
+        instance = {"nrOfUsers": users.count(), "users": UserSerializer(users, many=True, context={'user': request.user.pk, 'room': room.name}).data}
+        serializer = ListUserSerializer(instance=instance)
         return Response(serializer.data)
 
-    

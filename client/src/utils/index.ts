@@ -9,6 +9,5 @@ export const elapsedYears = (value: any): boolean => {
 export const elapsedTime = (value: any): Number => {
   const ms = moment().diff(moment(value));
   const elapsedTime = moment.duration(ms).months();
-  console.log(value);
   return elapsedTime;
 };

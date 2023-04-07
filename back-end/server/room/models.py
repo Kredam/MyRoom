@@ -27,7 +27,6 @@ class Followed(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     user = models.ForeignKey('users.User', on_delete=models.CASCADE)
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
-    online = models.BooleanField(default=False, null=False)
 
     class Meta:
         constraints = [

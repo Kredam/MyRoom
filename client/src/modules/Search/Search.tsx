@@ -21,7 +21,6 @@ const Search = ({ setOpenModal, openModal, autoFocus }: Props): React.ReactEleme
     api
       .post('rooms/search/', { search })
       .then((res: AxiosResponse) => {
-        console.log(res);
         setRooms({ data: res.data, isLoading: false });
       })
       .catch(() => {});

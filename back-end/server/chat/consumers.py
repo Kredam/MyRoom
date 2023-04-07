@@ -1,10 +1,12 @@
 import asyncio
 import json
+from users.models import User
 from .models import RoomChat
 from .serializers import RoomChatSerializer
 from room.models import Room, Followed
 from users.serializer import UserSerializer
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
+from django.contrib.auth.models import AnonymousUser
 from channels.db import database_sync_to_async
 
 @database_sync_to_async
@@ -22,19 +24,19 @@ def save_chat(self, text_data):
     return chat
 
 @database_sync_to_async
-def join_room(self):
-    follow = Followed.objects.get(room=self.room, user=self.user)
-    follow.online = True
-    follow.save()
-    return follow
+def join(self):
+    user = User.objects.get(pk=self.user.pk)
+    user.online = True
+    user.save()
+    return user
     # Followed.objects.get(room=self.room, user=self.user).update(online=True)
 
 @database_sync_to_async
-def leave_room(self):
-    follow = Followed.objects.get(room=self.room, user=self.user)
-    follow.online = False
-    follow.save()
-    return follow
+def leave(self):
+    user = User.objects.get(pk=self.user.pk)
+    user.online = False
+    user.save()
+    return user
     # Followed.objects.get(room=self.room, user=self.user).update(online=False)
 
 class ChatConsumer(AsyncJsonWebsocketConsumer):
@@ -72,30 +74,29 @@ class JoinLeaveConsumer(AsyncJsonWebsocketConsumer):
         super().__init__(*args, **kwargs)
 
     async def connect(self):
-        self.room = await get_room(self.scope["url_route"]["kwargs"]["room"])
         self.user = self.scope["user"]
-        if (await is_member(self.room, self.user)):
-            await join_room(self)
-            await self.channel_layer.group_add(self.room.name.join("_") + "status", self.channel_name)
-            await self.channel_layer.group_send(self.room.name.join("_") + "status", {
-                "type": "user.status",
-                "online": True,
-                "user": self.user.id
-            })
-            await self.accept()
+        if self.user.pk is not None:
+            await join(self)
+        await self.channel_layer.group_add("status", self.channel_name)
+        await self.channel_layer.group_send("status", {
+            "type": "user.status",
+            "online": True,
+            "user_id": self.user.id
+        })
+        await self.accept()
 
     # need to pass user in the event 
     # if not user will stay the same
     async def user_status(self, event):
-        user = UserSerializer(event["user"]).data
-        await self.send_json({"user": user, "online": event["online"]})
+        await self.send_json({"user": event["user_id"], "online": event["online"]})
 
     async def disconnect(self, code):
-        await leave_room(self)
-        await self.channel_layer.group_send(self.room.name.join("_") + "status", {
+        if self.user.pk is not None:
+            await leave(self)
+        await self.channel_layer.group_send("status", {
                 "type": "user.status",
                 "online": False,
-                "user": self.user.id
+                "user_id": self.user.id
             })
-        await self.channel_layer.group_discard(self.room.name.join("_") + "status", self.channel_name)
+        await self.channel_layer.group_discard("status", self.channel_name)
         await self.close()

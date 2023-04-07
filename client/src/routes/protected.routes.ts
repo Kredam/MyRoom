@@ -1,4 +1,5 @@
 export default {
   settings: '/settings',
-  profile: 'profile'
+  profile: 'profile',
+  Room: '/room/:id'
 };

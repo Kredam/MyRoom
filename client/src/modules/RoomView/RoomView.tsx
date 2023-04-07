@@ -9,9 +9,7 @@ import { RoomChat } from 'models/Room';
 import { UsersQuery } from 'models/User';
 import React, { UIEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ReadyState } from 'react-use-websocket';
 import { useWebSocket } from 'react-use-websocket/dist/lib/use-websocket';
-import routes from 'routes/routes';
 
 interface RoomUsers {
   user: number;
@@ -26,12 +24,8 @@ const RoomView = (): React.ReactElement => {
   const [roomUsers, setRoomUsers] = useState<UsersQuery>({ users: [], nrOfUsers: 0 });
   const [offset, setOffset] = useState<number>(0);
   const [messageHistory, setMessageHistory] = useState<RoomChat[]>([]);
-  const chatUrl = `${process.env.REACT_APP_WEBSOCKET_URL as string}${id as string}/`;
-  const groupUrl = `${process.env.REACT_APP_WEBSOCKET_URL as string}join/${id as string}/`;
+  const chatUrl = `${process.env.REACT_APP_WEBSOCKET_URL as string}${id as string}/chat/`;
   const chatSocket = useWebSocket(chatUrl, {
-    queryParams: { token: auth.access }
-  });
-  const groupSocket = useWebSocket(groupUrl, {
     queryParams: { token: auth.access }
   });
 
@@ -42,30 +36,11 @@ const RoomView = (): React.ReactElement => {
     }
   }, [chatSocket.lastMessage, setMessageHistory]);
 
-  const handleUserStatuses = (message: RoomUsers): void => {
-    if (message.online) {
-      // you just have to iterate through users (find it by id) and change the online status
-    } else {
-      // you just have to iterate through users (find it by id) and change the online status
-    }
-  };
-
-  useEffect(() => {
-    const message = groupSocket.lastMessage;
-    if (message !== null) {
-      handleUserStatuses(message.data);
-    }
-  }, [groupSocket.lastMessage]);
-
-  useEffect(() => {
-    if (groupSocket.readyState === ReadyState.CLOSED) navigate(routes.LandingPage);
-  }, [groupSocket.readyState]);
-
   useEffect(() => {
     fetchMessageHistory(id as string)
       .then((result) => setMessageHistory(result))
       .catch(console.log);
-    fetchRoomUsers(id as string, offset)
+    fetchRoomUsers(id as string)
       .then((result) => setRoomUsers(result))
       .catch(console.log);
   }, [id]);

@@ -16,4 +16,9 @@ export const Views = {
   ROOMS: 'Rooms'
 };
 
+export const ROLES = {
+  ADMIN: 'ADMIN',
+  MEMBER: 'MEMBER'
+};
+
 export const QUERY_KEYS = {};

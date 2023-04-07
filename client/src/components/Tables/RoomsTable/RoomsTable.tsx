@@ -18,7 +18,7 @@ const HEADERS: string[] = ['Name', 'Description'];
 const RoomsTable = ({ followedRooms }: props): React.ReactElement => {
   return (
     <TableContainer sx={styles.table}>
-      <Table>
+      <Table stickyHeader>
         <TableHead component={Paper} sx={styles.header}>
           <TableRow>
             {HEADERS.map((header) => (

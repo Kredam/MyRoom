@@ -7,10 +7,12 @@ import {
   Avatar,
   ListItemText,
   IconButton,
-  Paper
+  Paper,
+  Grid
 } from '@mui/material';
 import styles from './List.styles';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 interface Props {
   users: User[];
   activeUsers?: number[];
@@ -51,7 +53,21 @@ const UserList = ({ users, handleDetailSelection, handleScroll }: Props): React.
                 <ListItemText
                   primary={`${user.first_name} ${user.last_name}`}
                   sx={styles.itemText}
-                  secondary={'@' + user.username}
+                  secondary={
+                    user.online ? (
+                      <Grid container>
+                        <FiberManualRecordIcon sx={{ color: 'green' }} />
+                        online
+                      </Grid>
+                    ) : (
+                      <Grid container>
+                        <Grid item>
+                          <FiberManualRecordIcon sx={{ color: 'gray' }} />
+                        </Grid>
+                        <Grid item>offline</Grid>
+                      </Grid>
+                    )
+                  }
                 />
               </ListItem>
             </>
