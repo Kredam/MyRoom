@@ -1,22 +1,22 @@
 import React, { useContext, useState } from 'react';
-import { AppBar, Box, IconButton, Menu, Toolbar, MenuItem } from '@mui/material';
+import { AppBar, Box, IconButton, Menu, Toolbar, MenuItem, Tooltip } from '@mui/material';
 import routes from 'routes/routes';
 import HomeIcon from '@mui/icons-material/Home';
-import PeopleIcon from '@mui/icons-material/People';
+import ListIcon from '@mui/icons-material/List';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 import styles from './Navbar.styles';
 import AuthContext from 'hooks/AuthProvider';
 import { Search } from 'modules';
-import SearchField from 'components/SearchField/SearchField';
+import SearchField from 'components/Search/SearchField/SearchField';
 import { privateApi } from 'api/http-common';
 import { useSnackbar } from 'notistack';
 
 const Navbar = (): React.ReactElement => {
+  const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const [openModal, setOpenModal] = useState(false);
-  const { auth, setAuth } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>();
 
   const handleClose = (): void => {
@@ -54,32 +54,35 @@ const Navbar = (): React.ReactElement => {
             sx={styles.icon}
             size="medium"
             edge="start"
-            onClick={() => switchTab(routes.Home)}
-            aria-label="Home"
+            onClick={() => switchTab(routes.LandingPage)}
+            aria-label="Landing Page"
           >
             <HomeIcon />
           </IconButton>
-          <IconButton
-            sx={styles.icon}
-            size="medium"
-            edge="start"
-            onClick={() => switchTab(routes.Rooms)}
-            aria-label="Rooms"
-          >
-            <PeopleIcon />
-          </IconButton>
+          <Tooltip title="Spaces" placement="bottom">
+            <IconButton
+              sx={styles.icon}
+              size="medium"
+              edge="start"
+              onClick={() => switchTab(routes.Spaces)}
+              aria-label="RoomsView"
+            >
+              <ListIcon />
+            </IconButton>
+          </Tooltip>
           {/* implement own styled search component */}
           <Box flexGrow="1" />
-          {openModal ? (
-            <Search autoFocus={true} setOpenModal={setOpenModal} openModal={openModal} />
-          ) : (
-            <SearchField
-              disabled={true}
-              onClick={() => {
-                setOpenModal(true);
-              }}
-            />
-          )}
+          {auth.access !== '' &&
+            (openModal ? (
+              <Search autoFocus={true} setOpenModal={setOpenModal} openModal={openModal} />
+            ) : (
+              <SearchField
+                disabled={true}
+                onClick={() => {
+                  setOpenModal(true);
+                }}
+              />
+            ))}
           <Box flexGrow="1" />
           <IconButton size="medium" edge="end" onClick={openUserMenu} aria-label="User">
             <AccountCircleIcon />

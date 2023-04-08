@@ -1,8 +1,10 @@
 import UserIcon from '@mui/icons-material/AccountCircleOutlined';
+import VisibiltyIcon from '@mui/icons-material/VisibilityOutlined';
 import { SvgIconProps } from '@mui/material';
 
 export const SETTINGOPTIONS = {
-  USER: 'User'
+  USER: 'User',
+  VISIBILITY: 'Visibilities'
 };
 
 export interface ISettingsMenu {
@@ -16,7 +18,7 @@ export const SettingMenu: ISettingsMenu[] = [
     icon: UserIcon
   },
   {
-    name: 'Valami',
-    icon: UserIcon
+    name: 'Visibilities',
+    icon: VisibiltyIcon
   }
 ];

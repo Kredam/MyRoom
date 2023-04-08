@@ -1,7 +1,20 @@
 export interface Room {
+  is_followed: boolean | null;
   name: string;
   description: string;
   picture: string;
+}
+
+export interface MessageHistory {
+  room: string;
+  user: number;
+  message: string;
+  sent_time: Date;
+}
+
+export interface RoomQuery {
+  nrOfObjects: number;
+  rooms: Room[];
 }
 
 export interface RoomSearch {

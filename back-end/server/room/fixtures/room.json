@@ -13,7 +13,7 @@
     "fields": {
       "room": "Stone Ocean",
       "user": 1,
-      "isAdmin": true
+      "role": "ADMIN"
     }
   },
   {
@@ -30,7 +30,7 @@
     "fields": {
       "room": "Stardust Crusaders",
       "user": 1,
-      "isAdmin": true
+      "role": "ADMIN"
     }
   },
   {
@@ -47,7 +47,7 @@
     "fields": {
       "room": "Battle Tendecy",
       "user": 1,
-      "isAdmin": true
+      "role": "ADMIN"
     }
   },
   {
@@ -64,7 +64,7 @@
     "fields": {
       "room": "Venturo Auro",
       "user": 1,
-      "isAdmin": true
+      "role": "ADMIN"
     }
   },
   {
@@ -81,27 +81,7 @@
     "fields": {
       "room": "Boku no hero academia",
       "user": 1,
-      "isAdmin": true
-    }
-  },
-  {
-    "model": "article.Article",
-    "pk": 1,
-    "fields": {
-      "room": "Stone Ocean",
-      "title": "Netflix hates JoJo bizarre adventure",
-      "likes": 50,
-      "body": "Netflix ruins jojo with releasing episodes in one method, rather than weekly"
-    }
-  },
-  {
-    "model": "article.Article",
-    "pk": 2,
-    "fields": {
-      "room": "Stone Ocean",
-      "title": "Is it worth watching",
-      "likes": 30,
-      "body": "Netflix ruins jojo with releasing episodes in one method, rather than weekly"
+      "role": "ADMIN"
     }
   },
   {
@@ -110,1115 +90,306 @@
   },
   {
     "model": "room.Followed",
-    "fields": { "room": "Home", "user": 1, "isAdmin": true }
+    "fields": { "room": "Home", "user": 1, "role": "ADMIN"
+  }
   },
   {
     "model": "room.Room",
     "fields": {
-      "name": "Ask Reddit...",
-      "description": "r/AskReddit is the place to ask and answer thought-provoking questions."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Ask Reddit...", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Am I the Asshole? ",
-      "description":
-        "A catharsis for the frustrated moral philosopher in all of us, and a place to finally find out if you were wrong in an argument thats been bothering you. Tell us about any non-violent conflict you have experienced; give us both sides of the story, and find out if youre right, or youre the asshole. \n\nSee our ~~*Best Of*~~ Most Controversial at /r/AITAFiltered!"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Am I the Asshole? ", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "White People Twitter.",
-      "description": "People tweeting stuff. We allow tweets from anyone."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "White People Twitter.", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "funny",
-      "description": "Welcome to r/Funny, Reddits largest humour depository."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "funny", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Antiwork: Unemployment for all, not just the rich!",
-      "description":
-        "A subreddit for those who want to end work, are curious about ending work, want to get the most out of a work-free life, want more information on anti-work ideas and want personal help with their own jobs/work-related struggles."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Antiwork: Unemployment for all, not just the rich!", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Damn, thats interesting!",
-      "description": "The most interesting place on reddit"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Damn, thats interesting!", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "Interesting As Fuck", "description": "For anything that is InterestingAsFuck" }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Interesting As Fuck", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "now double verified",
-      "description":
-        "*A subreddit for you to share the stupidity of individuals online and IRL. Post screenshots from forums, social media sites, or just real life. \n---------------------------------------------------  \n\n***PLEASE*** read all of the sidebar before posting, thanks!  \n-------------------------------------------"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "now double verified", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "PC Master Race - PCMR: A place where all enthusiasts of PC, PC gaming and PC technology are welcome!",
-      "description":
-        "Welcome to the official subreddit of the PC Master Race / PCMR!\n\nAll PC related content is welcome, including build help, tech support, and any doubt one might have about PC ownership.\n\nYou dont necessarily need a PC to be a member of the PCMR. You just have to love PCs. Its not about the hardware in your rig, but the software in your heart!\n\nJoin us in celebrating and promoting tech, knowledge, and the best gaming and working platform. The PC."
+      "name": "Naruto",
+      "description": "A young ninja named Naruto Uzumaki aspires to become the Hokage, the leader of his village, while facing challenges and enemies along the way."
     }
   },
   {
     "model": "room.Followed",
     "fields": {
-      "room": "PC Master Race - PCMR: A place where all enthusiasts of PC, PC gaming and PC technology are welcome!",
+      "room": "Naruto",
       "user": 1,
-      "isAdmin": true
+      "role": "ADMIN"
     }
   },
   {
     "model": "room.Room",
     "fields": {
-      "name": "r/LivestreamFail: Livestream wins, fails, and everything in between",
-      "description":
-        "Welcome to /r/LivestreamFail: the place for almost anything livestream related."
+      "name": "Bleach",
+      "description": "Ichigo Kurosaki, a teenager with the ability to see ghosts, gains the power of a Soul Reaper and must defend humans from evil spirits and guide departed souls to the afterlife."
     }
   },
   {
     "model": "room.Followed",
     "fields": {
-      "room": "r/LivestreamFail: Livestream wins, fails, and everything in between",
+      "room": "Bleach",
       "user": 1,
-      "isAdmin": true
+      "role": "ADMIN"
     }
   },
   {
     "model": "room.Room",
     "fields": {
-      "name": "World News",
-      "description": "A place for major news from around the world, excluding US-internal news."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "World News", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "⬆ Next Fucking Level ⬆",
-      "description": "A subreddit for gifs and videos that are next fucking level!"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "⬆ Next Fucking Level ⬆", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "r/gaming",
-      "description":
-        "A subreddit for (almost) anything related to games - video games, board games, card games, etc. (but not sports)."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "r/gaming", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Unexpected",
-      "description": "This subreddit is for unexpected twists in videos and gifs."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Unexpected", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "Reddit Pics", "description": "A place for picture's and photographs." }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Reddit Pics", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Movie News and Discussion",
-      "description":
-        "The goal of /r/Movies is to provide an inclusive place for discussions and news about films with major releases. Submissions should be for the purpose of informing or initiating a discussion, not just to entertain readers. Read our extensive list of rules for more information on other types of posts like fan-art and self-promotion, or message the moderators if you have any questions."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Movie News and Discussion", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "😎HAHA DAE MINIONS!!!😎",
-      "description": "Community for all those terrible memes your uncle posts on facebook"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "😎HAHA DAE MINIONS!!!😎", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Memes and jokes about everything programming and CS",
-      "description": "Dedicated to humor and jokes relating to programmers and programming."
+      "name": "OnePiece",
+      "description": "Monkey D. Luffy sets out on a journey to become the Pirate King, recruiting a diverse crew and facing powerful enemies along the way in search of the ultimate treasure, the One Piece."
     }
   },
   {
     "model": "room.Followed",
     "fields": {
-      "room": "Memes and jokes about everything programming and CS",
+      "room": "OnePiece",
       "user": 1,
-      "isAdmin": true
+      "role": "ADMIN"
     }
   },
   {
     "model": "room.Room",
     "fields": {
-      "name": "Politics",
-      "description": "/r/Politics is for news and discussion about U.S. politics."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Politics", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "World of Warcraft", "description": "World of Warcraft on Reddit!" }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "World of Warcraft", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "For photos that are, you know, mildly interesting",
-      "description":
-        "Aww, cripes. I didnt know Id have to write a description. How many words is that so far, like a hundred? Soooo, yeah. Mildly interesting stuff. Stuff that interests you. Mildly. Its in the name, ffs."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "For photos that are, you know, mildly interesting", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "/r/PublicFreakout",
-      "description":
-        "A subreddit dedicated to people freaking out, melting down, losing their cool, or being weird in public."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "/r/PublicFreakout", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "There was an attempt..", "description": "For all the failed attempts of life" }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "There was an attempt..", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "BestofRedditorUpdates",
-      "description":
-        "**What happened to people who ask reddit for advice or help?** \n\nDid they take Reddits advice? How did it turn out? \n\nRead the best updates by redditors and find out what happened after their original post."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "BestofRedditorUpdates", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "League of Heartsteel",
-      "description": "This is a subreddit devoted to the game League of Legends."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "League of Heartsteel", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Escape From Tarkov",
-      "description":
-        "The unofficial Subreddit for Escape From Tarkov, a Hardcore FPS being created by Battlestate Games."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Escape From Tarkov", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "No such thing as stupid questions", "description": "Ask away!" }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "No such thing as stupid questions", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "/r/buildapc - Planning on building a computer but need some advice? This is the place to ask!",
-      "description":
-        "Planning on building a computer but need some advice? This is the place to ask!\n\n/r/buildapc is a community-driven subreddit dedicated to custom PC assembly. Anyone is welcome to seek the input of our helpful community as they piece together their desktop."
+      "name": "AttackOnTitan",
+      "description": "In a world where humanity lives within a walled city to protect itself from man-eating Titans, Eren Yeager and his friends join the Survey Corps to fight back and uncover the secrets of their world."
     }
   },
   {
     "model": "room.Followed",
     "fields": {
-      "room": "/r/buildapc - Planning on building a computer but need some advice? This is the place to ask!",
+      "room": "AttackOnTitan",
       "user": 1,
-      "isAdmin": true
+      "role": "ADMIN"
     }
   },
   {
     "model": "room.Room",
     "fields": {
-      "name": "News",
-      "description":
-        "The place for news articles about current events in the United States and the rest of the world. Discuss it all here."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "News", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "/r/Memes the original since 2008",
-      "description":
-        "Memes!\n\nA way of describing cultural information being shared.\nAn element of a culture or system of behavior that may be considered to be passed from one individual to another by nongenetic means, especially imitation."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "/r/Memes the original since 2008", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Elden Ring",
-      "description":
-        "This is the subreddit for the Elden Ring gaming community. Elden Ring is an action RPG which takes place in the Lands Between, sometime after the Shattering of the titular Elden Ring. Players must explore and fight their way through the vast open-world to unite all the shards, restore the Elden Ring, and become Elden Lord.\n\nElden Ring was directed by Hidetaka Miyazaki and made in collaboration with George R. R. Martin. It was developed by FromSoft and published by Bandai Namco."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Elden Ring", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Today I Learned (TIL)",
-      "description":
-        "You learn something new every day; what did you learn today?\nSubmit interesting and specific facts about something that you just found out here."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Today I Learned (TIL)", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "Minecraft on reddit", "description": "Minecraft community on reddit." }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Minecraft on reddit", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "jukmifgguggh", "description": "jukmifgguggh fbrltbruh\n" }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "jukmifgguggh", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "MadeMeSmile",
-      "description":
-        "A place to share things that made you smile or brightened up your day. A generally uplifting subreddit."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "MadeMeSmile", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Final Fantasy X|V Online",
-      "description":
-        "A community for fans of the critically acclaimed MMORPG Final Fantasy XIV, which includes a free trial that includes the entirety of A Realm Reborn AND the award-winning Heavensward expansion up to level 60 with no restrictions on playtime.\n\nFFXIVs newest expansion, Endwalker, is out now."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Final Fantasy X|V Online", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Relationship Advice",
-      "description":
-        "Need help with your relationship? Whether its romance, friendship, family, co-workers, or basic human interaction: were here to help!"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Relationship Advice", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "What Could Possibly Go Wrong?",
-      "description": "The best place to learn what not to do."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "What Could Possibly Go Wrong?", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Welcome to Ukraine - Ласкаво просимо в Україну!",
-      "description":
-        "HERE УКРАЇНА TAKES CENTER STAGE — The purpose of r/Ukraine is to amplify Ukrainian voices. We are at war, so content is tightly moderated to keep our community safe. Share and discuss Україна and her glorious people, history, geography, language, art, culture, values, and experiences during wartime. Sharing of russian narratives in any way, shape or form is banned."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Welcome to Ukraine - Ласкаво просимо в Україну!", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Genshin Impact Official",
-      "description":
-        "This is the official community for Genshin Impact (原神), the latest open-world action RPG from HoYoverse. The game features a massive, gorgeous map, an elaborate elemental combat system, engaging storyline & characters, co-op game mode, soothing soundtrack, and much more for you to explore!"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Genshin Impact Official", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "NFL: National Football League Discussion",
-      "description": "This is a subreddit for the NFL community."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "NFL: National Football League Discussion", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "The back page of the internet ",
-      "description":
-        "The football subreddit. \n\nNews, results and discussion about the beautiful game."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "The back page of the internet ", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Explain Like Im Five | Dont Panic!",
-      "description":
-        "Explain Like Im Five is the best forum and archive on the internet for layperson-friendly explanations.\n\n\nDont Panic!"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Explain Like Im Five | Dont Panic!", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Piracy: ꜱᴀɪʟ ᴛʜᴇ ʜɪɢʜ ꜱᴇᴀꜱ",
-      "description":
-        "A community dedicated to the discussion of digital piracy.\n\nPiracy is ethical."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Piracy: ꜱᴀɪʟ ᴛʜᴇ ʜɪɢʜ ꜱᴇᴀꜱ", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "A subreddit for cute and cuddly picture's",
-      "description":
-        "Things that make you go AWW! Like puppies, bunnies, babies, and so on...\n\nA place for really cute picture's and videos!"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "A subreddit for cute and cuddly picture's", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "meow", "description": "you, me, us, irl, reddit style" }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "meow", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Path of Exile",
-      "description":
-        "A subreddit dedicated to Path of Exile, an ARPG made by Grinding Gear Games. Spiritual successor to Diablo 2"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Path of Exile", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "/r/Anime", "description": "Reddits premier anime community." }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "/r/Anime", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Everything about Tinder",
-      "description":
-        "A community for discussing the online dating app Tinder. Sharing conversations, reviewing profiles and more."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Everything about Tinder", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "shitposting", "description": "Be Funny" }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "shitposting", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "HolUp, wait a min", "description": "Things that make you go HolUP!" }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "HolUp, wait a min", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Sysadmin",
-      "description": "A reddit dedicated to the profession of Computer System Administration."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Sysadmin", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Entertainment",
-      "description": "For news and discussion of the entertainment industry."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Entertainment", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "wallstreetbets", "description": "Like 4chan found a Bloomberg Terminal." }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "wallstreetbets", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Genshin Impact Leaks",
-      "description":
-        "A place to share and discuss leaks and datamines relating to the video game Genshin Impact"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Genshin Impact Leaks", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "CasualUK",
-      "description": "UK based subreddit for non-political news, commentary and discussion."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "CasualUK", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Map Porn, for interesting maps",
-      "description": "High quality images of maps."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Map Porn, for interesting maps", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "One Piece",
-      "description":
-        "Welcome to r/OnePiece, the community for Eiichiro Odas manga and anime series One Piece. From the East Blue to the New World, anything related to the world of One Piece belongs here! If youve just set sail with the Straw Hat Pirates, be wary of spoilers on this subreddit!"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "One Piece", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "NBA", "description": "A subreddit dedicated to NBA news and discussion." }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "NBA", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Whats everyone on about?",
-      "description":
-        "A subreddit to help you keep up to date with whats going on with reddit and other stuff."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Whats everyone on about?", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "PC Gaming", "description": "A subreddit for PC gaming news and discussion!" }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "PC Gaming", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "DnD: Roll for Initiative!",
-      "description":
-        "A subreddit dedicated to the various iterations of Dungeons & Dragons, from its First Edition roots to its One D&D future."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "DnD: Roll for Initiative!", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "We dont know, but well answer anyway",
-      "description": "We dont know, but well answer anyway"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "We dont know, but well answer anyway", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Old School RuneScape!",
-      "description":
-        "The community for Old School RuneScape discussion on Reddit. Join us for game discussions, tips and tricks, and all things OSRS!\n\nOSRS is the official legacy version of RuneScape, the largest free-to-play MMORPG."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Old School RuneScape!", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Personal Finance",
-      "description":
-        "Learn about budgeting, saving, getting out of debt, credit, investing, and retirement planning. Join our community, read the PF Wiki, and get on top of your finances!"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Personal Finance", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "/r/videos",
-      "description":
-        "Reddits main subreddit for videos.\n\nPlease read the sidebar below for our rules."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "/r/videos", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Europe",
-      "description": "Europe: 50 (+6) countries, 230 languages, 746M people… 1 subreddit."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Europe", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Well... That sucks...",
-      "description":
-        "For everything that happens in everyday life that makes you say well, that sucks"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Well... That sucks...", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "For your Opinions that are Unpopular ",
-      "description": "Got a burning unpopular opinion you want to share? Spark some discussions!"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "For your Opinions that are Unpopular ", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Future(s) Studies",
-      "description":
-        "Welcome to r/Futurology, a subreddit devoted to the field of Future(s) Studies and speculation about the development of humanity, technology, and civilization."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Future(s) Studies", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "/r/Technology ",
-      "description":
-        "Subreddit dedicated to the news and discussions about the creation and use of technology and its surrounding issues."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "/r/Technology ", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "/r/Ask", "description": "This is a place to ask questions." }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "/r/Ask", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Idiots In Cars",
-      "description": "When idiots get behind the wheel of a vehicle, shit gets funny."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Idiots In Cars", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Memes of all shapes and sizes",
-      "description": "Add your own personal memes or one found on any other site."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Memes of all shapes and sizes", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "/r/AMD — For all things Radeon, Ryzen and more!",
-      "description":
-        "Welcome to /r/AMD — the subreddit for all things AMD; come talk about Ryzen, Threadripper, EPYC, Zen4, RDNA3, rumors and more.\n\n/r/AMD is community run and does not represent AMD in any capacity unless specified."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "/r/AMD — For all things Radeon, Ryzen and more!", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "r/de – Extraordinär gut!",
-      "description":
-        "Das Sammelbecken für alle Deutschsprechenden, hauptsächlich auf Deutsch, manchmal auch auf Englisch. Für Deutschland, Österreich, Schweiz, Liechtenstein, Luxemburg und die zwei Belgier."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "r/de – Extraordinär gut!", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Ask the United Kingdom",
-      "description":
-        "The #1 subreddit for Brits and non-Brits to ask questions about life and culture in the United Kingdom. \n\nWe invite user's to post interesting questions about the UK that create informative, good to read, insightful, helpful, or light-hearted discussions."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Ask the United Kingdom", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Modded Minecraft",
-      "description":
-        "The subreddit for all things related to Modded Minecraft for Minecraft Java Edition\n\n---\n\nThis subreddit was originally created for discussion around the FTB launcher and its modpacks but has since grown to encompass all aspects of modding the Java edition of Minecraft.\n\nThe /r/feedthebeast subreddit is not affiliated or associated with the Feed the Beast company."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Modded Minecraft", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Malicious Compliance",
-      "description": "People conforming to the letter, but not the spirit, of a request."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Malicious Compliance", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "/r/manga: manga, on reddit.",
-      "description":
-        "Everything and anything manga!  (manhwa/manhua is okay too!)\n\nDiscuss weekly chapters, find/recommend a new series to read, post a picture of your collection, lurk, etc!"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "/r/manga: manga, on reddit.", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "Today I Fucked Up", "description": "r/TIFU means Today I Fucked Up" }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Today I Fucked Up", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": { "name": "📺 Television Discussion and News", "description": "\u200e" }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "📺 Television Discussion and News", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "TechSupport",
-      "description":
-        "Stumped on a Tech problem?  Ask the tech support reddit, and try to help others with their problems as well.\n\n\nBe sure to check out the Discord server, too!\nhttps://rtech.support/discord"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "TechSupport", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Pokémon: Gotta Catch ’Em All!",
-      "description":
-        "r/pokemon is an unofficial Pokémon fan community. This is the place for most things Pokémon on Reddit—TV shows, video games, toys, trading cards, you name it!"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Pokémon: Gotta Catch ’Em All!", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "UkraineWarVideoReport",
-      "description": "Community Driven Videos/Photos/Updates and Discussion on the Ukrainian War"
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "UkraineWarVideoReport", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "Life Pro Tips",
-      "description": "Tips that improve your life in one way or another."
-    }
-  },
-  {
-    "model": "room.Followed",
-    "fields": { "room": "Life Pro Tips", "user": 1, "isAdmin": true }
-  },
-  {
-    "model": "room.Room",
-    "fields": {
-      "name": "r/TwoXChromosomes: You are the community. You have all the power of the internet to mold it.",
-      "description":
-        "Welcome to TwoXChromosomes, a subreddit for both serious and silly content, and intended for womens perspectives.  \n\nWe are a welcoming subreddit and support the rights of all genders.\n\nPosts are moderated for respect, equanimity, grace, and relevance."
+      "name": "FullmetalAlchemist",
+      "description": "In a world where alchemy is a powerful science, brothers Edward and Alphonse Elric search for the Philosopher's Stone to restore their bodies after a failed attempt to bring their mother back to life."
     }
   },
   {
     "model": "room.Followed",
     "fields": {
-      "room": "r/TwoXChromosomes: You are the community. You have all the power of the internet to mold it.",
+      "room": "FullmetalAlchemist",
       "user": 1,
-      "isAdmin": true
+      "role": "ADMIN"
     }
   },
   {
     "model": "room.Room",
     "fields": {
-      "name": "Steam Deck",
-      "description":
-        "Steam Deck is a handheld gaming system developed by Valve Corporation in cooperation with AMD.\n\nIt brings the Steam games and features you love to a powerful and convenient form factor that you can take wherever you go."
+      "name": "DeathNote",
+      "description": "A high school student named Light Yagami finds a mysterious notebook that grants him the power to kill anyone whose name he writes in it, and begins a dangerous game of cat-and-mouse with a master detective trying to stop him."
     }
   },
   {
     "model": "room.Followed",
-    "fields": { "room": "Steam Deck", "user": 1, "isAdmin": true }
-  },
-  {
+    "fields": {
+      "room": "DeathNote",
+      "user": 1,
+      "role": "ADMIN"
+    }
+  },{
     "model": "room.Room",
-    "fields": { "name": "Personal Finance For Canadians", "description": "" }
+    "fields": {
+      "name": "BreakingBad",
+      "description": "A high school chemistry teacher turns to making and selling methamphetamine in order to secure his family's financial future, while navigating the dangers of the criminal underworld."
+    }
   },
   {
     "model": "room.Followed",
-    "fields": { "room": "Personal Finance For Canadians", "user": 1, "isAdmin": true }
+    "fields": {
+      "room": "BreakingBad",
+      "user": 1,
+      "role": "ADMIN"
+    }
   },
   {
     "model": "room.Room",
     "fields": {
-      "name": "CrazyFuckingVideos",
-      "description": "Crazy Fucking Videos for your viewing pleasure."
+      "name": "GameOfThrones",
+      "description": "In the Seven Kingdoms of Westeros, various families and factions fight for control of the Iron Throne and the ultimate power over the realm."
     }
   },
   {
     "model": "room.Followed",
-    "fields": { "room": "CrazyFuckingVideos", "user": 1, "isAdmin": true }
+    "fields": {
+      "room": "GameOfThrones",
+      "user": 1,
+      "role": "ADMIN"
+    }
   },
   {
     "model": "room.Room",
     "fields": {
-      "name": "Internet for the Spirit",
-      "description":
-        "Welcome to the wholesome side of the internet! This community is for those searching for a way to capture virtue on the internet."
+      "name": "TheSopranos",
+      "description": "A New Jersey mob boss tries to balance his family life and criminal empire, while dealing with mental health issues and the changing landscape of organized crime."
     }
   },
   {
     "model": "room.Followed",
-    "fields": { "room": "Internet for the Spirit", "user": 1, "isAdmin": true }
+    "fields": {
+      "room": "TheSopranos",
+      "user": 1,
+      "role": "ADMIN"
+    }
   },
   {
     "model": "room.Room",
     "fields": {
-      "name": "The NVIDIA Subreddit",
-      "description":
-        "A place for everything NVIDIA, come talk about news, drivers, rumors, GPUs, the industry, show-off your build and more.\n\nThis Subreddit is community run and does not represent NVIDIA in any capacity unless specified."
+      "name": "TheWire",
+      "description": "In Baltimore, law enforcement, drug dealers, and politicians navigate a complex and often corrupt system, revealing the interconnectedness of power and crime in modern society."
     }
   },
   {
     "model": "room.Followed",
-    "fields": { "room": "The NVIDIA Subreddit", "user": 1, "isAdmin": true }
+    "fields": {
+      "room": "TheWire",
+      "user": 1,
+      "role": "ADMIN"
+    }
   },
   {
     "model": "room.Room",
     "fields": {
-      "name": "Discord - Imagine a Place...",
-      "description":
-        "Imagine a Place... where you can belong to a school club, a gaming group, or a worldwide art community. Where just you and handful of friends can spend time together. A place that makes it easy to talk every day and hang out more often.\n\nNOTE: /r/discordapp is unofficial & community-run."
+      "name": "TheOffice",
+      "description": "A mockumentary-style sitcom follows the daily lives of employees at a Scranton, Pennsylvania paper company, capturing the humor and heart of office culture."
     }
   },
   {
     "model": "room.Followed",
-    "fields": { "room": "Discord - Imagine a Place...", "user": 1, "isAdmin": true }
+    "fields": {
+      "room": "TheOffice",
+      "user": 1,
+      "role": "ADMIN"
+    }
   },
   {
     "model": "room.Room",
     "fields": {
-      "name": "dankmemes",
-      "description":
-        "dank (for a certain definition of dank)\nmemes (for a certain definition of memes)"
+      "name": "Friends",
+      "description": "A group of six friends in New York City navigate their careers, relationships, and personal struggles while supporting each other through it all."
     }
   },
   {
     "model": "room.Followed",
-    "fields": { "room": "dankmemes", "user": 1, "isAdmin": true }
+    "fields": {
+      "room": "Friends",
+      "user": 1,
+      "role": "ADMIN"
+    }
   },
   {
     "model": "room.Room",
     "fields": {
-      "name": "Cool Guides",
-      "description":
-        "Picture based reference guides for anything and everything. If it seems like something someone might print, physically post, and reference then it is a good link for this sub. \n\nRemember: Infographics are learning tools, guides are reference tools. Sometimes its grey."
+      "name": "Chernobyl",
+      "description": "Based on the true events of the 1986 nuclear disaster in Ukraine, this miniseries explores the human cost and political fallout of the worst nuclear accident in history."
     }
   },
   {
     "model": "room.Followed",
-    "fields": { "room": "Cool Guides", "user": 1, "isAdmin": true }
+    "fields": {
+      "room": "Chernobyl",
+      "user": 1,
+      "role": "ADMIN"
+    }
   },
   {
     "model": "room.Room",
     "fields": {
-      "name": "Oddly Satisfying",
-      "description": "For those little things that are inexplicably satisfying."
+      "name": "Pulp",
+      "description": "A pair of hit men, a boxer, a gangster's wife, and a pair of diner bandits interact with each other in various ways during a crime-filled Los Angeles day."
     }
   },
   {
     "model": "room.Followed",
-    "fields": { "room": "Oddly Satisfying", "user": 1, "isAdmin": true }
+    "fields": {
+      "room": "Pulp",
+      "user": 1,
+      "role": "ADMIN"
+    }
   },
   {
     "model": "room.Room",
     "fields": {
-      "name": "5th Edition D&D",
-      "description":
-        "A place to discuss the latest version of Dungeons and Dragons, the fifth edition, known during the playtest as D&D Next."
+      "name": "Godfather",
+      "description": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son."
     }
   },
   {
     "model": "room.Followed",
-    "fields": { "room": "5th Edition D&D", "user": 1, "isAdmin": true }
+    "fields": {
+      "room": "Godfather",
+      "user": 1,
+      "role": "ADMIN"
+    }
   },
   {
     "model": "room.Room",
     "fields": {
-      "name": "Dota 2 on Reddit",
-      "description":
-        "/r/DotA2 is the most popular English-speaking community to discuss gameplay, esports, and news related to Valves award winning free-to-play MOBA DotA 2."
+      "name": "Shawshank",
+      "description": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency."
     }
   },
   {
     "model": "room.Followed",
-    "fields": { "room": "Dota 2 on Reddit", "user": 1, "isAdmin": true }
+    "fields": {
+      "room": "Shawshank",
+      "user": 1,
+      "role": "ADMIN"
+    }
   },
   {
     "model": "room.Room",
     "fields": {
-      "name": "𝕮𝖔𝖒𝖇𝖆𝖙 𝕱𝖔𝖗𝖚𝖒 ",
-      "description":
-        "A forum for combat footage and photos from historical to ongoing wars. Welcome, feel free to join in on any discussion!"
+      "name": "Fight",
+      "description": "An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more."
     }
   },
   {
     "model": "room.Followed",
-    "fields": { "room": "𝕮𝖔𝖒𝖇𝖆𝖙 𝕱𝖔𝖗𝖚𝖒 ", "user": 1, "isAdmin": true }
+    "fields": {
+      "room": "Fight",
+      "user": 1,
+      "role": "ADMIN"
+    }
+  },
+  {
+    "model": "room.Room",
+    "fields": {
+      "name": "Schindler's",
+      "description": "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis."
+    }
+  },
+  {
+    "model": "room.Followed",
+    "fields": {
+      "room": "Schindler's",
+      "user": 1,
+      "role": "ADMIN"
+    }
+  },
+  {
+    "model": "room.Room",
+    "fields": {
+      "name": "Lord",
+      "description": "A meek hobbit of the Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron."
+    }
+  },
+  {
+    "model": "room.Followed",
+    "fields": {
+      "room": "Lord",
+      "user": 1,
+      "role": "ADMIN"
+    }
+  },
+  {
+    "model": "room.Room",
+    "fields": {
+      "name": "Dark",
+      "description": "A family saga with a supernatural twist, set in a German town, where the disappearance of two young children exposes the relationships among four families."
+    }
+  },
+  {
+    "model": "room.Followed",
+    "fields": {
+      "room": "Dark",
+      "user": 1,
+      "role": "ADMIN"
+    }
   }
 ]

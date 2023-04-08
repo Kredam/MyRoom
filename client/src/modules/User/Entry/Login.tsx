@@ -1,31 +1,47 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useContext } from 'react';
 import { Grid } from '@mui/material';
-import { Entry } from 'components';
-import { privateApi } from 'api/http-common';
+import { CommonForm } from 'components';
+import { User } from 'models/User';
+import { api } from 'api/http-common';
 import AuthContext from 'hooks/AuthProvider';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 import routes from 'routes/routes';
+import styles from './Entry.styles';
+import { useForm } from 'react-hook-form';
 
 const Login = (): React.ReactElement => {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth, setUser } = useContext(AuthContext);
+  const { handleSubmit, control } = useForm<any>();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
-  const submit = (pendingChanges: Object): void => {
-    privateApi
-      .post('token/', pendingChanges)
+  const onSubmit = async (data: User): Promise<void> => {
+    console.log(data);
+    await api
+      .post('token/', data)
       .then((res) => {
         enqueueSnackbar('Successful log in', { variant: 'success' });
-        setAuth(res.data);
-        navigate(routes.Home);
+        setAuth(res.data.tokens);
+        setUser(res.data.user);
+        navigate(routes.LandingPage);
       })
       .catch(() => enqueueSnackbar('Unsuccessful log in', { variant: 'error' }));
   };
 
   return (
-    <Grid container spacing={3} justifyContent="center" alignContent="center" direction="column">
-      <Entry submit={(pendingChanges) => submit(pendingChanges)} type="Log in" />
+    <Grid
+      container
+      spacing={3}
+      justifyContent="center"
+      alignContent="center"
+      direction="column"
+      sx={styles.paper}
+    >
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <CommonForm control={control} type="Log in" />
+      </form>
     </Grid>
   );
 };

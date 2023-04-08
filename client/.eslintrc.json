@@ -24,6 +24,5 @@
     ],
     "rules": {
       "react/react-in-tsx-scope": "off"
-    },
-    "endOfLine": "off"
+    }
 }

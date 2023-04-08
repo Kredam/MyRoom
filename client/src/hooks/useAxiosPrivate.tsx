@@ -12,8 +12,8 @@ const useAxiosPrivate = (): AxiosInstance => {
     const request = requestInterceptor();
     const response = responseInterceptors();
     return () => {
-      axios.interceptors.request.eject(request);
-      axios.interceptors.response.eject(response);
+      api.interceptors.request.eject(request);
+      api.interceptors.response.eject(response);
     };
   }, [auth]);
 

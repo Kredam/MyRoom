@@ -3,19 +3,23 @@ import React from 'react';
 
 import { ISettingsMenu, SettingMenu } from 'utils/settings';
 
-const SettingsList = (): React.ReactElement => {
+interface props {
+  setView: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const SettingsList = ({ setView }: props): React.ReactElement => {
   return (
     <List>
       {SettingMenu.map((setting: ISettingsMenu) => {
         return (
-          <Paper elevation={4} sx={{ borderRadius: 8, marginBottom: '12px' }} key={setting.name}>
-            <ListItem>
-              <ListItemButton>
+          <ListItem key={setting.name}>
+            <Paper elevation={4} sx={{ borderRadius: 8, marginBottom: '12px', width: '100%' }}>
+              <ListItemButton sx={{ borderRadius: 8 }} onClick={() => setView(setting.name)}>
                 <ListItemIcon>{<setting.icon />}</ListItemIcon>
                 <ListItemText primary={setting.name} />
               </ListItemButton>
-            </ListItem>
-          </Paper>
+            </Paper>
+          </ListItem>
         );
       })}
     </List>

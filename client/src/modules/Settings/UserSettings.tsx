@@ -1,10 +1,11 @@
-import { UserDetails } from 'components';
+import { UserOption } from 'components';
 import React, { ChangeEvent, useState } from 'react';
 
 const UserSettings = (): React.ReactElement => {
   const [pendingChanges, setPendingChanges] = useState({
     Username: 'Kredam',
-    Password: 'haligali'
+    Old_password: 'haligali',
+    New_password: 'haligali2'
   });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -17,7 +18,7 @@ const UserSettings = (): React.ReactElement => {
 
   return (
     <>
-      <UserDetails pendingChanges={pendingChanges} handleChange={handleChange} />
+      <UserOption pendingChanges={pendingChanges} handleChange={handleChange} />
     </>
   );
 };
