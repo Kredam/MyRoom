@@ -28,8 +28,7 @@ class UserSerializer(serializers.ModelSerializer):
         user = self.context.get('user')
         if user is None:
             return None
-        print(obj)
-        return Followed.objects.get(following=user, follower=obj).exists()
+        return Followed.objects.filter(following=user, follower=obj).exists()
 
     def get_role(self, obj):
         room = self.context.get('room')

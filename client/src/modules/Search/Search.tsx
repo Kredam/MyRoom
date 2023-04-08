@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SearchModal } from 'components';
 import { AxiosResponse } from 'axios';
-import { api } from 'api/http-common';
+import useAxiosPrivate from 'hooks/useAxiosPrivate';
 
 interface Props {
   openModal: React.ComponentState;
@@ -10,6 +10,7 @@ interface Props {
 }
 
 const Search = ({ setOpenModal, openModal, autoFocus }: Props): React.ReactElement => {
+  const privateApi = useAxiosPrivate();
   const [search, setSearch] = useState('');
   const [rooms, setRooms] = useState({ data: [], isLoading: true });
 
@@ -18,7 +19,7 @@ const Search = ({ setOpenModal, openModal, autoFocus }: Props): React.ReactEleme
   };
 
   const getSearch = (): void => {
-    api
+    privateApi
       .post('rooms/search/', { search })
       .then((res: AxiosResponse) => {
         setRooms({ data: res.data, isLoading: false });
@@ -27,7 +28,6 @@ const Search = ({ setOpenModal, openModal, autoFocus }: Props): React.ReactEleme
   };
 
   useEffect(() => {
-    console.log(search);
     setRooms((previous) => ({
       ...previous,
       isLoading: true

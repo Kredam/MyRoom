@@ -1,29 +1,27 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
+import { Button, Divider, Grid, Paper, TextField, Typography } from '@mui/material';
 import { fetchMessageHistory, fetchRoomUsers } from 'api/services/services';
-import { UserList } from 'components';
-import { Utils } from 'consts';
+import { RoomChat, UserList } from 'components';
+import { ROLES, Utils } from 'consts';
 import AuthContext from 'hooks/AuthProvider';
-import { RoomChat } from 'models/Room';
-import { UsersQuery } from 'models/User';
+import { MessageHistory } from 'models/Room';
+import { User, UsersQuery } from 'models/User';
 import React, { UIEvent, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useWebSocket } from 'react-use-websocket/dist/lib/use-websocket';
-
 interface RoomUsers {
   user: number;
   online: boolean;
 }
 
 const RoomView = (): React.ReactElement => {
-  const { auth } = useContext(AuthContext);
+  const { auth, lastStatusMessage } = useContext(AuthContext);
   const { id } = useParams();
   const navigate = useNavigate();
-  const [message, setMessage] = useState<string>('');
   const [roomUsers, setRoomUsers] = useState<UsersQuery>({ users: [], nrOfUsers: 0 });
   const [offset, setOffset] = useState<number>(0);
-  const [messageHistory, setMessageHistory] = useState<RoomChat[]>([]);
+  const [messageHistory, setMessageHistory] = useState<MessageHistory[]>([]);
   const chatUrl = `${process.env.REACT_APP_WEBSOCKET_URL as string}${id as string}/chat/`;
   const chatSocket = useWebSocket(chatUrl, {
     queryParams: { token: auth.access }
@@ -45,6 +43,19 @@ const RoomView = (): React.ReactElement => {
       .catch(console.log);
   }, [id]);
 
+  useEffect(() => {
+    if (lastStatusMessage !== null) {
+      const message = JSON.parse(lastStatusMessage.data);
+      roomUsers?.users.map((user: User) => {
+        if (user.id === message.user) {
+          user.online = message.online;
+          return user;
+        }
+        return user;
+      });
+    }
+  }, [lastStatusMessage]);
+
   const handleScroll = (event: UIEvent<HTMLUListElement>): void => {
     if (roomUsers !== undefined && Utils.LIMIT + offset > roomUsers.nrOfUsers) return;
     const scrollTop: number = event.currentTarget.scrollTop;
@@ -55,26 +66,29 @@ const RoomView = (): React.ReactElement => {
   };
 
   return (
-    <Grid container direction="row" padding={6}>
-      <Grid item xs={2}>
-        <Paper>
+    <Grid container direction="row" sx={{ height: '100%' }}>
+      <Grid item xs={3}>
+        <Paper sx={{ height: '100%' }}>
           <Typography>{id}</Typography>
         </Paper>
       </Grid>
-      <Button onClick={() => chatSocket.sendMessage(message)}>Send</Button>
-      <Grid item xs>
-        {messageHistory.map((instance, index) => (
-          <Typography key={index}>{instance.message}</Typography>
-        ))}
-        <TextField
-          name="message"
-          value={message}
-          onChange={(event) => setMessage(event.currentTarget.value)}
-        />
+      <Grid item xs m={3}>
+        <RoomChat messageHistory={messageHistory} socket={chatSocket} roomUsers={roomUsers.users} />
       </Grid>
-      <Grid item>
+      <Grid item xs={3} m={3}>
+        <Divider sx={{ marginBottom: '12px', marginTop: '12px' }}>{ROLES.ADMIN}</Divider>
         {roomUsers !== undefined && (
-          <UserList users={roomUsers.users} handleScroll={handleScroll} />
+          <UserList
+            users={roomUsers.users.filter((user) => user.role === ROLES.ADMIN)}
+            handleScroll={handleScroll}
+          />
+        )}
+        <Divider sx={{ marginBottom: '12px', marginTop: '12px' }}>{ROLES.MEMBER}</Divider>
+        {roomUsers !== undefined && (
+          <UserList
+            users={roomUsers.users.filter((user) => user.role === ROLES.MEMBER)}
+            handleScroll={handleScroll}
+          />
         )}
       </Grid>
     </Grid>

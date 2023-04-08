@@ -26,6 +26,9 @@ const UsersTable = ({ followedUsers }: props): React.ReactElement => {
         <TableHead component={Paper} sx={styles.header}>
           <TableRow>
             {auth.access !== '' && <TableCell>Mutual</TableCell>}
+            {followedUsers?.users.some((user) => user.role !== undefined) && (
+              <TableCell>Role</TableCell>
+            )}
             {HEADERS.map((header) => (
               <TableCell key={header}>{header}</TableCell>
             ))}
@@ -38,6 +41,7 @@ const UsersTable = ({ followedUsers }: props): React.ReactElement => {
                 {auth.access !== '' && (
                   <TableCell>{user.is_followed === true && <CheckCircleOutlineIcon />}</TableCell>
                 )}
+                <TableCell>{user.role}</TableCell>
                 <TableCell>@{user.username}</TableCell>
                 <TableCell>{user.first_name}</TableCell>
                 <TableCell>{user.last_name}</TableCell>

@@ -1,6 +1,6 @@
 import { api } from 'api/http-common';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
-import { RoomChat, RoomQuery } from 'models/Room';
+import { MessageHistory, RoomQuery } from 'models/Room';
 import { User, UsersQuery } from 'models/User';
 import { Utils } from 'consts';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
@@ -36,8 +36,8 @@ export const fetchFollowedRooms = async (
   return result.data;
 };
 
-export const fetchMessageHistory = async (room: string): Promise<RoomChat[]> => {
-  const result = await api.get<RoomChat[]>(`chat/${room}/history`);
+export const fetchMessageHistory = async (room: string): Promise<MessageHistory[]> => {
+  const result = await api.get<MessageHistory[]>(`chat/${room}/history`);
   return result.data;
 };
 

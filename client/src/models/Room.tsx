@@ -1,5 +1,3 @@
-import { User } from 'models/User';
-
 export interface Room {
   is_followed: boolean | null;
   name: string;
@@ -7,9 +5,9 @@ export interface Room {
   picture: string;
 }
 
-export interface RoomChat {
+export interface MessageHistory {
   room: string;
-  user: User;
+  user: number;
   message: string;
   sent_time: Date;
 }

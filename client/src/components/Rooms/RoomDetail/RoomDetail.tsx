@@ -26,8 +26,7 @@ const RoomDetail = ({
   return (
     <Grid container direction="column">
       <Paper elevation={1} sx={styles.paper}>
-        <Grid container>
-          <Grid item xs />
+        <Grid container p={2}>
           <Grid item xs={2}>
             <Avatar sx={styles.avatar} src={room.picture}>
               {room.name}

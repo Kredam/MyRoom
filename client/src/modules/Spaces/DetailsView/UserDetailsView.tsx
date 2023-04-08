@@ -20,8 +20,8 @@ const UserDetailsView = ({ selectedDetail }: props): React.ReactElement => {
   const customApi = useAxiosPrivate();
   const [tableType, setTableType] = useState<string>(Utils.TABLE_TYPE.USERS);
   const { enqueueSnackbar } = useSnackbar();
-  const { data: followedUsers, refetch: refetchFollowedUsers } = fetchFollowedUsersQuery(-1, false);
-  const { data: followedRooms, refetch: refetchFollowedRooms } = fetchFollowedRoomsQuery(-1, false);
+  const { data: followedUsers } = fetchFollowedUsersQuery(-1, false);
+  const { data: followedRooms } = fetchFollowedRoomsQuery(-1, false);
   const user = queryClient.getQueryData<UsersQuery>(['users'])?.users[selectedDetail];
   const followUser = (userId: number): void => {
     postFollowUser(userId, customApi)
@@ -32,8 +32,6 @@ const UserDetailsView = ({ selectedDetail }: props): React.ReactElement => {
   useEffect(() => {
     queryClient.setQueryData(['followed-users'], null);
     queryClient.setQueryData(['followed-rooms'], null);
-    void refetchFollowedUsers();
-    void refetchFollowedRooms();
   }, [selectedDetail]);
 
   if (user !== undefined) {

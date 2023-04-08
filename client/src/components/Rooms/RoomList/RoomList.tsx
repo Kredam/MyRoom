@@ -46,7 +46,6 @@ const RoomList = ({
             <ListItem
               sx={styles.item}
               key={room.name}
-              divider
               secondaryAction={
                 <IconButton
                   edge="end"

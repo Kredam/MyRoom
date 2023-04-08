@@ -28,7 +28,6 @@ const UserList = ({ users, handleDetailSelection, handleScroll }: Props): React.
           return (
             <>
               <ListItem
-                divider
                 sx={styles.item}
                 key={user.id}
                 secondaryAction={

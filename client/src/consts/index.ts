@@ -1,5 +1,6 @@
 export const DateFormats = {
-  DATE: 'YYYY-MM-DD'
+  DATE: 'YYYY-MM-DD',
+  DATETIME: 'YYYY-MM-DD HH:mm'
 };
 
 export const Utils = {

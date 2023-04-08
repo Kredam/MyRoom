@@ -2,6 +2,10 @@ html, body {
   background-color: rgba(162, 162, 162, 0.10);
 }
 
+html, body, #root, #root>div {
+  height: 100%
+}
+
 body {
   overflow: hidden;
   margin: 0;
