@@ -17,10 +17,10 @@ class RoomViewSet(ModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
 
-    @action(detail=True, methods=['POST'])
+    @action(detail=True, methods=['GET'])
     def list(self, request):
-        limit = request.data['limit']
-        offset = request.data['offset']
+        limit = int(self.request.GET.get('limit'))
+        offset = int(self.request.GET.get('offset'))
         rooms = self.get_queryset()[offset:offset+limit]
         instance = {"nrOfObjects": len(self.get_queryset()), "rooms": rooms}
         room_serialized  = RoomListSerializer(instance)

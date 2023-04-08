@@ -58,7 +58,7 @@ export const fetchUsers =
   };
 
 export const fetchRooms = (offset: number) => async (): Promise<RoomQuery> => {
-  const result = await api.post<RoomQuery>('rooms/', { limit, offset });
+  const result = await api.get<RoomQuery>('rooms/', { params: { limit, offset } });
   return result.data;
 };
 
