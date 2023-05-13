@@ -3,7 +3,6 @@ import AuthContext from 'hooks/AuthProvider';
 import { Room } from 'models/Room';
 import React, { useContext } from 'react';
 import AddOutlined from '@mui/icons-material/AddOutlined';
-import DoneOutlined from '@mui/icons-material/Done';
 
 import styles from './RoomDetails.styles';
 import { useNavigate } from 'react-router-dom';
@@ -47,21 +46,11 @@ const RoomDetail = ({
             {auth.access !== '' && (
               <>
                 <Button variant="outlined" sx={styles.button} onClick={() => followRoom(room.name)}>
-                  {room.is_followed === true && (
-                    <>
-                      Followed
-                      <DoneOutlined />
-                    </>
-                  )}
-                  {room.is_followed === false && (
-                    <>
-                      Follow
-                      <AddOutlined />
-                    </>
-                  )}
+                  Follow
+                  <AddOutlined />
                 </Button>
                 <Button variant="contained" onClick={() => navigate(`/room/${room.name}`)}>
-                  Join
+                  Connect
                 </Button>
               </>
             )}

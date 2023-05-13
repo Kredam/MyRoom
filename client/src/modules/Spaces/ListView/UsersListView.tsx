@@ -47,7 +47,7 @@ const UsersListView = ({
 
   const mutateFollowedUsers = useMutation({
     mutationFn: async ({ pk, customApi }: followedUsersParams) =>
-      await fetchFollowedUsers(pk, customApi),
+      await fetchFollowedUsers(pk, auth.access !== '' ? customApi : null),
     onSuccess: async (result: UsersQuery) => {
       const prevFollows = queryClient.getQueryData<UsersQuery>(['followed-users']);
       if (prevFollows != null) {
@@ -65,7 +65,7 @@ const UsersListView = ({
 
   const mutateFollowedRooms = useMutation({
     mutationFn: async ({ pk, customApi }: followedUsersParams) =>
-      await fetchFollowedRooms(pk, customApi),
+      await fetchFollowedRooms(pk, auth.access !== '' ? customApi : null),
     onSuccess: async (result: RoomQuery) => {
       const prevFollows = queryClient.getQueryData<RoomQuery>(['followed-rooms']);
       if (prevFollows != null) {

@@ -45,7 +45,8 @@ const RoomsListView = ({ setSelectedDetail, isShown }: props): React.ReactElemen
   });
 
   const mutateRoomUsers = useMutation({
-    mutationFn: async ({ name, customApi }: any) => await fetchRoomUsers(name, customApi),
+    mutationFn: async ({ name, customApi }: any) =>
+      await fetchRoomUsers(name, auth.access !== '' ? customApi : null),
     onSuccess: async (result: UsersQuery) => {
       const prevFollows = queryClient.getQueryData<UsersQuery>(['room-related-users']);
       if (prevFollows != null) {

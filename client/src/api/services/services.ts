@@ -35,15 +35,19 @@ export const updateRoom = async (
 
 export const fetchRoomUsers = async (
   name: string | undefined,
-  customApi: AxiosInstance = api
+  customApiInstance: AxiosInstance | null = api
 ): Promise<UsersQuery> => {
+  let customApi = api;
+  if (customApiInstance != null) customApi = customApiInstance;
   const result = await customApi.get<UsersQuery>('rooms/followed-rooms', { params: { name } });
   return result.data;
 };
 export const fetchFollowedRooms = async (
   pk: number,
-  customApi: AxiosInstance
+  customApiInstance: AxiosInstance | null = api
 ): Promise<RoomQuery> => {
+  let customApi = api;
+  if (customApiInstance != null) customApi = customApiInstance;
   const result = await customApi.get<RoomQuery>('users/room-follows', {
     params: { user_pk: pk }
   });
@@ -57,8 +61,10 @@ export const fetchMessageHistory = async (room: string): Promise<MessageHistory[
 
 export const fetchFollowedUsers = async (
   pk: number,
-  customApi: AxiosInstance = api
+  customApiInstance: AxiosInstance | null
 ): Promise<UsersQuery> => {
+  let customApi = api;
+  if (customApiInstance != null) customApi = customApiInstance;
   const result = await customApi.get<UsersQuery>('users/user-follows', {
     params: { pk }
   });
