@@ -1,46 +1,37 @@
 import Grid from '@mui/material/Grid';
-import React, { useState } from 'react';
+import React from 'react';
 import { TextField, Button } from '@mui/material';
+import { Control, Controller } from 'react-hook-form';
+import { User } from 'models/User';
 
 interface Props {
-  submit: (pendingChanges: Object) => void;
   type: String;
+  control: Control<User>;
 }
 
-const CommonForm = ({ submit, type }: Props): React.ReactElement => {
-  const [pendingChanges, setPendingChanges] = useState({ username: '', password: '' });
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = event.currentTarget as HTMLInputElement;
-    setPendingChanges((prev) => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
+const CommonForm = ({ type, control }: Props): React.ReactElement => {
   return (
     <>
       <Grid item xs={12}>
-        <TextField
-          onChange={handleChange}
-          label="Username"
-          fullWidth
+        <Controller
+          control={control}
           name="username"
-          value={pendingChanges.username}
+          render={({ field }) => {
+            return <TextField {...field} label="Username" fullWidth />;
+          }}
         />
       </Grid>
       <Grid item xs={12}>
-        <TextField
-          onChange={handleChange}
-          label="Password"
-          fullWidth
-          type="password"
+        <Controller
+          control={control}
           name="password"
-          value={pendingChanges.password}
+          render={({ field }) => {
+            return <TextField label="Password" fullWidth type="password" {...field} />;
+          }}
         />
       </Grid>
       <Grid item xs={12}>
-        <Button variant="outlined" onClick={() => submit(pendingChanges)}>
+        <Button variant="outlined" type="submit">
           {type}
         </Button>
       </Grid>

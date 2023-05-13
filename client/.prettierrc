@@ -4,5 +4,7 @@
   "printWidth": 100,
   "singleQuote": true,
   "trailingComma": "none",
-  "tsxBracketSameLine": true
+  "tsxBracketSameLine": true,
+  "endOfLine": "auto"
+
 }

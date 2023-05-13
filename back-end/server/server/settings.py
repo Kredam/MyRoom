@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 from datetime import timedelta
-from pickle import TRUE
 from dotenv import load_dotenv
 
 
@@ -20,9 +19,19 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+
+ASGI_APPLICATION = 'server.asgi.application'
+
 # Application definition
 
+
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -35,7 +44,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'users',
     'room',
-    'article'
+    'chat',
+    'channels'
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -47,6 +57,8 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+WSGI_APPLICATION = 'server.wsgi.application'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -79,9 +91,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'server.wsgi.application'
-
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -91,8 +100,8 @@ DATABASES = {
         "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        # "HOST": "localhost",
-        "HOST": "db",
+        "HOST": "localhost",
+        # "HOST": "db",
         "PORT": 5432
     }
     # 'default': {
@@ -102,12 +111,12 @@ DATABASES = {
 }
 
 REST_FRAMEWORK = {
-    
+
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        
+
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
-    
+
 }
 
 ALLOWED_HOSTS = [
@@ -144,16 +153,21 @@ SIMPLE_JWT = {
     'JTI_CLAIM': 'jti',
 
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=55555),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 
     # custom
-    'AUTH_COOKIE': 'refresh_token',  # Cookie name. Enables cookies if value is set.
-    'AUTH_COOKIE_DOMAIN': None,     # A string like "example.com", or None for standard domain cookie.
-    'AUTH_COOKIE_SECURE': False,    # Whether the auth cookies should be secure (https:// only).
-    'AUTH_COOKIE_HTTP_ONLY' : True, # Http only cookie flag.It's not fetch by javascript.
+    # Cookie name. Enables cookies if value is set.
+    'AUTH_COOKIE': 'refresh_token',
+    # A string like "example.com", or None for standard domain cookie.
+    'AUTH_COOKIE_DOMAIN': None,
+    # Whether the auth cookies should be secure (https:// only).
+    'AUTH_COOKIE_SECURE': False,
+    # Http only cookie flag.It's not fetch by javascript.
+    'AUTH_COOKIE_HTTP_ONLY': True,
     'AUTH_COOKIE_PATH': '/',        # The path of the auth cookie.
-    'AUTH_COOKIE_SAMESITE': None    # Whether to set the flag restricting cookie leaks on cross-site requests. This can be 'Lax', 'Strict', or None to disable the flag.
+    # Whether to set the flag restricting cookie leaks on cross-site requests. This can be 'Lax', 'Strict', or None to disable the flag.
+    'AUTH_COOKIE_SAMESITE': None
 }
 
 # Password validation

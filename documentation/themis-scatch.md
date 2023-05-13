@@ -1,0 +1,3 @@
+Az ok, amiért a konténeren belül kell futtatnod a loaddata parancsot, az az hogy a room.json fájlban előre megpróbálja feltölteni a follow összekapcsoló táblát, úgy hogy még egyetlen user sincs létrehozva. Ezt azt jelenti hogy amikor loaddata parancsot akarod futtatni a user kreálás előtt, el fog hasalni azzal a hibaüzenettel, hogy a fájlban hivatkozott user, vagyis adott elsődleges kulcsal rendelkező user nincs a user_user táblánkban.
+
+revoked and rotated the scraping.py secret now safe

@@ -1,8 +1,8 @@
 export default {
-  Home: '/',
+  LandingPage: '/',
   MainMenu: '/menu',
   Settings: '/settings',
-  Rooms: '/rooms',
+  Spaces: '/spaces',
   Login: '/login',
   Register: '/register'
 };
