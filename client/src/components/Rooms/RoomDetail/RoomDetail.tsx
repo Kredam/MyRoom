@@ -23,6 +23,7 @@ const RoomDetail = ({
 }: props): React.ReactElement => {
   const { auth, user } = useContext(AuthContext);
   const navigate = useNavigate();
+  console.log(user);
   return (
     <Grid container direction="column">
       <Paper elevation={1} sx={styles.paper}>
@@ -42,22 +43,27 @@ const RoomDetail = ({
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={4}>
             {auth.access !== '' && (
-              <Button variant="outlined" sx={styles.button} onClick={() => followRoom(room.name)}>
-                {user?.is_followed === true && (
-                  <>
-                    Followed
-                    <DoneOutlined />
-                  </>
-                )}
-                {user?.is_followed === false && (
-                  <>
-                    Follow
-                    <AddOutlined />
-                  </>
-                )}
-              </Button>
+              <>
+                <Button variant="outlined" sx={styles.button} onClick={() => followRoom(room.name)}>
+                  {room.is_followed === true && (
+                    <>
+                      Followed
+                      <DoneOutlined />
+                    </>
+                  )}
+                  {room.is_followed === false && (
+                    <>
+                      Follow
+                      <AddOutlined />
+                    </>
+                  )}
+                </Button>
+                <Button variant="contained" onClick={() => navigate(`/room/${room.name}`)}>
+                  Join
+                </Button>
+              </>
             )}
           </Grid>
           <Grid item xs />
@@ -70,13 +76,6 @@ const RoomDetail = ({
         <Grid item>
           <Typography variant="body1">{room.description}</Typography>
         </Grid>
-        {auth.access !== '' && (
-          <Grid item mt={4} mb={4}>
-            <Button variant="contained" onClick={() => navigate(`/room/${room.name}`)}>
-              Connect
-            </Button>
-          </Grid>
-        )}
         <Grid item mt={4} mb={4}>
           <Typography variant="subtitle1" textAlign="center" fontWeight="bold">
             Members

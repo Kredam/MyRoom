@@ -1,13 +1,21 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import { Button, Divider, Grid, Paper, TextField, Typography } from '@mui/material';
-import { fetchMessageHistory, fetchRoomUsers } from 'api/services/services';
+import {
+  fetchMessageHistory,
+  fetchRoomInfo,
+  fetchRoomUsers,
+  updateRoom
+} from 'api/services/services';
 import { RoomChat, UserList } from 'components';
 import { ROLES, Utils } from 'consts';
 import AuthContext from 'hooks/AuthProvider';
-import { MessageHistory } from 'models/Room';
+import useAxiosPrivate from 'hooks/useAxiosPrivate';
+import { MessageHistory, Room } from 'models/Room';
 import { User, UsersQuery } from 'models/User';
 import React, { UIEvent, useContext, useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useWebSocket } from 'react-use-websocket/dist/lib/use-websocket';
 interface RoomUsers {
@@ -17,6 +25,8 @@ interface RoomUsers {
 
 const RoomView = (): React.ReactElement => {
   const { auth, lastStatusMessage } = useContext(AuthContext);
+  const api = useAxiosPrivate();
+  const { control, formState, handleSubmit, reset } = useForm<Room>();
   const { id } = useParams();
   const navigate = useNavigate();
   const [roomUsers, setRoomUsers] = useState<UsersQuery>({ users: [], nrOfUsers: 0 });
@@ -33,6 +43,14 @@ const RoomView = (): React.ReactElement => {
       setMessageHistory((prev) => [...prev, JSON.parse(message.data)]);
     }
   }, [chatSocket.lastMessage, setMessageHistory]);
+
+  useEffect(() => {
+    if (id === undefined) return;
+    fetchRoomInfo(id)
+      .then((res) => reset(res))
+      .catch(console.log);
+    reset();
+  }, [id]);
 
   useEffect(() => {
     fetchMessageHistory(id as string)
@@ -65,31 +83,90 @@ const RoomView = (): React.ReactElement => {
     // if ((scrollTop * Utils.ITEM_HEIGHT) / scrollHeight > 8.5) setOffset(limit + offset);
   };
 
+  const submit = async (data: Room): Promise<void> => {
+    await updateRoom(id as string, data, api)
+      .then((res) => reset(res))
+      .catch(console.log);
+  };
+
   return (
     <Grid container direction="row" sx={{ height: '100%' }}>
       <Grid item xs={3}>
         <Paper sx={{ height: '100%' }}>
-          <Typography>{id}</Typography>
+          <form onSubmit={handleSubmit(submit)}>
+            <Grid container padding={3}>
+              <Grid item xs={12} mb={4} mt={2}>
+                <Controller
+                  control={control}
+                  name="name"
+                  render={({ field }) => {
+                    return (
+                      <TextField
+                        {...field}
+                        variant="outlined"
+                        disabled
+                        InputLabelProps={{ shrink: true }}
+                        InputProps={{ style: { borderRadius: '16px' } }}
+                        label="Name"
+                        fullWidth
+                      />
+                    );
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} mb={4}>
+                <Controller
+                  control={control}
+                  name="description"
+                  render={({ field }) => {
+                    return (
+                      <TextField
+                        {...field}
+                        variant="outlined"
+                        multiline
+                        minRows={5}
+                        InputLabelProps={{ shrink: true }}
+                        InputProps={{ style: { borderRadius: '16px' } }}
+                        label="Description"
+                        fullWidth
+                      />
+                    );
+                  }}
+                />
+              </Grid>
+              <Button
+                fullWidth
+                variant="contained"
+                disabled={!formState.isDirty}
+                style={{ borderRadius: '16px' }}
+                type="submit"
+              >
+                Update Room
+              </Button>
+            </Grid>
+          </form>
         </Paper>
       </Grid>
-      <Grid item xs m={3}>
+      <Grid item xs m={3} mt={3}>
         <RoomChat messageHistory={messageHistory} socket={chatSocket} roomUsers={roomUsers.users} />
       </Grid>
       <Grid item xs={3} m={3}>
         <Divider sx={{ marginBottom: '12px', marginTop: '12px' }}>{ROLES.ADMIN}</Divider>
-        {roomUsers !== undefined && (
-          <UserList
-            users={roomUsers.users.filter((user) => user.role === ROLES.ADMIN)}
-            handleScroll={handleScroll}
-          />
-        )}
+        {roomUsers !== undefined &&
+          roomUsers.users.filter((user) => user.role === ROLES.ADMIN).length > 0 && (
+            <UserList
+              users={roomUsers.users.filter((user) => user.role === ROLES.ADMIN)}
+              handleScroll={handleScroll}
+            />
+          )}
         <Divider sx={{ marginBottom: '12px', marginTop: '12px' }}>{ROLES.MEMBER}</Divider>
-        {roomUsers !== undefined && (
-          <UserList
-            users={roomUsers.users.filter((user) => user.role === ROLES.MEMBER)}
-            handleScroll={handleScroll}
-          />
-        )}
+        {roomUsers !== undefined &&
+          roomUsers.users.filter((user) => user.role === ROLES.MEMBER).length > 0 && (
+            <UserList
+              users={roomUsers.users.filter((user) => user.role === ROLES.MEMBER)}
+              handleScroll={handleScroll}
+            />
+          )}
       </Grid>
     </Grid>
   );

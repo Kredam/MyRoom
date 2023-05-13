@@ -18,7 +18,6 @@ const Login = (): React.ReactElement => {
   const navigate = useNavigate();
 
   const onSubmit = async (data: User): Promise<void> => {
-    console.log(data);
     await api
       .post('token/', data)
       .then((res) => {

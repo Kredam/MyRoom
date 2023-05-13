@@ -8,7 +8,6 @@ import { fetchRooms, fetchRoomUsers, roomsQuery } from 'api/services/services';
 import { Utils } from 'consts';
 import { RoomQuery } from 'models/Room';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
-import { api } from 'api/http-common';
 import { UsersQuery } from 'models/User';
 
 interface props {
@@ -17,18 +16,19 @@ interface props {
 }
 
 const RoomsListView = ({ setSelectedDetail, isShown }: props): React.ReactElement => {
-  const { auth } = useContext(AuthContext);
   const queryClient = useQueryClient();
+  const { auth } = useContext(AuthContext);
   const [offset, setOffset] = useState<number>(0);
   const { data: roomsData, isSuccess } = roomsQuery(offset);
-  const customApi = auth.access !== '' ? useAxiosPrivate() : api;
+  const customApi = useAxiosPrivate();
+
   const handleScroll = (event: UIEvent<HTMLUListElement>): void => {
-    if (roomsData !== undefined && Utils.LIMIT + offset > roomsData.nrOfObjects) return;
+    if (roomsData !== undefined && offset >= roomsData.nrOfObjects) return;
     const scrollTop: number = event.currentTarget.scrollTop;
     const scrollHeight: number = event.currentTarget.scrollHeight;
     const clientHeight: number = event.currentTarget.clientHeight;
+    console.log(`${clientHeight} + ${scrollTop} > ${scrollHeight} - 100`);
     if (clientHeight + scrollTop > scrollHeight - 100) setOffset(Utils.LIMIT + offset);
-    // if ((scrollTop * Utils.ITEM_HEIGHT) / scrollHeight > 8.5) setOffset(limit + offset);
   };
 
   const mutateRooms = useMutation({
@@ -60,8 +60,8 @@ const RoomsListView = ({ setSelectedDetail, isShown }: props): React.ReactElemen
       }
     }
   });
-
   useEffect(() => {
+    if (offset === 0) return;
     mutateRooms.mutate();
   }, [offset]);
 

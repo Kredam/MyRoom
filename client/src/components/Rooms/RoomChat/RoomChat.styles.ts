@@ -4,6 +4,7 @@ const styles = {
     borderRadius: '16px'
   },
   paper: {
+    marginTop: '12px',
     borderRadius: '12px',
     height: '88%'
   },
@@ -12,6 +13,8 @@ const styles = {
     width: '48px'
   },
   button: {
+    borderTopRightRadius: '16px',
+    borderBottomRightRadius: '16px',
     height: '100%'
   }
 };

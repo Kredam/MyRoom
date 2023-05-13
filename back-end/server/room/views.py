@@ -5,12 +5,13 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
 from users.models import User
+from room.models import Followed, Role
 from rest_framework.permissions import IsAuthenticated
 from django.core.exceptions import ObjectDoesNotExist
 from api.authentication import CustomAuthentication
 from users.serializer import ListUserSerializer, UserSerializer
-from .models import Room, Followed, Topics
-from .serializer import RoomSearchSerializer, RoomSerializer, FollowedSerializer, RoomListSerializer, TopicSerializer
+from .models import Room, Followed
+from .serializer import RoomSearchSerializer, RoomSerializer, FollowedSerializer, RoomListSerializer
 
 
 class RoomViewSet(ModelViewSet):
@@ -22,9 +23,34 @@ class RoomViewSet(ModelViewSet):
         limit = int(self.request.GET.get('limit'))
         offset = int(self.request.GET.get('offset'))
         rooms = self.get_queryset()[offset:offset+limit]
-        instance = {"nrOfObjects": len(self.get_queryset()), "rooms": rooms}
+        instance = {"nrOfObjects": len(self.get_queryset()), "rooms": self.get_serializer(rooms, many=True, context={'user': request.user.pk}).data}
         room_serialized  = RoomListSerializer(instance)
         return Response(room_serialized.data)
+
+    @action(detail=True, methdos=['GET'])
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        room_data = super().create(request, *args, **kwargs).data
+        room = Room(
+            name=room_data['name'],
+            description=room_data['description'],
+            picture=room_data['picture'],
+            nsfw=room_data['nsfw']
+        )
+        print(user)
+        role = Role.objects.get(pk='ADMIN')
+        follow = Followed(room=room, user=user, role=role)
+        follow.save()
+        return Response()
+
+    @action(detail=True, methods=['POST'])
+    def update(self, request, *args, **kwargs):
+        user = request.user
+        room = request.data['name']
+        role = 'ADMIN'
+        if Followed.objects.filter(user=user, room=room, role=role).exists():
+            return super().update(request, *args, **kwargs) 
+        return Response()
 
     @action(detail=True, methods=["post"])
     def search(self, request, pk=None):
@@ -34,10 +60,6 @@ class RoomViewSet(ModelViewSet):
             'room_id')).filter(user=user,room__name__icontains=search).order_by('-followers_nr')
         serialized = RoomSearchSerializer(followed_rooms, many=True)
         return Response(serialized.data)
-
-class TopicViewSet(ModelViewSet):
-    queryset = Topics.objects.all()
-    serializer_class = TopicSerializer
 
 class FollowedViewSet(ModelViewSet):
     queryset = Followed.objects.all()

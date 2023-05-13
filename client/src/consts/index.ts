@@ -5,7 +5,7 @@ export const DateFormats = {
 
 export const Utils = {
   ITEM_HEIGHT: 85,
-  LIMIT: 15,
+  LIMIT: 20,
   TABLE_TYPE: {
     USERS: 'Users',
     ROOMS: 'Rooms'

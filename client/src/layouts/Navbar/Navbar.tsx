@@ -1,7 +1,17 @@
 import React, { useContext, useState } from 'react';
-import { AppBar, Box, IconButton, Menu, Toolbar, MenuItem, Tooltip } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  IconButton,
+  Menu,
+  Toolbar,
+  MenuItem,
+  Tooltip,
+  Typography,
+  Grid
+} from '@mui/material';
 import routes from 'routes/routes';
-import HomeIcon from '@mui/icons-material/Home';
+// import HomeIcon from '@mui/icons-material/Home';
 import ListIcon from '@mui/icons-material/List';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +23,7 @@ import { privateApi } from 'api/http-common';
 import { useSnackbar } from 'notistack';
 
 const Navbar = (): React.ReactElement => {
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth, setAuth, user } = useContext(AuthContext);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const [openModal, setOpenModal] = useState(false);
@@ -50,7 +60,7 @@ const Navbar = (): React.ReactElement => {
     <Box sx={styles.navbar}>
       <AppBar position="sticky">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             sx={styles.icon}
             size="medium"
             edge="start"
@@ -58,7 +68,7 @@ const Navbar = (): React.ReactElement => {
             aria-label="Landing Page"
           >
             <HomeIcon />
-          </IconButton>
+          </IconButton> */}
           <Tooltip title="Spaces" placement="bottom">
             <IconButton
               sx={styles.icon}
@@ -85,7 +95,14 @@ const Navbar = (): React.ReactElement => {
             ))}
           <Box flexGrow="1" />
           <IconButton size="medium" edge="end" onClick={openUserMenu} aria-label="User">
-            <AccountCircleIcon />
+            <AccountCircleIcon sx={{ color: 'white' }} />
+            {user != null && (
+              <Grid container>
+                <Grid item>
+                  <Typography sx={{ color: 'white' }}>{user.username}</Typography>
+                </Grid>
+              </Grid>
+            )}
           </IconButton>
           <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
             {auth.access.length === 0 ? (
@@ -96,7 +113,7 @@ const Navbar = (): React.ReactElement => {
             ) : (
               <MenuItem onClick={() => logout()}>Log out</MenuItem>
             )}
-            <MenuItem onClick={() => switchTab(routes.Settings)}>Settings</MenuItem>
+            {/* <MenuItem onClick={() => switchTab(routes.Settings)}>Settings</MenuItem> */}
           </Menu>
         </Toolbar>
       </AppBar>

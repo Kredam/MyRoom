@@ -65,7 +65,13 @@ const Register = (): React.ReactElement => {
             name="born"
             rules={Constraints.DATE}
             render={({ field }) => (
-              <DateField {...field} format={DateFormats.DATE} label="Birthdate" fullWidth />
+              <DateField
+                {...field}
+                helperText="You have to be at least 18 years old"
+                format={DateFormats.DATE}
+                label="Birthdate"
+                fullWidth
+              />
             )}
           />
         </Grid>

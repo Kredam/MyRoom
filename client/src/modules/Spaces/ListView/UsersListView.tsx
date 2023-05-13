@@ -8,7 +8,6 @@ import { UsersQuery } from 'models/User';
 import AuthContext from 'hooks/AuthProvider';
 import { Grid } from '@mui/material';
 import { AxiosInstance } from 'axios';
-import { api } from 'api/http-common';
 import { RoomQuery } from 'models/Room';
 
 interface props {
@@ -32,11 +31,11 @@ const UsersListView = ({
   setSelectedDetail,
   selectedDetail
 }: props): React.ReactElement => {
-  const { auth, lastStatusMessage } = useContext(AuthContext);
-  const customApi = auth.access !== '' ? useAxiosPrivate() : api;
   const queryClient = useQueryClient();
+  const { auth, lastStatusMessage } = useContext(AuthContext);
   const [offset, setOffset] = useState(0);
   const { data: usersData, isSuccess } = usersFetchQuery(offset, auth.access !== '');
+  const customApi = useAxiosPrivate();
 
   const handleScroll = (event: UIEvent<HTMLUListElement>): void => {
     if (usersData !== undefined && Utils.LIMIT + offset > usersData.nrOfUsers) return;
@@ -44,7 +43,6 @@ const UsersListView = ({
     const scrollHeight: number = event.currentTarget.scrollHeight;
     const clientHeight: number = event.currentTarget.clientHeight;
     if (clientHeight + scrollTop > scrollHeight - 100) setOffset(Utils.LIMIT + offset);
-    // if ((scrollTop * Utils.ITEM_HEIGHT) / scrollHeight > 8.5) setOffset(limit + offset);
   };
 
   const mutateFollowedUsers = useMutation({

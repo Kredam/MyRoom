@@ -63,7 +63,6 @@ class LoginView(APIView):
                     httponly=SIMPLE_JWT['AUTH_COOKIE_HTTP_ONLY'],
                     samesite=SIMPLE_JWT['AUTH_COOKIE_SAMESITE'],
                 )
-                csrf.get_token(request)
                 serializer = UserSerializer(user)
                 response.data = {"tokens": token, "user": serializer.data}
                 return response

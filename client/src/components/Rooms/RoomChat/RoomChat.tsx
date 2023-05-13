@@ -72,6 +72,7 @@ const RoomChat = ({ messageHistory, socket, roomUsers }: props): React.ReactElem
             value={message}
             style={styles.textField}
             fullWidth
+            InputProps={{ style: { borderTopLeftRadius: '16px', borderBottomLeftRadius: '16px' } }}
             onChange={(event) => setMessage(event.currentTarget.value)}
           />
         </Grid>

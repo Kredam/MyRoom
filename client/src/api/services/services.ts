@@ -1,6 +1,6 @@
 import { api } from 'api/http-common';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
-import { MessageHistory, RoomQuery } from 'models/Room';
+import { MessageHistory, Room, RoomQuery } from 'models/Room';
 import { User, UsersQuery } from 'models/User';
 import { Utils } from 'consts';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
@@ -16,6 +16,20 @@ export const fetchUserInfo = async (): Promise<User> => {
 
 export const postFollowRoom = async (name: string, customApi: AxiosInstance): Promise<String> => {
   const result = await customApi.post('rooms/follow/', { name, role: 'MEMBER' });
+  return result.data;
+};
+
+export const fetchRoomInfo = async (name: string): Promise<Room> => {
+  const result = await api.get(`rooms/retrieve/${name}`);
+  return result.data;
+};
+
+export const updateRoom = async (
+  name: string,
+  data: Room,
+  customApi: AxiosInstance
+): Promise<Room> => {
+  const result = await customApi.post(`rooms/update/${name}`, data);
   return result.data;
 };
 
@@ -43,7 +57,7 @@ export const fetchMessageHistory = async (room: string): Promise<MessageHistory[
 
 export const fetchFollowedUsers = async (
   pk: number,
-  customApi: AxiosInstance
+  customApi: AxiosInstance = api
 ): Promise<UsersQuery> => {
   const result = await customApi.get<UsersQuery>('users/user-follows', {
     params: { pk }
@@ -58,7 +72,12 @@ export const fetchUsers =
   };
 
 export const fetchRooms = (offset: number) => async (): Promise<RoomQuery> => {
-  const result = await api.get<RoomQuery>('rooms/', { params: { limit, offset } });
+  const result = await api.get<RoomQuery>('rooms/all', { params: { limit, offset } });
+  return result.data;
+};
+
+export const createRoomPost = async (data: Room, api: AxiosInstance): Promise<Room> => {
+  const result = await api.post<Room>('rooms/create', data);
   return result.data;
 };
 
